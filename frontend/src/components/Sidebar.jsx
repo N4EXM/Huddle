@@ -11,7 +11,7 @@ const Sidebar = () => {
         {
             name: "Dashboard",
             icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1" d="M12 21V3m0 7h9M5.4 3h13.2A2.4 2.4 0 0 1 21 5.4v13.2a2.4 2.4 0 0 1-2.4 2.4H5.4A2.4 2.4 0 0 1 3 18.6V5.4A2.4 2.4 0 0 1 5.4 3"/>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 21V3m0 7h9M5.4 3h13.2A2.4 2.4 0 0 1 21 5.4v13.2a2.4 2.4 0 0 1-2.4 2.4H5.4A2.4 2.4 0 0 1 3 18.6V5.4A2.4 2.4 0 0 1 5.4 3"/>
                   </svg>,
             path: "/"
         },
@@ -60,7 +60,7 @@ const Sidebar = () => {
         
         {/* title */}
         <div
-            className='flex flex-row items-center justify-start gap-3 px-8 p-10' 
+            className='flex flex-row items-center justify-start gap-3 p-10' 
         >
             <svg className='text-primary' xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                 <path fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="1" d="M10.5 8.75v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277C9.216 3 8.394 3 6.75 3s-2.466 0-3.019.454a2 2 0 0 0-.277.277C3 4.284 3 5.106 3 6.75v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277c.454-.553.454-1.375.454-3.019ZM7.75 15.5h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333C3 17.203 3 17.552 3 18.25s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334C4.703 21 5.052 21 5.75 21h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333c.086-.284.086-.633.086-1.331s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334c-.284-.086-.633-.086-1.331-.086ZM21 17.25v-2c0-1.644 0-2.466-.454-3.019a2 2 0 0 0-.277-.277c-.553-.454-1.375-.454-3.019-.454s-2.466 0-3.019.454a2 2 0 0 0-.277.277c-.454.553-.454 1.375-.454 3.019v2c0 1.644 0 2.466.454 3.019q.125.152.277.277c.553.454 1.375.454 3.019.454s2.466 0 3.019-.454q.152-.125.277-.277C21 19.716 21 18.894 21 17.25ZM18.25 3h-2c-.698 0-1.047 0-1.33.086a2 2 0 0 0-1.334 1.333c-.086.284-.086.633-.086 1.331s0 1.047.086 1.33a2 2 0 0 0 1.333 1.334c.284.086.633.086 1.331.086h2c.698 0 1.047 0 1.33-.086a2 2 0 0 0 1.334-1.333C21 6.797 21 6.448 21 5.75s0-1.047-.086-1.33a2 2 0 0 0-1.333-1.334C19.297 3 18.948 3 18.25 3Z" />
@@ -74,7 +74,7 @@ const Sidebar = () => {
 
         {/* pages */}
         <div
-            className='flex flex-col gap-5'
+            className='flex flex-col gap-3'
         >
 
             <p 
@@ -86,10 +86,10 @@ const Sidebar = () => {
             {pageButtons.map((page) => (
                 <button
                     key={page.name}
-                    className='relative flex flex-row items-center gap-4 w-full pl-10 '
+                    className='relative flex flex-row items-center gap-4 w-full pl-10 py-2'
                     onClick={() => handleNavigate(page.path)}
                 >   
-                    <span className={`w-2 h-7 rounded-r-md bg-primary -top-0.5 left-0 absolute ${location.pathname === page.path ? "block" : "hidden"}`}></span>
+                    <span className={`w-2 h-7 rounded-r-md bg-primary top-1 left-0 absolute ${location.pathname === page.path ? "block" : "hidden"}`}></span>
                     <i
                         className={`${location.pathname === page.path ? "text-primary" : "text-text"}`}
                     >
