@@ -1,0 +1,46 @@
+import React from 'react'
+
+const StatisticsCard = ({title, num, extraNum, icon, extraText = "than last month"}) => {
+  return (
+    <div
+        className='w-full h-full bg-secondBackground p-3 px-4 col-span-4 row-span-3 rounded-lg flex flex-row items-center justify-between'
+    >
+        {/* data */}
+        <div
+            className='w-3/5 h-full flex flex-col gap-5'
+        >
+            <p
+                className='text-sm'
+            >
+                {title}
+            </p>
+            <div
+                className='flex flex-col gap-1 '
+            >   
+                <p
+                    className='text-4xl font-semibold'
+                >
+                    {num}
+                </p>
+                <p
+                    className='text-xs flex flex-row items-center gap-2 pl-0.5 text-primary'
+                >
+                    <span
+                        className='p-0.5 px-1 rounded-lg border border-primary text-text text-(length:--font-size-xxs)'
+                    >   
+                        {extraNum > 0 ? `${extraNum}+` : `-${extraNum}`}
+                    </span>
+                    {extraText}
+                </p>
+            </div>
+        </div>
+        <div
+            className='bg-thirdBackground rounded-full p-2 w-fit text-primary flex items-center'
+        >
+            {icon}
+        </div>
+    </div>
+  )
+}
+
+export default StatisticsCard

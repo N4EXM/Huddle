@@ -11,7 +11,10 @@ function App() {
   const [loading, setIsloading] = useState(false)
 
   return (
-    <BrowserRouter>
+    <div
+      className='w-full h-screen'
+    >
+      <BrowserRouter>
         <Routes>
           <Route
             index
@@ -19,7 +22,9 @@ function App() {
             element={<DashboardPage/>}
           />
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
+    
   )
 }
 
