@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useMock } from '../../context/MockContext'
 
 const ProjectCard = ({name, priority, description, percentage, date, projectLeaderId, teamIds}) => {
 
+  const { getSpecificUsers } = useMock()
+
   const [priorityId, setPriorityId] = useState(0)
+  const [overlapAmount, setOverlapAmount] = useState(0)
+  const [members, setMembers] = useState([])
 
   const priorityColours = [
     { 
@@ -47,15 +52,19 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
   }, [])
 
   useEffect(() => {
-    console.log(priorityId)
-    console.log(priorityColours[priorityId].bgColour)
-  }, [priorityId])
+    setMembers(getSpecificUsers(teamIds))
+  }, [])
+
+  useEffect(() => {
+    console.log(members)
+  }, [members])
 
   return (
     <div
       className='flex flex-col gap-4 w-full bg-background min-h-54 rounded-lg p-5'
     >
       
+      {/* title, desc, priority */}
       <div
         className='flex flex-col gap-3'
       >
@@ -80,6 +89,41 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
         </p>
       </div>
       
+      {/* team and percentage and date */}
+      <div
+        className='flex flex-col gap-1'
+      >
+
+        {/* team and percentage */}
+        <div
+          className='flex flex-row items-center justify-between w-full h-fit'
+        > 
+
+          {/* team */}
+          <div
+            className='flex flex-row items-center gap-2'
+          >
+            <div
+              className='relative'
+            >
+              {members.map((member, index) => {
+                
+                return (
+                  <img 
+                    key={index + 1}
+                    className={`w-6 h-6 absolute z-10`}
+                    // style={{ left: `${index * 20}px` }}
+                    src={member.image} 
+                    alt="" 
+                  />
+                )
+              })}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
   )

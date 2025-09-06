@@ -51,8 +51,6 @@ const Sidebar = () => {
         navigate(path)
     }
 
-    console.log(location)
-
   return (
     <div
         className='col-span-3 bg-secondBackground row-span-12 rounded-lg flex flex-col gap-12'

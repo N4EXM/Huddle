@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import { useMock } from '../context/MockContext'
 import ProjectCard from '../components/ProjectsPage/ProjectCard'
+
 
 const ProjectsPage = () => {
 
@@ -11,8 +12,6 @@ const ProjectsPage = () => {
 
   // data
   const { users, projects } = useMock()
-
-
 
   return (
     <div
@@ -59,7 +58,7 @@ const ProjectsPage = () => {
                 onClick={() => setToggleListView(true)}
               >
                 <svg className={`${toggleListView ? "text-primary" : ""}`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="36" d="M160 144h288M160 256h288M160 368h288"/><circle cx="80" cy="144" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><circle cx="80" cy="256" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><circle cx="80" cy="368" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"/></svg>
-                Cards
+                List
               </button>
             </div>
 
@@ -82,6 +81,7 @@ const ProjectsPage = () => {
               ? "hi"
               : projects.map((project) => (
                   <ProjectCard
+                    key={project.projectId}
                     name={project.name}
                     priority={project.priority}
                     description={project.description}
@@ -97,8 +97,8 @@ const ProjectsPage = () => {
 
         </div>
 
-      </div>
-      
+      </div>      
+
     </div>
   )
 }

@@ -91,9 +91,22 @@ export const MockProvider = ({ children }) => {
         },
     ]
 
+    const getSpecificUsers = (teamIds) => {
+        // Create a Set for faster lookups (O(1) instead of O(n))
+        const teamIdSet = new Set(teamIds);
+        
+        // Use filter and map for more concise and efficient code
+        return users
+            .filter(user => teamIdSet.has(user.userId))
+            .map(user => ({
+                name: user.name,
+                image: user.image
+            }));
+    };
+
     return (
         <MockContext.Provider 
-            value={{ users, projects }}
+            value={{ users, projects, getSpecificUsers }}
         >
             {children}
         </MockContext.Provider>
