@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react'
-import Sidebar from '../components/Sidebar'
-import Navbar from '../components/Navbar'
+import Sidebar from '../components/General/Sidebar'
+import Navbar from '../components/General/Navbar'
 import { useMock } from '../context/MockContext'
 import ProjectCard from '../components/ProjectsPage/ProjectCard'
-
+import ProjectListItem from '../components/ProjectsPage/ProjectListItem'
 
 const ProjectsPage = () => {
 
@@ -11,7 +11,7 @@ const ProjectsPage = () => {
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
 
   // data
-  const { users, projects } = useMock()
+  const { users, projects, getSpecificUsers } = useMock()
 
   return (
     <div
@@ -47,14 +47,20 @@ const ProjectsPage = () => {
               className='flex flex-row items-center gap-5'
             >
               <button
-                className={`text-sm flex flex-row items-center gap-2 duration-200 p-2 rounded-md ${toggleListView ? "text-dimText" : "bg-background"}`}
+                className={`text-sm cursor-pointer flex flex-row items-center gap-2 duration-200 p-2 rounded-md ${toggleListView ? "text-dimText" : "bg-background"}`}
                 onClick={() => setToggleListView(false)}
               >
-                <svg className={`${toggleListView ? "" : "text-primary"}`} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><rect width="9" height="9" x="1.5" y="1.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/><rect width="9" height="9" x="13.5" y="1.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/><rect width="9" height="9" x="13.5" y="13.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/><rect width="9" height="9" x="1.5" y="13.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/></svg>
+                <svg 
+                  className={`${toggleListView ? "" : "text-primary"}`} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <rect width="9" height="9" x="1.5" y="1.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/>
+                  <rect width="9" height="9" x="13.5" y="1.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/>
+                  <rect width="9" height="9" x="13.5" y="13.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/>
+                  <rect width="9" height="9" x="1.5" y="13.5" fill="none" rx="1" strokeWidth="1" stroke="currentcolor"/>
+                </svg>
                 Cards
               </button>
               <button
-                className={`text-sm flex flex-row items-center gap-2 duration-200 p-2 rounded-md ${toggleListView ? "bg-background": "text-dimText"}`}
+                className={`text-sm flex flex-row cursor-pointer items-center gap-2 duration-200 p-2 rounded-md ${toggleListView ? "bg-background": "text-dimText"}`}
                 onClick={() => setToggleListView(true)}
               >
                 <svg className={`${toggleListView ? "text-primary" : ""}`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="36" d="M160 144h288M160 256h288M160 368h288"/><circle cx="80" cy="144" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><circle cx="80" cy="256" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><circle cx="80" cy="368" r="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"/></svg>
@@ -74,11 +80,21 @@ const ProjectsPage = () => {
 
           {/* project list */}
           <div
-            className='px-4 grid grid-cols-2 w-full gap-4 max-h-full scrollbar-hide overflow-y-scroll'
+            className={`px-4 w-full gap-4 max-h-full scrollbar-hide overflow-y-scroll ${toggleListView ? "flex flex-col" : "grid grid-cols-2"}`}
           >
             {
               toggleListView 
-              ? "hi"
+              ? projects.map((project) => (
+                  <ProjectListItem
+                    key={project.projectId}
+                    name={project.name}
+                    priority={project.priority}
+                    percentage={project.percentage}
+                    date={project.date}
+                    projectLeaderId={project.projectLeaderId}
+                    teamMembers={getSpecificUsers(project.teamIds)}
+                  />
+                ))
               : projects.map((project) => (
                   <ProjectCard
                     key={project.projectId}
@@ -88,7 +104,7 @@ const ProjectsPage = () => {
                     percentage={project.percentage}
                     date={project.date}
                     projectLeaderId={project.projectLeaderId}
-                    teamIds={project.teamIds}
+                    teamMembers={getSpecificUsers(project.teamIds)}
                   />
                 ))
             }

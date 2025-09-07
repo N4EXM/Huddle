@@ -71,7 +71,7 @@ export const MockProvider = ({ children }) => {
         },
         {
             projectId: 2,
-            name: "Build a dashboard",
+            name: "dashboard project",
             priority: "High",
             description: "Build a dashboard and other relevant pages to see current tasks and statistics of the users current topic, allowing them to change the dashboard to their preferences",
             projectLeaderId: 2,
@@ -91,6 +91,169 @@ export const MockProvider = ({ children }) => {
         },
     ]
 
+    const tasks = [
+        {
+            taskId: 0,
+            name: "Create a task card component",
+            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+            date: "Aug 26 2025",
+            priority: "low",
+            teamIds: [0, 1, 4],
+            completed: false,
+            projectId: 0
+        },
+        {
+            taskId: 1,
+            name: "Implement user authentication",
+            description: "Set up user login, registration, and password reset functionality with JWT tokens.",
+            date: "Aug 28 2025",
+            priority: "high",
+            teamIds: [0, 2],
+            completed: false,
+            projectId: 2
+        },
+        {
+            taskId: 2,
+            name: "Design database schema",
+            description: "Create the database structure for users, projects, tasks, and teams with proper relationships.",
+            date: "Aug 30 2025",
+            priority: "high",
+            teamIds: [1, 3],
+            completed: true,
+            projectId: 1
+        },
+        {
+            taskId: 3,
+            name: "Add drag and drop functionality",
+            description: "Implement drag and drop for task cards between different status columns.",
+            date: "Sep 02 2025",
+            priority: "medium",
+            teamIds: [0, 4],
+            completed: false,
+            projectId: 3
+        },
+        {
+            taskId: 4,
+            name: "Create notification system",
+            description: "Build a notification center for task assignments, due dates, and team updates.",
+            date: "Sep 05 2025",
+            priority: "medium",
+            teamIds: [2, 3],
+            completed: false,
+            projectId: 1
+        },
+        {
+            taskId: 5,
+            name: "Optimize mobile responsiveness",
+            description: "Ensure the application works seamlessly on mobile devices and tablets.",
+            date: "Sep 08 2025",
+            priority: "low",
+            teamIds: [1, 4],
+            completed: true,
+            projectId: 0
+        },
+        {
+            taskId: 6,
+            name: "Implement search functionality",
+            description: "Add global search to find tasks, projects, and team members quickly.",
+            date: "Sep 10 2025",
+            priority: "medium",
+            teamIds: [0, 3],
+            completed: false,
+            projectId: 2
+        },
+        {
+            taskId: 7,
+            name: "Create analytics dashboard",
+            description: "Build a dashboard showing project progress, team performance, and task completion rates.",
+            date: "Sep 12 2025",
+            priority: "high",
+            teamIds: [2, 4],
+            completed: false,
+            projectId: 3
+        },
+        {
+            taskId: 8,
+            name: "Add file attachment feature",
+            description: "Allow users to attach files to tasks and projects with proper storage management.",
+            date: "Sep 15 2025",
+            priority: "low",
+            teamIds: [1, 3],
+            completed: false,
+            projectId: 1
+        },
+        {
+            taskId: 9,
+            name: "Implement real-time updates",
+            description: "Add WebSocket support for real-time task updates and team collaboration.",
+            date: "Sep 18 2025",
+            priority: "high",
+            teamIds: [0, 2, 4],
+            completed: false,
+            projectId: 2
+        },
+        {
+            taskId: 10,
+            name: "Create user profile pages",
+            description: "Build user profile pages with avatar upload, bio, and activity history.",
+            date: "Sep 20 2025",
+            priority: "medium",
+            teamIds: [3, 4],
+            completed: true,
+            projectId: 2
+        },
+        {
+            taskId: 11,
+            name: "Add task filtering options",
+            description: "Implement filters for priority, due date, assignee, and completion status.",
+            date: "Sep 22 2025",
+            priority: "low",
+            teamIds: [1, 2],
+            completed: false,
+            projectId: 0
+        },
+        {
+            taskId: 12,
+            name: "Set up automated testing",
+            description: "Create unit tests, integration tests, and end-to-end tests for critical features.",
+            date: "Sep 25 2025",
+            priority: "medium",
+            teamIds: [0, 1, 3],
+            completed: false,
+            projectId: 0
+        },
+        {
+            taskId: 13,
+            name: "Implement dark mode toggle",
+            description: "Add dark/light mode switching with persistent user preferences.",
+            date: "Sep 28 2025",
+            priority: "low",
+            teamIds: [2, 4],
+            completed: true,
+            projectId: 3
+        },
+        {
+            taskId: 14,
+            name: "Create project templates",
+            description: "Build reusable project templates for common workflow patterns.",
+            date: "Oct 01 2025",
+            priority: "medium",
+            teamIds: [0, 3, 4],
+            completed: false,
+            projectId: 1
+        },
+        {
+            taskId: 15,
+            name: "Add keyboard shortcuts",
+            description: "Implement keyboard navigation and shortcuts for power users.",
+            date: "Oct 05 2025",
+            priority: "low",
+            teamIds: [1, 2],
+            completed: false,
+            projectId: 0
+        }
+    ];
+
     const getSpecificUsers = (teamIds) => {
         // Create a Set for faster lookups (O(1) instead of O(n))
         const teamIdSet = new Set(teamIds);
@@ -99,14 +262,17 @@ export const MockProvider = ({ children }) => {
         return users
             .filter(user => teamIdSet.has(user.userId))
             .map(user => ({
+                userId: user.userId,
                 name: user.name,
+                email: user.email,
+                contactNumber: user.contactNumber,
                 image: user.image
             }));
     };
 
     return (
         <MockContext.Provider 
-            value={{ users, projects, getSpecificUsers }}
+            value={{ users, projects, tasks, getSpecificUsers }}
         >
             {children}
         </MockContext.Provider>

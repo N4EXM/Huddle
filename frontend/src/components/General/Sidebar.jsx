@@ -84,7 +84,7 @@ const Sidebar = () => {
             {pageButtons.map((page) => (
                 <button
                     key={page.name}
-                    className={`relative flex flex-row items-center gap-4 w-full pl-10 py-2`}
+                    className={`relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 py-2`}
                     onClick={() => handleNavigate(page.path)}
                 >   
                     <span className={`w-2 h-7 rounded-r-md bg-primary top-1 left-0 absolute ${location.pathname === page.path ? "block" : "hidden"}`}></span>
@@ -118,7 +118,7 @@ const Sidebar = () => {
             {generalButton.map((general) => (
                 <button
                     key={general.name}
-                    className='relative flex flex-row items-center gap-4 w-full pl-10 '
+                    className='relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 '
                     onClick={() => handleNavigate(general.path)}
                 >   
                     <i
