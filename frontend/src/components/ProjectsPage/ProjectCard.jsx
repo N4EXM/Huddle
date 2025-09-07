@@ -11,20 +11,14 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
     { 
       id: 0, 
       priority: "High",
-      bgColour: "#fca5a5",
-      textColour: "#dc2626"
     },
     {
       id: 1, 
       priority: "Medium",
-      bgColour: "#fdba74",
-      textColour: "#ca8a04"
     },
     {
       id: 2, 
       priority: "Low",
-      bgColour: "#93c5fd",
-      textColour: "#2563eb"
     },
   ]
 
@@ -55,7 +49,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
 
   return (
     <div
-      className='flex flex-col gap-5 w-full bg-background min-h-54 rounded-lg p-5'
+      className='flex flex-col gap-5 w-full bg-background min-h-56 rounded-lg p-5'
     >
       
       {/* title, desc, priority */}
@@ -71,7 +65,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
             {name}
           </h1>
           <p
-            className={`${priorityId === 0 && "bg-red-300 text-red-500"} ${priorityId === 1 && "bg-yellow-200 text-yellow-500"} ${priorityId === 2 && "bg-blue-300 text-blue-500"} p-1 px-3 rounded-full text-xs font-medium`}
+            className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
           >
             {priority}
           </p>
@@ -100,7 +94,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
               return (
                 <img 
                   key={index + 1}
-                  className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border border-primary object-fit object-center`}
+                  className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
                   style={{ left: `${index * 15}px` }}
                   src={member.image} 
                   alt="" 
@@ -132,7 +126,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           />
 
           <p
-            className='text-xs text-dimText'
+            className='text-xs text-dimText pt-2'
           >
             {date}
           </p>

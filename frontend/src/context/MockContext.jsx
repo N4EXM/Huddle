@@ -97,7 +97,7 @@ export const MockProvider = ({ children }) => {
             name: "Create a task card component",
             description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
             date: "Aug 26 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [0, 1, 4],
             completed: false,
             projectId: 0
@@ -107,7 +107,7 @@ export const MockProvider = ({ children }) => {
             name: "Implement user authentication",
             description: "Set up user login, registration, and password reset functionality with JWT tokens.",
             date: "Aug 28 2025",
-            priority: "high",
+            priority: "High",
             teamIds: [0, 2],
             completed: false,
             projectId: 2
@@ -117,7 +117,7 @@ export const MockProvider = ({ children }) => {
             name: "Design database schema",
             description: "Create the database structure for users, projects, tasks, and teams with proper relationships.",
             date: "Aug 30 2025",
-            priority: "high",
+            priority: "High",
             teamIds: [1, 3],
             completed: true,
             projectId: 1
@@ -127,7 +127,7 @@ export const MockProvider = ({ children }) => {
             name: "Add drag and drop functionality",
             description: "Implement drag and drop for task cards between different status columns.",
             date: "Sep 02 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [0, 4],
             completed: false,
             projectId: 3
@@ -137,7 +137,7 @@ export const MockProvider = ({ children }) => {
             name: "Create notification system",
             description: "Build a notification center for task assignments, due dates, and team updates.",
             date: "Sep 05 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [2, 3],
             completed: false,
             projectId: 1
@@ -147,7 +147,7 @@ export const MockProvider = ({ children }) => {
             name: "Optimize mobile responsiveness",
             description: "Ensure the application works seamlessly on mobile devices and tablets.",
             date: "Sep 08 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [1, 4],
             completed: true,
             projectId: 0
@@ -157,7 +157,7 @@ export const MockProvider = ({ children }) => {
             name: "Implement search functionality",
             description: "Add global search to find tasks, projects, and team members quickly.",
             date: "Sep 10 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [0, 3],
             completed: false,
             projectId: 2
@@ -167,7 +167,7 @@ export const MockProvider = ({ children }) => {
             name: "Create analytics dashboard",
             description: "Build a dashboard showing project progress, team performance, and task completion rates.",
             date: "Sep 12 2025",
-            priority: "high",
+            priority: "High",
             teamIds: [2, 4],
             completed: false,
             projectId: 3
@@ -177,7 +177,7 @@ export const MockProvider = ({ children }) => {
             name: "Add file attachment feature",
             description: "Allow users to attach files to tasks and projects with proper storage management.",
             date: "Sep 15 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [1, 3],
             completed: false,
             projectId: 1
@@ -187,7 +187,7 @@ export const MockProvider = ({ children }) => {
             name: "Implement real-time updates",
             description: "Add WebSocket support for real-time task updates and team collaboration.",
             date: "Sep 18 2025",
-            priority: "high",
+            priority: "High",
             teamIds: [0, 2, 4],
             completed: false,
             projectId: 2
@@ -197,7 +197,7 @@ export const MockProvider = ({ children }) => {
             name: "Create user profile pages",
             description: "Build user profile pages with avatar upload, bio, and activity history.",
             date: "Sep 20 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [3, 4],
             completed: true,
             projectId: 2
@@ -207,7 +207,7 @@ export const MockProvider = ({ children }) => {
             name: "Add task filtering options",
             description: "Implement filters for priority, due date, assignee, and completion status.",
             date: "Sep 22 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [1, 2],
             completed: false,
             projectId: 0
@@ -217,7 +217,7 @@ export const MockProvider = ({ children }) => {
             name: "Set up automated testing",
             description: "Create unit tests, integration tests, and end-to-end tests for critical features.",
             date: "Sep 25 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [0, 1, 3],
             completed: false,
             projectId: 0
@@ -227,7 +227,7 @@ export const MockProvider = ({ children }) => {
             name: "Implement dark mode toggle",
             description: "Add dark/light mode switching with persistent user preferences.",
             date: "Sep 28 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [2, 4],
             completed: true,
             projectId: 3
@@ -237,7 +237,7 @@ export const MockProvider = ({ children }) => {
             name: "Create project templates",
             description: "Build reusable project templates for common workflow patterns.",
             date: "Oct 01 2025",
-            priority: "medium",
+            priority: "Medium",
             teamIds: [0, 3, 4],
             completed: false,
             projectId: 1
@@ -247,7 +247,7 @@ export const MockProvider = ({ children }) => {
             name: "Add keyboard shortcuts",
             description: "Implement keyboard navigation and shortcuts for power users.",
             date: "Oct 05 2025",
-            priority: "low",
+            priority: "Low",
             teamIds: [1, 2],
             completed: false,
             projectId: 0

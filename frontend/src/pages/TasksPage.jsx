@@ -3,6 +3,7 @@ import Navbar from '../components/General/Navbar'
 import Sidebar from '../components/General/Sidebar'
 import { useMock } from '../context/MockContext'
 import TaskCard from '../components/tasksPage/TaskCard'
+import TaskListItem from '../components/tasksPage/TaskListItem'
 
 const TasksPage = () => {
 
@@ -33,7 +34,7 @@ const TasksPage = () => {
         </div>
 
         <div
-          className='col-span-12 bg-secondBackground row-span-11 rounded-lg flex flex-col gap-4 p-4'
+          className='col-span-12 bg-secondBackground row-span-11 rounded-lg flex flex-col gap-6 p-4'
         >
           {/* buttons */}
           <div
@@ -68,7 +69,7 @@ const TasksPage = () => {
 
           {/* project name and tasks */}
           <div
-            className="flex flex-col gap-4 h-full overflow-y-scroll scrollbar-hide"
+            className="flex flex-col gap-8 h-full overflow-y-scroll scrollbar-hide px-4"
           >
             {
               projects.map((project) => (
@@ -79,38 +80,55 @@ const TasksPage = () => {
                   
                   {/* project name */}
                   <div
-                    className='flex flex-col gap-1'
+                    className='flex flex-col gap-2'
                   >
                     <h1
-                      className='text-xl font-semibold'
+                      className='text-2xl font-semibold pl-1'
                     >
                       {project.name}
                     </h1>
-                    <hr />
+                    <span className='w-full h-0.5 bg-thirdBackground'></span>
                   </div>
 
                   {/* project tasks */}
                   <div
-                    className={`${toggleListView ? "flex flex-col" : "grid grid-cols-3"} gap-4 w-full h-full `}
+                    className={`${toggleListView ? "flex flex-col w-full" : "grid grid-cols-3"} gap-4 w-full h-full `}
                   >
                     {
                       toggleListView
-                      ? "hi"
-                      : tasks.filter(task => task.projectId === project.projectId)
-                              .map((task) => {
-                                // console.log(task)
-                                return (
-                                  <TaskCard
-                                    key={task.taskId}
-                                    id={task.taskId}
-                                    name={task.name}
-                                    description={task.description}
-                                    date={task.date}
-                                    priority={task.priority}
-                                    completed={task.completed}
-                                    projectId={task.projectId}
-                                  />
-                                )})
+                      ? tasks
+                          .filter(task => task.projectId === project.projectId)
+                          .map((task) => {
+                            // console.log(task)
+                            return (
+                              <TaskListItem
+                                key={task.taskId}
+                                id={task.taskId}
+                                name={task.name}
+                                date={task.date}
+                                priority={task.priority}
+                                completed={task.completed}
+                                projectId={task.projectId}
+                                teamMembers={getSpecificUsers(project.teamIds)}
+                              />
+                            )})
+                      : tasks
+                          .filter(task => task.projectId === project.projectId)
+                          .map((task) => {
+                            // console.log(task)
+                            return (
+                              <TaskCard
+                                key={task.taskId}
+                                id={task.taskId}
+                                name={task.name}
+                                description={task.description}
+                                date={task.date}
+                                priority={task.priority}
+                                completed={task.completed}
+                                projectId={task.projectId}
+                                teamMembers={getSpecificUsers(project.teamIds)}
+                              />
+                            )})
                     }
                   </div>
 

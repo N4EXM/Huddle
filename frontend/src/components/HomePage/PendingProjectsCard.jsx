@@ -46,7 +46,7 @@ const PendingProjectsCard = () => {
         <h1>Pending Projects</h1>
 
         <div
-          className='flex flex-col gap-3 overflow-y-scroll h-64 scrollbar-hide'
+          className='flex flex-col gap-3 overflow-y-scroll h-[14.5rem] scrollbar-hide'
         >
           {mockProjects.map((project) => (
             <button

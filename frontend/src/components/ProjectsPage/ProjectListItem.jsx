@@ -4,27 +4,21 @@ import ProgressBar from '../General/ProgressBar'
 const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, teamMembers }) => {
 
     const [priorityId, setPriorityId] = useState(0)
-    const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
+    const [overlapAmount] = useState(teamMembers.length + 1)
     const [members, setMembers] = useState(teamMembers || [])
     
     const priorityColours = [
         { 
           id: 0, 
           priority: "High",
-          bgColour: "#fca5a5",
-          textColour: "#ef4444"
         },
         {
           id: 1, 
           priority: "Medium",
-          bgColour: "#fdba74",
-          textColour: "#fb923c"
         },
         {
           id: 2, 
           priority: "Low",
-          bgColour: "#93c5fd",
-          textColour: "#3b82f6"
         },
     ]
     
@@ -62,7 +56,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
             return (
             <img 
                 key={index + 1}
-                className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border border-primary object-fit object-center`}
+                className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
                 style={{ left: `${index * 15}px` }}
                 src={member.image} 
                 alt="" 
@@ -113,7 +107,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
             className='flex items-end justify-end'
         >
             <p
-                className={`${priorityId === 0 && "bg-red-300 text-red-500"} ${priorityId === 1 && "bg-yellow-200 text-yellow-500"} ${priorityId === 2 && "bg-blue-300 text-blue-500"} p-1 px-3 rounded-full text-xs font-medium`}
+                className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
             >
                 {priority}
             </p>

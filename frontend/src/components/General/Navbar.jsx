@@ -33,7 +33,7 @@ const Navbar = () => {
         >
             <img 
                 src={userImg} 
-                className='rounded-full border border-primary w-10 h-10 object-center object-fit'
+                className='rounded-full border-2 border-primary w-9 h-9 object-center object-fit'
                 alt="" 
             />
             <div
