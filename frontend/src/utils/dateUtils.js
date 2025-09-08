@@ -19,3 +19,7 @@ export function getCurrentDayInMonthIndex (year, month, day) {
     // return new Date(year, month, day).toLocaleDateString("en-GB", { weekday: "short" })
     return new Date(year, month, day).getDay()
 }   
+
+export function getCurrentDateToLocaleString(year,month,day) {
+    return new Date(year,month,day).toLocaleDateString()
+}

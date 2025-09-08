@@ -274,6 +274,53 @@ export const MockProvider = ({ children }) => {
         }
     ];
 
+    const userTasks = [
+        {
+            taskId: 0,
+            name: "Create a task card component",
+            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+            date: "Aug 26 2025",
+            priority: "Low",
+            teamIds: [0, 1, 4],
+            completed: false,
+            projectId: 0,
+            formattedDate: "2025-08-26"
+        },
+        {
+            taskId: 14,
+            name: "Create project templates",
+            description: "Build reusable project templates for common workflow patterns.",
+            date: "Oct 01 2025",
+            priority: "Medium",
+            teamIds: [0, 3, 4],
+            completed: false,
+            projectId: 1,
+            formattedDate: "2025-10-01"
+        },
+        {
+            taskId: 12,
+            name: "Set up automated testing",
+            description: "Create unit tests, integration tests, and end-to-end tests for critical features.",
+            date: "Sep 25 2025",
+            priority: "Medium",
+            teamIds: [0, 1, 3],
+            completed: false,
+            projectId: 0,
+            formattedDate: "2025-09-25"
+        },
+         {
+            taskId: 9,
+            name: "Implement real-time updates",
+            description: "Add WebSocket support for real-time task updates and team collaboration.",
+            date: "Sep 18 2025",
+            priority: "High",
+            teamIds: [0, 2, 4],
+            completed: false,
+            projectId: 2,
+            formattedDate: "2025-09-18"
+        },
+    ]
+
     const getSpecificUsers = (teamIds) => {
         // Create a Set for faster lookups (O(1) instead of O(n))
         const teamIdSet = new Set(teamIds);
@@ -292,7 +339,7 @@ export const MockProvider = ({ children }) => {
 
     return (
         <MockContext.Provider 
-            value={{ users, projects, tasks, getSpecificUsers }}
+            value={{ users, projects, tasks, userTasks  ,getSpecificUsers }}
         >
             {children}
         </MockContext.Provider>
