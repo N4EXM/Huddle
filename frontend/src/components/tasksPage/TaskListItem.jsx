@@ -57,7 +57,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
         >
             {/* team */}
         <div
-            className='flex items-center justify-center w-full'
+            className='flex items-center justify-end w-full'
         >
             <div
                 className='relative w-fit flex items-center justify-center pr-14'
@@ -85,7 +85,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
 
         {/* date */}
         <div
-            className='flex items-center justify-center w-full'
+            className='flex items-center justify-end w-full'
         >
             <p
                 className='text-dimText text-xs font-medium'
@@ -96,7 +96,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
 
         {/* priority */}
         <div
-            className='flex items-center justify-center w-full'
+            className='flex items-center justify-end w-full'
         >
             <p
                 className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium w-fit`}

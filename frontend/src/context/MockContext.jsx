@@ -50,7 +50,8 @@ export const MockProvider = ({ children }) => {
 
     const projects = [
         {
-            projectId: 0,
+            projectId: 0
+            ,
             name: "Task App",
             priority: "Low",
             description: "Build a task app that allows user to create new tasks, edit tasks and delete tasks, with a calendar page and project page.",
@@ -60,7 +61,8 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 1 ,2]
         },
         {
-            projectId: 1,
+            projectId: 1
+            ,
             name: "Note App",
             priority: "Medium",
             description: "Build a note app that allows user to create new notes, edit notes and delete notes, project page.",
@@ -70,7 +72,8 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 1 ,2, 3]
         },
         {
-            projectId: 2,
+            projectId: 2
+            ,
             name: "dashboard project",
             priority: "High",
             description: "Build a dashboard and other relevant pages to see current tasks and statistics of the users current topic, allowing them to change the dashboard to their preferences",
@@ -80,7 +83,8 @@ export const MockProvider = ({ children }) => {
             teamIds: [1 ,2, 4]
         },
         {
-            projectId: 3,
+            projectId: 3
+            ,
             name: "Learn java",
             priority: "Low",
             description: "Learn all the necessary things about java, like the syntax, object oriented programming and learn how to build GUIs and connect it to the backend",
@@ -100,7 +104,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [0, 1, 4],
             completed: false,
-            projectId: 0
+            projectId: 0,
+            formattedDate: "2025-08-26"
         },
         {
             taskId: 1,
@@ -110,7 +115,8 @@ export const MockProvider = ({ children }) => {
             priority: "High",
             teamIds: [0, 2],
             completed: false,
-            projectId: 2
+            projectId: 2,
+            formattedDate: "2025-08-28"
         },
         {
             taskId: 2,
@@ -120,7 +126,8 @@ export const MockProvider = ({ children }) => {
             priority: "High",
             teamIds: [1, 3],
             completed: true,
-            projectId: 1
+            projectId: 1,
+            formattedDate: "2025-08-30"
         },
         {
             taskId: 3,
@@ -130,7 +137,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [0, 4],
             completed: false,
-            projectId: 3
+            projectId: 3,
+            formattedDate: "2025-09-02"
         },
         {
             taskId: 4,
@@ -140,7 +148,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [2, 3],
             completed: false,
-            projectId: 1
+            projectId: 1,
+            formattedDate: "2025-09-05"
         },
         {
             taskId: 5,
@@ -150,7 +159,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [1, 4],
             completed: true,
-            projectId: 0
+            projectId: 0,
+            formattedDate: "2025-09-08"
         },
         {
             taskId: 6,
@@ -160,7 +170,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [0, 3],
             completed: false,
-            projectId: 2
+            projectId: 2,
+            formattedDate: "2025-09-10"
         },
         {
             taskId: 7,
@@ -170,7 +181,8 @@ export const MockProvider = ({ children }) => {
             priority: "High",
             teamIds: [2, 4],
             completed: false,
-            projectId: 3
+            projectId: 3,
+            formattedDate: "2025-09-12"
         },
         {
             taskId: 8,
@@ -180,7 +192,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [1, 3],
             completed: false,
-            projectId: 1
+            projectId: 1,
+            formattedDate: "2025-09-15"
         },
         {
             taskId: 9,
@@ -190,7 +203,8 @@ export const MockProvider = ({ children }) => {
             priority: "High",
             teamIds: [0, 2, 4],
             completed: false,
-            projectId: 2
+            projectId: 2,
+            formattedDate: "2025-09-18"
         },
         {
             taskId: 10,
@@ -200,7 +214,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [3, 4],
             completed: true,
-            projectId: 2
+            projectId: 2,
+            formattedDate: "2025-09-20"
         },
         {
             taskId: 11,
@@ -210,7 +225,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [1, 2],
             completed: false,
-            projectId: 0
+            projectId: 0,
+            formattedDate: "2025-09-22"
         },
         {
             taskId: 12,
@@ -220,7 +236,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [0, 1, 3],
             completed: false,
-            projectId: 0
+            projectId: 0,
+            formattedDate: "2025-09-25"
         },
         {
             taskId: 13,
@@ -230,7 +247,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [2, 4],
             completed: true,
-            projectId: 3
+            projectId: 3,
+            formattedDate: "2025-09-28"
         },
         {
             taskId: 14,
@@ -240,7 +258,8 @@ export const MockProvider = ({ children }) => {
             priority: "Medium",
             teamIds: [0, 3, 4],
             completed: false,
-            projectId: 1
+            projectId: 1,
+            formattedDate: "2025-10-01"
         },
         {
             taskId: 15,
@@ -250,7 +269,8 @@ export const MockProvider = ({ children }) => {
             priority: "Low",
             teamIds: [1, 2],
             completed: false,
-            projectId: 0
+            projectId: 0,
+            formattedDate: "2025-10-05"
         }
     ];
 

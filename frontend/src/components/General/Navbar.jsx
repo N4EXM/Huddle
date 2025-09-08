@@ -4,7 +4,7 @@ import userImg from '../../assets/images/user.png'
 const Navbar = () => {
   return (
     <div
-        className='w-full col-start-4 col-span-9 p-5 rounded-lg row-span-2 bg-secondBackground mb-8 flex items-center justify-between'
+        className='w-full col-start-4 col-span-9 p-5 px-4 rounded-lg row-span-2 bg-secondBackground mb-8 flex items-center justify-between'
     >
         {/* search bar */}
         <div
