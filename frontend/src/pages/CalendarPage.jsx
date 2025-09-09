@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Sidebar from '../components/General/Sidebar'
 import Navbar from '../components/General//Navbar'
 import { useMock } from '../context/MockContext'
@@ -15,12 +15,17 @@ const CalendarPage = () => {
   const currentYear = getCurrentYear()
 
   // calendar state management
-  const [tasksForSelectedDate, setTasksForSelectedDate] = useState([])
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(getCurrentMonth())
   const [selectedYear, setSelectedYear] = useState(getCurrentYear())
   const [daysInSelectedMonth, setDaysInSelectedMonth] = useState(getDaysInMonth(selectedYear, 7))
   const [selectedDayOfMonth, setSelectedDayOfMonth] = useState(getCurrentDate())
   const [selectedDayIndex, setSelectedDayIndex] = useState(getCurrentDayInMonthIndex(selectedYear, selectedMonthIndex, selectedDayOfMonth))
+
+  // viewer state management
+  const [tasksView, setTasksView] = useState(false)
+  const [tasksForSelectedDate, setTasksForSelectedDate] = useState([])
+
+
 
   // Month and day name data
   const monthNames = [
@@ -97,6 +102,15 @@ const CalendarPage = () => {
     }
   }, [selectedMonthIndex])
 
+  // prevents filtering operation for every date 
+  const tasksByDate = useMemo(() => {
+    const map = new Map();
+      tasks.forEach(task => {
+      map.set(task.date, (map.get(task.date) || 0) + 1);
+    });
+      return map;
+  }, [tasks]);
+
   return (
     <div
       className='w-full h-screen max-h-screen bg-background p-8 grid grid-cols-12 grid-rows-12 text-text gap-4'
@@ -151,67 +165,99 @@ const CalendarPage = () => {
 
           {/* date buttons */}
           <div
-            className='grid grid-cols-6 w-full h-full grid-rows-6 gap-2 overflow-y-scroll'
+            className='grid grid-cols-6 w-full h-full  gap-2 overflow-y-scroll'
           >
             {
               Array.from({ length: daysInSelectedMonth }, (_, index) => {
-
                 const dayNumber = index + 1;
                 const date = new Date(selectedYear, selectedMonthIndex, dayNumber);
-                const dayOfWeekIndex = date.getDay(); // 0 (Sun) to 6 (Sat)
-                let taskCount = 0
+                const dayOfWeekIndex = date.getDay();
+                
+                // Format date to match "Aug 26 2025" format
+                const formattedDate = date.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                }).replace(/,/g, '');
 
-                for (let i = 0; i < tasks.length; i++) {
-
-                  console.log(tasks[i])
-                  const currentDate = tasks[i].formattedDate
-
-                  if (currentDate === date.toLocaleDateString()) {
-                    taskCount + 1
-                  }
-
-                }
-
+                // Count tasks for this date using filter
+                const taskCount = tasksByDate.get(formattedDate) || 0;
+                
                 return (
                   <div
                     className='w-full h-full rounded-md p-2 bg-background border border-background duration-200 hover:border-primary flex flex-col items-start justify-between'
                     key={dayNumber}
                   >
-                    <p
-                      className='font-medium text-xs'
-                    >
+                    <p className='font-medium text-xs'>
                       {dayNames[dayOfWeekIndex].abrName} {dayNumber}
                     </p>
-                    <div
-                      className='w-full flex-row flex gap-1'
-                    >
-                      {
-                        Array.from({ length: taskCount }, (_) => {
-                          return (
+                    <div className='w-full flex-row flex gap-1'>
+                      {taskCount > 0 && (
+                        <>
+                          {Array.from({ length: Math.min(taskCount, 3) }, (_, dotIndex) => (
                             <span
+                              key={dotIndex}
                               className={`${selectedDayOfMonth === dayNumber ? "text-background" : "text-primary"}`}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24"><path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/>
+                              </svg>
                             </span>
-                          )
-                        })
-                      }
+                          ))}
+                          {taskCount > 3 && (
+                            <span className="text-xs text-dimText">+{taskCount - 3}</span>
+                          )}
+                        </>
+                      )}
                     </div>
                   </div>
-                )
-                
+                );
               })
             }
-            
           </div>
 
         </div>
 
         {/* selected date Tasks */}
         <div
-          className='col-span-5 row-span-11 bg-secondBackground rounded-md'
+          className={`col-span-5 ${tasksView ? "flex flex-col" : "flex items-center justify-center"} gap-4 row-span-11 bg-secondBackground rounded-md`}
         >
+          {
+            tasksView
+            ? "hi"
+            : <div
+                className='flex flex-col items-center gap-3'
+              >
+                <span
+                  className='p-3 text-primary bg-background rounded-full'
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2m7 7l-6 6m0-6l6 6"/></g></svg>
+                </span>
 
+                <div
+                  className='flex flex-col gap-2 w-full items-center'
+                >
+                  <h2
+                    className='text-lg font-bold'
+                  >
+                    No tasks
+                  </h2>
+                  <p
+                    className='px-12 text-center text-sm text-dimText'
+                  >
+                    Create a project or join a project to view tasks
+                  </p>
+                  <button
+                    className='flex flex-row items-center gap-2 text-xs border border-primary rounded-md px-4 p-2 mt-10 duration-200 hover:bg-primary'
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" stroke-linecap="round" d="M12 3.5v17m8.5-8.5h-17" stroke-width="1"/></svg>
+                    <span>
+                      Add project
+                    </span>
+                  </button>
+                </div>
+              </div>
+          }
         </div>
 
       </div>

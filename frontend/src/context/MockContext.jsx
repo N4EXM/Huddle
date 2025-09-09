@@ -105,7 +105,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 1, 4],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-08-26"
         },
         {
             taskId: 1,
@@ -116,7 +115,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 2],
             completed: false,
             projectId: 2,
-            formattedDate: "2025-08-28"
         },
         {
             taskId: 2,
@@ -127,7 +125,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [1, 3],
             completed: true,
             projectId: 1,
-            formattedDate: "2025-08-30"
         },
         {
             taskId: 3,
@@ -138,7 +135,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 4],
             completed: false,
             projectId: 3,
-            formattedDate: "2025-09-02"
         },
         {
             taskId: 4,
@@ -149,7 +145,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [2, 3],
             completed: false,
             projectId: 1,
-            formattedDate: "2025-09-05"
         },
         {
             taskId: 5,
@@ -160,7 +155,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [1, 4],
             completed: true,
             projectId: 0,
-            formattedDate: "2025-09-08"
         },
         {
             taskId: 6,
@@ -171,7 +165,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 3],
             completed: false,
             projectId: 2,
-            formattedDate: "2025-09-10"
         },
         {
             taskId: 7,
@@ -182,7 +175,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [2, 4],
             completed: false,
             projectId: 3,
-            formattedDate: "2025-09-12"
         },
         {
             taskId: 8,
@@ -193,7 +185,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [1, 3],
             completed: false,
             projectId: 1,
-            formattedDate: "2025-09-15"
         },
         {
             taskId: 9,
@@ -204,7 +195,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 2, 4],
             completed: false,
             projectId: 2,
-            formattedDate: "2025-09-18"
         },
         {
             taskId: 10,
@@ -215,7 +205,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [3, 4],
             completed: true,
             projectId: 2,
-            formattedDate: "2025-09-20"
         },
         {
             taskId: 11,
@@ -226,18 +215,16 @@ export const MockProvider = ({ children }) => {
             teamIds: [1, 2],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-09-22"
         },
         {
             taskId: 12,
             name: "Set up automated testing",
             description: "Create unit tests, integration tests, and end-to-end tests for critical features.",
-            date: "Sep 25 2025",
+            date: "Sep 28 2025",
             priority: "Medium",
             teamIds: [0, 1, 3],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-09-25"
         },
         {
             taskId: 13,
@@ -248,7 +235,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [2, 4],
             completed: true,
             projectId: 3,
-            formattedDate: "2025-09-28"
         },
         {
             taskId: 14,
@@ -259,7 +245,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 3, 4],
             completed: false,
             projectId: 1,
-            formattedDate: "2025-10-01"
         },
         {
             taskId: 15,
@@ -270,7 +255,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [1, 2],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-10-05"
         }
     ];
 
@@ -284,7 +268,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 1, 4],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-08-26"
         },
         {
             taskId: 14,
@@ -295,7 +278,6 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 3, 4],
             completed: false,
             projectId: 1,
-            formattedDate: "2025-10-01"
         },
         {
             taskId: 12,
@@ -306,18 +288,16 @@ export const MockProvider = ({ children }) => {
             teamIds: [0, 1, 3],
             completed: false,
             projectId: 0,
-            formattedDate: "2025-09-25"
         },
          {
             taskId: 9,
             name: "Implement real-time updates",
             description: "Add WebSocket support for real-time task updates and team collaboration.",
-            date: "Sep 18 2025",
+            date: "Sep 25 2025",
             priority: "High",
             teamIds: [0, 2, 4],
             completed: false,
             projectId: 2,
-            formattedDate: "2025-09-18"
         },
     ]
 
