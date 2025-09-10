@@ -76,7 +76,7 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
                 <p
                     className='text-sm text-dimText'
                 >
-                    {description}
+                    {truncateText(description, 99)}
                 </p>
             </div>
 

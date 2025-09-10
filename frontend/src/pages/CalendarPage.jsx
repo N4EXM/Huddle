@@ -232,14 +232,14 @@ const CalendarPage = () => {
                 
                 return (
                   <div
-                    className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary" : "bg-background border-primary/20"} border duration-200 hover:border-primary flex flex-col items-start justify-between`}
+                    className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary" : "bg-background border-primary/20"} border duration-200 hover:border-primary flex flex-col items-start justify-between cursor-pointer`}
                     key={dayNumber}
                     onClick={() => setSelectedDayOfMonth(dayNumber)}
                   >
                     <p className='font-medium text-xs'>
                       {dayNames[dayOfWeekIndex].abrName} {dayNumber}
                     </p>
-                    <div className='w-full flex-row flex gap-1'>
+                    <div className='w-full flex-row flex gap-1 items-center'>
                       {taskCount > 0 && (
                         <>
                           {Array.from({ length: Math.min(taskCount, 3) }, (_, dotIndex) => (
@@ -247,13 +247,13 @@ const CalendarPage = () => {
                               key={dotIndex}
                               className={`${selectedDayOfMonth === dayNumber ? "text-background" : "text-primary"}`}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/>
                               </svg>
                             </span>
                           ))}
                           {taskCount > 3 && (
-                            <span className="text-xs text-dimText">+{taskCount - 3}</span>
+                            <span className="text-(length:--font-size-xxs) text-dimText">+{taskCount - 3}</span>
                           )}
                         </>
                       )}
