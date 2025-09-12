@@ -84,10 +84,10 @@ const Sidebar = () => {
             {pageButtons.map((page) => (
                 <button
                     key={page.name}
-                    className={`relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 py-2`}
+                    className={`relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 py-2 duration-200`}
                     onClick={() => handleNavigate(page.path)}
                 >   
-                    <span className={`w-2 h-7 rounded-r-md bg-primary top-1 left-0 absolute ${location.pathname === page.path ? "block" : "hidden"}`}></span>
+                    <span className={`w-2 h-7 rounded-r-md top-1 left-0 absolute duration-200 ${location.pathname === page.path ? "bg-primary" : "bg-secondBackground"}`}></span>
                     <i
                         className={`${location.pathname === page.path ? "text-primary" : "text-text"}`}
                     >

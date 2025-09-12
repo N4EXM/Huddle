@@ -14,7 +14,7 @@ import { MockProvider } from './context/MockContext'
 
 function App() {
 
-  const [loading, setIsloading] = useState(false)
+  const [loading, setIsloading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div
-      className='w-full h-screen'
+      className='w-full h-screen relative'
     >
       <BrowserRouter>
         <MockProvider>

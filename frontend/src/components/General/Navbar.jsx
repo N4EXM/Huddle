@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
+import UserInfoInterface from './userInfoInterface'
 
 const Navbar = () => {
+
+    const [openUserMenu, setOpenUserMenu] = useState(true)
+
   return (
     <div
-        className='w-full col-start-4 col-span-9 p-5 px-4 rounded-lg row-span-2 bg-secondBackground mb-8 flex items-center justify-between'
+        className='w-full col-start-4 col-span-9 p-5 px-4 rounded-lg row-span-2 bg-secondBackground mb-8 flex items-center justify-between '
     >
         {/* search bar */}
         <div
@@ -29,7 +33,8 @@ const Navbar = () => {
 
         {/* user profile */}
         <div
-            className='flex flex-row items-center gap-2 w-fit h-full'
+            className='flex flex-row items-center gap-2 w-fit h-full cursor-pointer rounded-md duration-200'
+            onClick={() => setOpenUserMenu(true)}
         >
             <img 
                 src={userImg} 
@@ -37,7 +42,7 @@ const Navbar = () => {
                 alt="" 
             />
             <div
-                className='flex flex-col gap-1'
+                className='flex flex-col gap-1 '
             >
                 <span
                     className='text-xs font-semibold'
@@ -51,6 +56,11 @@ const Navbar = () => {
                 </span>
             </div>
         </div>
+
+        <UserInfoInterface
+            openUserMenu={openUserMenu}
+            setOpenUserMenu={setOpenUserMenu}
+        />
 
     </div>
   )
