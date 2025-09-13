@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
-import UserInfoInterface from './userInfoInterface'
+import MenuBackground from './MenuBackground'
+import UserInfoMenu from './UserInfoMenu'
+import { useMock } from '../../context/MockContext'
+
 
 const Navbar = () => {
 
-    const [openUserMenu, setOpenUserMenu] = useState(true)
+    // toggles
+    const [openMenu, setOpenMenu] = useState(false)
+
+    // info
+    const { currentUser } = useMock()
 
   return (
     <div
@@ -34,10 +41,10 @@ const Navbar = () => {
         {/* user profile */}
         <div
             className='flex flex-row items-center gap-2 w-fit h-full cursor-pointer rounded-md duration-200'
-            onClick={() => setOpenUserMenu(true)}
+            onClick={() => setOpenMenu(true)}
         >
             <img 
-                src={userImg} 
+                src={currentUser.image} 
                 className='rounded-full border-2 border-primary w-9 h-9 object-center object-fit'
                 alt="" 
             />
@@ -47,20 +54,25 @@ const Navbar = () => {
                 <span
                     className='text-xs font-semibold'
                 >
-                    John Doe
+                    {currentUser.name}
                 </span>
                 <span
                     className='text-(length:--font-size-xxs)'
                 >
-                    JohnDoe01@gmail.com
+                    {currentUser.email}
                 </span>
             </div>
         </div>
 
-        <UserInfoInterface
-            openUserMenu={openUserMenu}
-            setOpenUserMenu={setOpenUserMenu}
-        />
+        <MenuBackground
+            openMenu={openMenu}
+        >
+            <UserInfoMenu
+                setOpenMenu={setOpenMenu}
+                openMenu={openMenu}
+                currentUser={currentUser}
+            />
+        </MenuBackground>
 
     </div>
   )

@@ -68,7 +68,7 @@ export const MockProvider = ({ children }) => {
             description: "Build a note app that allows user to create new notes, edit notes and delete notes, project page.",
             projectLeaderId: 3,
             percentage: 32,
-            date: "sep 05 2025",
+            date: "Sep 05 2025",
             teamIds: [0, 1 ,2, 3]
         },
         {
@@ -79,7 +79,7 @@ export const MockProvider = ({ children }) => {
             description: "Build a dashboard and other relevant pages to see current tasks and statistics of the users current topic, allowing them to change the dashboard to their preferences",
             projectLeaderId: 2,
             percentage: 85,
-            date: "sep 20 2025",
+            date: "Sep 20 2025",
             teamIds: [1 ,2, 4]
         },
         {
@@ -301,6 +301,15 @@ export const MockProvider = ({ children }) => {
         },
     ]
 
+    const currentUser = {
+        userId: users[0].userId,
+        name: users[0].name,
+        email: users[0].email,
+        contactNumber: users[0].contactNumber,
+        image: users[0].image
+
+    }
+
     const getSpecificUsers = (teamIds) => {
         // Create a Set for faster lookups (O(1) instead of O(n))
         const teamIdSet = new Set(teamIds);
@@ -319,7 +328,7 @@ export const MockProvider = ({ children }) => {
 
     return (
         <MockContext.Provider 
-            value={{ users, projects, tasks, userTasks  ,getSpecificUsers }}
+            value={{ users, projects, tasks, userTasks ,getSpecificUsers, currentUser }}
         >
             {children}
         </MockContext.Provider>
