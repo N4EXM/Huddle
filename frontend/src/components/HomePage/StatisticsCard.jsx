@@ -15,10 +15,10 @@ const StatisticsCard = ({title, num, extraNum, icon, extraText = "than last mont
                 {title}
             </p>
             <div
-                className='flex flex-col gap-2 '
+                className='flex flex-col gap-2 w-fit'
             >   
                 <p
-                    className='text-4xl font-semibold'
+                    className='text-4xl font-semibold md:text-text-3xl'
                 >
                     {num}
                 </p>
