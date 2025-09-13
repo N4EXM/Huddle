@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import Sidebar from '../components/General/Sidebar'
 import Navbar from '../components/General/Navbar'
 import { useMock } from '../context/MockContext'
@@ -9,16 +9,17 @@ const ProjectsPage = () => {
 
   // toggles
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
-
   // data
   const { users, projects, getSpecificUsers } = useMock()
 
+
   return (
     <div
-      className='w-full h-screen max-h-screen bg-background p-8 grid grid-cols-12 grid-rows-12 text-text gap-4'
+      className='w-full h-screen max-h-screen bg-background p-8 grid grid-cols-12 grid-rows-12 text-text gap-4 relative'
     >
       <Sidebar/>
       <Navbar/>
+
       <div
         className='w-full h-full col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4'
       >
@@ -71,6 +72,7 @@ const ProjectsPage = () => {
             {/* new project card */}
             <button
               className='text-sm p-2 px-3 flex items-center gap-1 border border-primary rounded-md duration-200 hover:bg-primary'
+              onClick={() => setOpenNewProjectMenu(true)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.8" d="M12 4.5v15m7.5-7.5h-15"/></svg>
               Project

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
 import MenuBackground from './MenuBackground'
-import UserInfoMenu from './UserInfoMenu'
 import { useMock } from '../../context/MockContext'
 
 
@@ -63,16 +62,6 @@ const Navbar = () => {
                 </span>
             </div>
         </div>
-
-        <MenuBackground
-            openMenu={openMenu}
-        >
-            <UserInfoMenu
-                setOpenMenu={setOpenMenu}
-                openMenu={openMenu}
-                currentUser={currentUser}
-            />
-        </MenuBackground>
 
     </div>
   )
