@@ -306,7 +306,8 @@ export const MockProvider = ({ children }) => {
         name: users[0].name,
         email: users[0].email,
         contactNumber: users[0].contactNumber,
-        image: users[0].image
+        image: users[0].image,
+        password: "GenericPassword0982"
 
     }
 
