@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
-import MenuBackground from './MenuBackground'
+import OverlayBackground from './OverlayBackground'
 import { useMock } from '../../context/MockContext'
 
 
@@ -48,10 +48,10 @@ const Navbar = () => {
                 alt="" 
             />
             <div
-                className='flex flex-col gap-1 '
+                className='flex flex-col'
             >
                 <span
-                    className='text-xs font-semibold'
+                    className='text-sm font-bold'
                 >
                     {currentUser.name}
                 </span>

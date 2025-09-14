@@ -74,7 +74,7 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
             >
                 <span className='w-full h-[0.1rem] bg-thirdBackground'></span>
                 <p
-                    className='text-sm text-dimText'
+                    className='text-xs text-dimText'
                 >
                     {truncateText(description, 99)}
                 </p>

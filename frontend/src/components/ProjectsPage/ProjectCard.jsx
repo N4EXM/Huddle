@@ -60,7 +60,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           className='flex flex-row items-center justify-between w-full'
         >
           <h1
-            className='text-xl font-semibold'
+            className='text-lg font-semibold'
           >
             {name}
           </h1>
@@ -71,7 +71,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           </p>
         </div>  
         <p
-          className='text-dimText text-sm pr-14'
+          className='text-dimText text-xs pr-14'
         >
           {truncateText(description, 110)}
         </p>

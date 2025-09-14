@@ -1,6 +1,6 @@
 import React, { Children, useEffect, useState } from 'react'
 
-const MenuBackground = ({ openMenu, children }) => {
+const OverlayBackground = ({ openMenu, children }) => {
 
   return (
     <div
@@ -11,4 +11,4 @@ const MenuBackground = ({ openMenu, children }) => {
   )
 }
 
-export default MenuBackground
+export default OverlayBackground
