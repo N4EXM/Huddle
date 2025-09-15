@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentYear, getDaysInMonth, formatDate } from '../../utils/dateUtils'
+import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentYear, getDaysInMonth, formatDate2 } from '../../utils/dateUtils'
 
-const Calendar = ({ isCalendarActive }) => {
+const Calendar = ({ isCalendarActive, setDueDate, setIsCalendarActive }) => {
 
     const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     const monthNames = [
@@ -30,14 +30,14 @@ const Calendar = ({ isCalendarActive }) => {
     const [daysInSelectedMonth, setDaysInSelectedMonth] = useState(getDaysInMonth(selectedYear, selectedMonthIndex))
     const [selectedDayOfMonth, setSelectedDayOfMonth] = useState(getCurrentDate())
     const [selectedDayIndex, setSelectedDayIndex] = useState(getCurrentDayInMonthIndex(selectedYear, selectedMonthIndex, selectedDayOfMonth))
-    const [firstDayOffset, setFirstDayOffset] = useState(0) // Number of empty cells before first day
+    const [firstDayOffset, setFirstDayOffset] = useState(0)
 
     const handleMonthNavigation = (direction) => {
         if (direction === 'next') {
             setSelectedMonthIndex(prevMonthIndex => {
                 const newMonthIndex = prevMonthIndex + 1
                 if (newMonthIndex > 11) {
-                    setSelectedYear(selectedYear + 1)
+                    setSelectedYear(prevYear => prevYear + 1)
                     return 0
                 }
                 return newMonthIndex
@@ -46,7 +46,7 @@ const Calendar = ({ isCalendarActive }) => {
             setSelectedMonthIndex(prevMonthIndex => {
                 const newMonthIndex = prevMonthIndex - 1
                 if (newMonthIndex < 0) {
-                    setSelectedYear(selectedYear - 1)
+                    setSelectedYear(prevYear => prevYear - 1)
                     return 11
                 }
                 return newMonthIndex
@@ -54,45 +54,63 @@ const Calendar = ({ isCalendarActive }) => {
         }      
     }
 
-    // Calculate the day of the week for the first day of the month (0 = Sunday, 1 = Monday, etc.)
+    // Check if a date is in the past
+    const isDateInPast = (year, monthIndex, day) => {
+        const currentDate = new Date(currentYear, currentMonthIndex, currentDayOfMonth);
+        const targetDate = new Date(year, monthIndex, day);
+        return targetDate < currentDate;
+    }
+
     const getFirstDayOfMonth = (year, monthIndex) => {
         return new Date(year, monthIndex, 1).getDay();
     }
 
-    // Convert Sunday (0) to Monday (0) based week system
     const convertToMondayFirst = (dayIndex) => {
-        return dayIndex === 0 ? 6 : dayIndex - 1; // Sunday becomes 6, Monday becomes 0, etc.
+        return dayIndex === 0 ? 6 : dayIndex - 1;
     }
 
-    // Effect to update days in month and first day offset when month or year changes
+    // Handle date selection
+    const handleDateSelect = (dayNumber) => {
+        if (!isDateInPast(selectedYear, selectedMonthIndex, dayNumber)) {
+            setSelectedDayOfMonth(dayNumber);
+            // If setDueDate prop is provided, call it with the selected date
+            if (setDueDate) {
+                const formattedDate = formatDate2(selectedYear, selectedMonthIndex, dayNumber);
+                setDueDate(formattedDate);
+            }
+        }
+        setIsCalendarActive(false)
+    }
+
     useEffect(() => {
         setDaysInSelectedMonth(getDaysInMonth(selectedYear, selectedMonthIndex))
         setSelectedDayIndex(getCurrentDayInMonthIndex(selectedYear, selectedMonthIndex, selectedDayOfMonth));
         
-        // Calculate offset for first day (adjusting for Monday-first week)
         const firstDay = getFirstDayOfMonth(selectedYear, selectedMonthIndex);
         const mondayFirstOffset = convertToMondayFirst(firstDay);
         setFirstDayOffset(mondayFirstOffset);
     }, [selectedDayOfMonth, selectedMonthIndex, selectedYear]);
 
-    // Effect to reset to current date if viewing current month
     useEffect(() => {
         if (selectedMonthIndex === currentMonthIndex && selectedYear === currentYear) {
             setSelectedDayOfMonth(currentDayOfMonth)
         } else {
-            setSelectedDayOfMonth(1)
+            // Set to current day or first day of month if current month is in the future
+            const isFutureMonth = selectedYear > currentYear || 
+                                (selectedYear === currentYear && selectedMonthIndex > currentMonthIndex);
+            setSelectedDayOfMonth(isFutureMonth ? 1 : currentDayOfMonth);
         }
-    }, [selectedMonthIndex])
+    }, [selectedMonthIndex, selectedYear])
 
     return (
         <div
-            className={`min-h-60 min-w-80 h-fit w-fit bg-background rounded-md border-2 border-primary absolute -bottom-[23.5rem]  right-0 duration-200 transition ${isCalendarActive ? "flex" : "hidden"} flex-col gap-5 p-2.5`}
+            className={`min-h-60 min-w-80 h-fit w-full drop-shadow-2xl bg-background rounded-md border-2 border-primary absolute -bottom-[23rem] right-0 duration-200 transition ${isCalendarActive ? "flex" : "hidden"} flex-col gap-5 p-3`}
         >
             
             {/* month buttons and current month/year */}
             <div className='flex flex-row w-full items-center justify-between px-2'>
                 <button
-                    className='p-1 rounded-full bg-secondBackground border-2 border-primary duration-200 hover:bg-primary'
+                    className='p-1 rounded-sm bg-secondBackground border border-primary duration-200 hover:bg-primary'
                     onClick={() => handleMonthNavigation("previous")}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -104,7 +122,7 @@ const Calendar = ({ isCalendarActive }) => {
                     <span>{selectedYear}</span>
                 </p>
                 <button
-                    className='rotate-180 p-1 rounded-full bg-secondBackground border-2 border-primary duration-200 hover:bg-primary'
+                    className='rotate-180 p-1 rounded-sm bg-secondBackground border border-primary duration-200 hover:bg-primary'
                     onClick={() => handleMonthNavigation("next")}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -126,10 +144,10 @@ const Calendar = ({ isCalendarActive }) => {
                 </div>
 
                 {/* day numbers with proper offset */}
-                <div className='grid grid-cols-7 grid-rows-6 w-full h-full col-span-7 items-center justify-center gap-2 gap-y-3'>
+                <div className='grid grid-cols-7 grid-rows-6 w-full h-full col-span-7 items-center justify-center gap-2'>
                     {/* Empty cells for days before the first day of the month */}
                     {Array.from({ length: firstDayOffset }, (_, index) => (
-                        <div key={`empty-${index}`} className='w-full h-6' /> // Empty placeholder
+                        <div key={`empty-${index}`} className='w-full h-6' />
                     ))}
                     
                     {/* Actual days of the month */}
@@ -139,18 +157,22 @@ const Calendar = ({ isCalendarActive }) => {
                                            selectedYear === currentYear && 
                                            dayNumber === currentDayOfMonth;
                         const isSelectedDay = dayNumber === selectedDayOfMonth;
+                        const isPastDate = isDateInPast(selectedYear, selectedMonthIndex, dayNumber);
                         
                         return (
                             <button
                                 key={dayNumber}
-                                className={`text-xs font-medium duration-200 w-full flex items-center justify-center p-1 rounded-full py-2 ${
+                                disabled={isPastDate}
+                                className={`text-xs font-medium duration-200 w-full flex items-center justify-center p-2 border-background border rounded-sm ${
                                     isCurrentDay 
                                         ? 'bg-primary text-background font-bold' 
                                         : isSelectedDay
                                         ? 'bg-secondBackground border border-primary'
+                                        : isPastDate
+                                        ? 'text-dimText cursor-not-allowed opacity-50'
                                         : 'text-text hover:bg-primary hover:text-background'
                                 }`}
-                                onClick={() => setSelectedDayOfMonth(dayNumber)}
+                                onClick={() => handleDateSelect(dayNumber)}
                             >
                                 {dayNumber}
                             </button>

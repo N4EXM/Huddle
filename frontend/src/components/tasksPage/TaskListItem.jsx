@@ -56,70 +56,70 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
             className='grid grid-cols-4 w-full h-fit'
         >
             {/* team */}
-        <div
-            className='flex items-center justify-end w-full'
-        >
             <div
-                className='relative w-fit flex items-center justify-center pr-14'
+                className='flex items-center justify-center w-full'
             >
-                {members.slice(0,4).map((member, index) => {
-                    return (
-                    <img 
-                        key={index + 1}
-                        className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
-                        style={{ left: `${index * 15}px` }}
-                        src={member.image} 
-                        alt="" 
-                    />    
-                    )
-                })}
-                <p
-                    className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
-                    style={{ left: `${overlapAmount * 15}px` }}              
+                <div
+                    className='relative w-fit flex items-center justify-center pr-14'
                 >
-                    {teamMembers.length}+ 
+                    {members.slice(0,4).map((member, index) => {
+                        return (
+                        <img 
+                            key={index + 1}
+                            className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
+                            style={{ left: `${index * 15}px` }}
+                            src={member.image} 
+                            alt="" 
+                        />    
+                        )
+                    })}
+                    <p
+                        className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                        style={{ left: `${overlapAmount * 15}px` }}              
+                    >
+                        {teamMembers.length}+ 
+                    </p>
+                </div>
+            </div>
+            
+
+            {/* date */}
+            <div
+                className='flex items-center justify-center w-full'
+            >
+                <p
+                    className='text-dimText text-xs font-medium'
+                >
+                    {date}
                 </p>
             </div>
-        </div>
+
+            {/* priority */}
+            <div
+                className='flex items-center justify-center w-full'
+            >
+                <p
+                    className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium w-fit`}
+                >
+                    {priority}
+                </p>
+            </div>
         
 
-        {/* date */}
-        <div
-            className='flex items-center justify-end w-full'
-        >
-            <p
-                className='text-dimText text-xs font-medium'
+            {/* checkbox */}
+            <div
+                className='flex items-center justify-center w-full'
             >
-                {date}
-            </p>
-        </div>
-
-        {/* priority */}
-        <div
-            className='flex items-center justify-end w-full'
-        >
-            <p
-                className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium w-fit`}
-            >
-                {priority}
-            </p>
-        </div>
-        
-
-        {/* checkbox */}
-        <div
-            className='flex items-center justify-end w-full'
-        >
-            <button
-                className={`flex items-center justify-center ${completion ? "text-primary" : ""} w-8 rounded h-8 border border-primary cursor-pointer`}
-                onClick={() => setCompletion(!completion)}
-            >
-                {
-                    completion
-                    && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="currentcolor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
-                }
-            </button>
-        </div>
+                <button
+                    className={`flex items-center justify-center ${completion ? "text-primary" : ""} w-8 rounded h-8 border border-primary cursor-pointer`}
+                    onClick={() => setCompletion(!completion)}
+                >
+                    {
+                        completion
+                        && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="currentcolor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
+                    }
+                </button>
+            </div>
         </div>
 
         

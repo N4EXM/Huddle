@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useMenu } from '../../context/MenuContext'
 import Calendar from '../General/Calendar'
+import { useAutoResizeTextarea } from '../../hooks/useAutoResizeTextarea'
 
 const NewProjectMenu = () => {
 
@@ -14,6 +15,9 @@ const NewProjectMenu = () => {
     const [dueDate, setDueDate] = useState("")
     const [description, setDescription] = useState("")
     const [tasks, setTasks] = useState([])
+
+    // refs
+    const textAreaRef = useAutoResizeTextarea(description) // textArea hook
 
     const handleClosePage = () => {
 
@@ -30,7 +34,7 @@ const NewProjectMenu = () => {
 
   return (
     <div
-        className={`p-5 bg-secondBackground rounded-md border-2 border-thirdBackground/40 flex flex-col gap-10 shadow-2xl col-start-3 w-full h-full`}
+        className={`p-5 bg-secondBackground rounded-md border-2 border-thirdBackground/40 flex flex-col gap-10 shadow-2xl col-start-3 w-full h-full relative`}
     >
         {/* close button */}
         <div
@@ -44,6 +48,7 @@ const NewProjectMenu = () => {
             </button>
         </div>
 
+        {/* input fields and tasks */}
         <div
             className='flex flex-col gap-10 overflow-y-scroll px-2 h-full w-full scrollbar-hide'
         >
@@ -87,7 +92,7 @@ const NewProjectMenu = () => {
                     />
                 </div>
 
-                {/* name */}
+                {/* date */}
                 <div
                     className='flex flex-col gap-1.5 relative'
                 >
@@ -113,10 +118,51 @@ const NewProjectMenu = () => {
                     </button>
                     <Calendar
                         isCalendarActive={isCalendarActive}
+                        setDueDate={setDueDate}
+                        setIsCalendarActive={setIsCalendarActive}
                     />
                 </div>
 
+                {/* description */}
+                <div
+                    className='flex flex-col gap-1.5'
+                >
+                    <p
+                        className='font-medium text-sm pl-3'
+                    >
+                        Project description: 
+                    </p>
+                    <textarea
+                        onChange={(e) => setDescription(e.target.value)}
+                        type="text"
+                        value={description}
+                        className='p-2 pl-3 placeholder:text-dimText outline-none font-medium border-2 border-primary resize-none rounded-md text-xs w-full scrollbar-hide bg-background min-h-40'
+                        placeholder='Enter your projects description...'
+                        required
+                    ></textarea>
+                </div>
+
             </div>
+        </div>
+
+        {/* add new task btn and finish creation btn */}
+        <div
+            className='w-full bottom-0 left-0 flex flex-row items-center gap-2 justify-end bg-secondBackground rounded-b-md absolute p-5'
+        >
+            <button
+                className='p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full'
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </button>
+            <button
+                className='p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full'            
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5 14l4 4L19 8" />
+                </svg>
+            </button>
         </div>
 
     </div>

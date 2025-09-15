@@ -42,3 +42,22 @@ export function formatDate(year, monthIndex, day) {
   console.log(`${day} ${monthNames[monthIndex]} ${year}`)
   return `${day} ${monthNames[monthIndex]} ${year}`;
 };
+
+export function formatDate2(year, monthIndex, day) {
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  
+  // Validate inputs
+  if (monthIndex < 0 || monthIndex > 11) {
+    throw new Error("Month index must be between 0 and 11");
+  }
+  
+  if (day < 1 || day > 31) {
+    throw new Error("Day must be between 1 and 31");
+  }
+  
+  console.log(`${day} ${monthNames[monthIndex]} ${year}`)
+  return `${monthNames[monthIndex]} ${day} ${year}`;
+}
