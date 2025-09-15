@@ -60,7 +60,7 @@ const CalendarPage = () => {
         const newMonthIndex = prevMonthIndex + 1
         // If moving past December, go to January of next year
         if (newMonthIndex > 11) {
-          setSelectedYear(prevYear => prevYear + 1)
+          setSelectedYear(selectedYear + 1)
           return 0
         }
         return newMonthIndex
@@ -70,7 +70,7 @@ const CalendarPage = () => {
         const newMonthIndex = prevMonthIndex - 1
         // If moving before January, go to December of previous year
         if (newMonthIndex < 0) {
-          setSelectedYear(prevYear => prevYear - 1)
+          setSelectedYear(selectedYear - 1)
           return 11
         }
         return newMonthIndex
@@ -99,14 +99,14 @@ const CalendarPage = () => {
 
   }
 
-  useEffect(() => {
-    console.log("selectedMonthIndex: ", selectedMonthIndex)
-    console.log("selectedYear: ", selectedYear)
-    console.log("daysInSelectedMonth:", daysInSelectedMonth)
-    console.log("selectedDayOfMonth: ", selectedDayOfMonth)
-    console.log("selectedDayIndex: ", selectedDayIndex)
-    console.log("numberOfDays: ", daysInSelectedMonth)
-  }, [])
+  // useEffect(() => {
+  //   console.log("selectedMonthIndex: ", selectedMonthIndex)
+  //   console.log("selectedYear: ", selectedYear)
+  //   // console.log("daysInSelectedMonth:", daysInSelectedMonth)
+  //   // console.log("selectedDayOfMonth: ", selectedDayOfMonth)
+  //   // console.log("selectedDayIndex: ", selectedDayIndex)
+  //   // console.log("numberOfDays: ", daysInSelectedMonth)
+  // }, [selectedMonthIndex])
 
   // useEffect(() => {
   //   if (selectedMonthIndex === currentMonthIndex) {
@@ -232,7 +232,7 @@ const CalendarPage = () => {
                 
                 return (
                   <div
-                    className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary" : "bg-background border-primary/20"} border duration-200 hover:border-primary flex flex-col items-start justify-between cursor-pointer`}
+                    className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary" : "bg-background border-primary/10"} border-2 duration-200 hover:border-primary flex flex-col items-start justify-between cursor-pointer`}
                     key={dayNumber}
                     onClick={() => setSelectedDayOfMonth(dayNumber)}
                   >

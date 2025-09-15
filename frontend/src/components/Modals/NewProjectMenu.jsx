@@ -5,7 +5,27 @@ import Calendar from '../General/Calendar'
 const NewProjectMenu = () => {
 
     const { setNewOpenProjectMenu } = useMenu()
+
+    // toggles
     const [isCalendarActive, setIsCalendarActive] = useState(false)
+
+    // state
+    const [projectName, setProjectName] = useState("")
+    const [dueDate, setDueDate] = useState("")
+    const [description, setDescription] = useState("")
+    const [tasks, setTasks] = useState([])
+
+    const handleClosePage = () => {
+
+        setProjectName("")
+        setDueDate("")
+        setDescription("")
+        setTasks([])
+        setIsCalendarActive(false)
+
+        setNewOpenProjectMenu(false)
+
+    }
 
 
   return (
@@ -18,14 +38,14 @@ const NewProjectMenu = () => {
         >
             <button
                 className='p-1 rounded-full bg-background duration-200 hover:bg-primary'
-                onClick={() => setNewOpenProjectMenu(false)}
+                onClick={() => handleClosePage()}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
             </button>
         </div>
 
         <div
-            className='flex flex-col gap-10 overflow-y-scroll px-2 h-full w-full'
+            className='flex flex-col gap-10 overflow-y-scroll px-2 h-full w-full scrollbar-hide'
         >
             {/* title */}
             <div
@@ -58,6 +78,8 @@ const NewProjectMenu = () => {
                         Project Name: 
                     </p>
                     <input
+                        value={projectName}
+                        onChange={(e) => setProjectName(e.target.value)}
                         type="text" 
                         className='p-2 pl-3 placeholder:text-dimText outline-none font-medium border-2 border-primary rounded-md text-xs w-full bg-background'
                         placeholder='Enter a name...'
@@ -75,14 +97,14 @@ const NewProjectMenu = () => {
                         Due Date: 
                     </p>
                     <input
+                        value={dueDate}
                         type="text" 
                         className='p-2 pl-3 placeholder:text-dimText outline-none font-medium border-2 border-primary rounded-md text-xs w-full bg-background'
                         placeholder='Pick a date...'
-                        required
                         readOnly
                     />
                     <button
-                        className='flex absolute top-[2.15rem] right-2.5'
+                        className='flex absolute top-[2.15rem] right-2.5 hover:text-primary duration-200'
                         onClick={() => setIsCalendarActive(!isCalendarActive)}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none">
