@@ -50,7 +50,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
 
         {/* team */}
         <div
-        className='relative w-fit flex items-center justify-start'
+            className='relative w-full flex items-center justify-center'
         >
         {members.slice(0,4).map((member, index) => {
             return (

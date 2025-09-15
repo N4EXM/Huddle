@@ -2,26 +2,23 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const MenuContext = createContext()
 
-export const MockContextProvider = ({ children }) => {
+export const MenuProvider = ({ children }) => {
 
     // toggles
-    const [openProjectMenu, setOpenProjectMenu] = useState(false) // opens the menu to a selected project
-    const [openNewProjectMenu, setNewOpenProjectMenu] = useState(false) // opens a new project menu
-    const [openUserMenu, setOpenUserMenu] = useState(false) // opens the menu containing user info
-    const [openTaskMenu, setOpenTaskMenu] = useState(false) // opens the menu containing a selected task
-    const [openNewTaskMenu, setOpenNewTaskMenu] = useState(false) // opens a new task menu  
-    const [toggleOverlayBackground, setToggleOverlayBackground] = useState(false) // activates the 
+    const [openProjectMenu, setOpenProjectMenu] = useState(false)
+    const [openNewProjectMenu, setNewOpenProjectMenu] = useState(false)
+    const [openUserMenu, setOpenUserMenu] = useState(false)
+    const [openTaskMenu, setOpenTaskMenu] = useState(false)
+    const [openNewTaskMenu, setOpenNewTaskMenu] = useState(false)
+    const [toggleOverlayBackground, setToggleOverlayBackground] = useState(false)
     
     // state data
     const [projectData, setProjectData] = useState({})
     const [taskData, setTaskData] = useState({})
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({}) // Added missing userData state
 
     // functions 
-
-    // dataItemType: 1: project 2: task 3: user
     const handleItemData = (dataItemType, dataObject) => {
-
         if (dataItemType === 1) {
             setProjectData(dataObject)
         }
@@ -31,46 +28,67 @@ export const MockContextProvider = ({ children }) => {
         else {
             setUserData(dataObject)
         }
-
     }
 
     const handleSelectedProject = (projectData) => {
-
         handleItemData(1, projectData)
         setOpenProjectMenu(true)
-
     }
 
     const handleSelectedTask = (taskData) => {
-
         handleItemData(2, taskData)
         setOpenTaskMenu(true)
-
     }
-    
-    // const handle
 
     useEffect(() => {
-        if (openProjectMenu || openNewProjectMenu || openTaskMenu || openNewTaskMenu || openUserMenu) {
-            setToggleOverlayBackground(true)
-        }
-        else if (openProjectMenu && openNewProjectMenu && openTaskMenu && openNewTaskMenu && openUserMenu) {
-            setToggleOverlayBackground(false)
-        }
+        // Check if any menu is open
+        const anyMenuOpen = openProjectMenu || openNewProjectMenu || openTaskMenu || openNewTaskMenu || openUserMenu;
+        
+        setToggleOverlayBackground(anyMenuOpen);
+        
+        // Log the NEW value (this will show in next render)
+        console.log("Overlay background:", anyMenuOpen);
     }, [openProjectMenu, openNewProjectMenu, openTaskMenu, openNewTaskMenu, openUserMenu])
 
-    return (
+    // If you want to see the updated state value, use another useEffect
+    useEffect(() => {
+        console.log("Updated overlay background state:", toggleOverlayBackground);
+    }, [toggleOverlayBackground])
 
-        <MockContextProvider
+    return (
+        <MenuContext.Provider
             value={{
+                // States
+                toggleOverlayBackground,
+                openProjectMenu,
+                openNewProjectMenu,
+                openUserMenu,
+                openTaskMenu,
+                openNewTaskMenu,
+                projectData,
+                taskData,
+                userData,
+                
+                // Setters
                 setToggleOverlayBackground,
+                setOpenProjectMenu,
+                setNewOpenProjectMenu,
+                setOpenUserMenu,
+                setOpenTaskMenu,
+                setOpenNewTaskMenu,
+                setProjectData,
+                setTaskData,
+                setUserData,
+                
+                // Functions
                 handleSelectedProject,
-                handleSelectedTask
+                handleSelectedTask,
+                handleItemData
             }}
         >
-
-        </MockContextProvider>
-
+            {children}
+        </MenuContext.Provider>
     )
-
 } 
+
+export const useMenu = () => useContext(MenuContext)

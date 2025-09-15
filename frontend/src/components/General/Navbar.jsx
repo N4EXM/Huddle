@@ -47,7 +47,7 @@ const Navbar = () => {
                 className='rounded-full border-2 border-primary w-9 h-9 object-center object-fit'
                 alt="" 
             />
-            <div
+            {/* <div
                 className='flex flex-col'
             >
                 <span
@@ -60,7 +60,7 @@ const Navbar = () => {
                 >
                     {currentUser.email}
                 </span>
-            </div>
+            </div> */}
         </div>
 
     </div>
