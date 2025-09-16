@@ -7,6 +7,7 @@ import ProjectListItem from '../components/ProjectsPage/ProjectListItem'
 import { useMenu } from '../context/MenuContext'
 import NewProjectMenu from '../components/Modals/NewProjectMenu'
 import OverlayBackground from '../components/General/OverlayBackground'
+import { getSpecificUsers } from '../utils/userUtils'
 
 const ProjectsPage = () => {
 
@@ -14,7 +15,7 @@ const ProjectsPage = () => {
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
   
   // data
-  const { users, projects, getSpecificUsers } = useMock()
+  const { users, projects } = useMock()
   const { setNewOpenProjectMenu } = useMenu()
 
   return (
@@ -102,7 +103,7 @@ const ProjectsPage = () => {
                     percentage={project.percentage}
                     date={project.date}
                     projectLeaderId={project.projectLeaderId}
-                    teamMembers={getSpecificUsers(project.teamIds)}
+                    teamMembers={getSpecificUsers(project.teamIds, users)}
                   />
                 ))
               : projects.map((project) => (
@@ -114,7 +115,7 @@ const ProjectsPage = () => {
                     percentage={project.percentage}
                     date={project.date}
                     projectLeaderId={project.projectLeaderId}
-                    teamMembers={getSpecificUsers(project.teamIds)}
+                    teamMembers={getSpecificUsers(project.teamIds, users)}
                   />
                 ))
             }

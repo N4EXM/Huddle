@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import Navbar from '../components/General/Navbar'
 import Sidebar from '../components/General/Sidebar'
 import { useMock } from '../context/MockContext'
-import TaskCard from '../components/tasksPage/TaskCard'
-import TaskListItem from '../components/tasksPage/TaskListItem'
+import TaskCard from '../components/TasksPage/TaskCard'
+import TaskListItem from '../components/TasksPage/TaskListItem'
+import { getSpecificUsers } from '../utils/userUtils'
 
 const TasksPage = () => {
 
@@ -11,7 +12,7 @@ const TasksPage = () => {
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
 
   // data
-  const { users, projects, getSpecificUsers, tasks } = useMock()
+  const { users, projects, tasks } = useMock()
 
   return (
     <div
@@ -109,7 +110,7 @@ const TasksPage = () => {
                                 priority={task.priority}
                                 completed={task.completed}
                                 projectId={task.projectId}
-                                teamMembers={getSpecificUsers(project.teamIds)}
+                                teamMembers={getSpecificUsers(project.teamIds, users)}
                               />
                             )})
                       : tasks
@@ -126,7 +127,7 @@ const TasksPage = () => {
                                 priority={task.priority}
                                 completed={task.completed}
                                 projectId={task.projectId}
-                                teamMembers={getSpecificUsers(project.teamIds)}
+                                teamMembers={getSpecificUsers(project.teamIds, users)}
                               />
                             )})
                     }

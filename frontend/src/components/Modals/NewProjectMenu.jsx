@@ -2,10 +2,15 @@ import React, { useState, useRef } from 'react'
 import { useMenu } from '../../context/MenuContext'
 import Calendar from '../General/Calendar'
 import { useAutoResizeTextarea } from '../../hooks/useAutoResizeTextarea'
+import TaskCard from '../TasksPage/TaskCard'
+import { getSpecificUsers } from '../../utils/userUtils'
+import { useMock } from '../../context/MockContext'
 
 const NewProjectMenu = () => {
 
+    // context
     const { setNewOpenProjectMenu } = useMenu()
+    const { users } = useMock()
 
     // toggles
     const [isCalendarActive, setIsCalendarActive] = useState(false)
@@ -14,7 +19,18 @@ const NewProjectMenu = () => {
     const [projectName, setProjectName] = useState("")
     const [dueDate, setDueDate] = useState("")
     const [description, setDescription] = useState("")
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState([
+        {
+            taskId: 0,
+            name: "Create a task card component",
+            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+            date: "Sep 28 2025",
+            priority: "Low",
+            teamIds: [0, 1, 4],
+            completed: false,
+            projectId: 0,
+        },
+    ])
 
     // refs
     const textAreaRef = useAutoResizeTextarea(description) // textArea hook
@@ -34,7 +50,7 @@ const NewProjectMenu = () => {
 
   return (
     <div
-        className={`p-5 bg-secondBackground rounded-md border-2 border-thirdBackground/40 flex flex-col gap-10 shadow-2xl col-start-3 w-full h-full relative`}
+        className={`p-5 bg-secondBackground rounded-md border-2 border-thirdBackground/40 flex flex-col gap-10 shadow-2xl col-start-3 w-full h-full relative overflow-y-scroll`}
     >
         {/* close button */}
         <div
@@ -50,7 +66,7 @@ const NewProjectMenu = () => {
 
         {/* input fields and tasks */}
         <div
-            className='flex flex-col gap-10 overflow-y-scroll px-2 h-full w-full scrollbar-hide'
+            className='flex flex-col gap-10 px-2 h-full w-full overflow-y-scroll scrollbar-hide pb-24'
         >
             {/* title */}
             <div
@@ -70,7 +86,7 @@ const NewProjectMenu = () => {
 
             {/* name, date and description */}
             <div
-                className='flex flex-col gap-4'
+                className='flex flex-col gap-4 w-full h-full '
             >
 
                 {/* name */}
@@ -140,6 +156,41 @@ const NewProjectMenu = () => {
                         placeholder='Enter your projects description...'
                         required
                     ></textarea>
+                </div>
+
+                {/* tasks */}
+                <div
+                    className='flex flex-col gap-4 w-full p-5'
+                >
+                    <div
+                        className='flex flex-col gap-0.5 w-full'
+                    >
+                        <h1
+                            className='text-xl font-semibold'
+                        >
+                            Tasks    
+                        </h1>
+                        <span className='w-full h-0.5 bg-thirdBackground'></span>
+                    </div>
+                    <div
+                        className='w-full h-full flex flex-col gap-4'
+                    >
+                        {
+                            tasks.map((task) => (
+                                <TaskCard
+                                    key={task.taskId}
+                                    id={task.taskId}
+                                    name={task.name}
+                                    description={task.description}
+                                    date={task.date}
+                                    priority={task.priority}
+                                    completed={task.completed}
+                                    projectId={task.projectId}
+                                    teamMembers={getSpecificUsers(task.teamIds, users)}
+                                />
+                            ))
+                        }
+                    </div>
                 </div>
 
             </div>
