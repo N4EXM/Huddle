@@ -1,13 +1,12 @@
-import React, { Children, useEffect, useState } from 'react'
-import { useMenu } from '../../context/MenuContext'
+import React from 'react'
+import { useModal } from '../../context/ModalContext'
 
 const OverlayBackground = ({ children }) => {
-
-  const { toggleOverlayBackground } = useMenu()
+  const { toggleOverlayBackground } = useModal()
 
   return (
     <div
-      className={`p-5 w-full ${toggleOverlayBackground ? "grid" : "hidden"} justify-start items-start grid-cols-3 min-h-screen bg-background/60 absolute z-20 left-0 top-0 max-h-screen overflow-y-hidden grid`}
+      className={`p-5 w-full ${toggleOverlayBackground ? "flex" : "hidden"} justify-start items-start min-h-screen bg-background/60 absolute z-20 left-0 top-0 max-h-screen flex-row-reverse overflow-hidden gap-4`}
     >
       {children}
     </div>

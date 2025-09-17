@@ -4,10 +4,11 @@ import Navbar from '../components/General/Navbar'
 import { useMock } from '../context/MockContext'
 import ProjectCard from '../components/ProjectsPage/ProjectCard'
 import ProjectListItem from '../components/ProjectsPage/ProjectListItem'
-import { useMenu } from '../context/MenuContext'
+import { useModal } from '../context/ModalContext'
 import NewProjectMenu from '../components/Modals/NewProjectMenu'
 import OverlayBackground from '../components/General/OverlayBackground'
 import { getSpecificUsers } from '../utils/userUtils'
+import NewTaskMenu from '../components/Modals/NewTaskMenu'
 
 const ProjectsPage = () => {
 
@@ -16,7 +17,7 @@ const ProjectsPage = () => {
   
   // data
   const { users, projects } = useMock()
-  const { setNewOpenProjectMenu } = useMenu()
+  const { setNewOpenProjectMenu } = useModal()
 
   return (
     <div
@@ -26,7 +27,8 @@ const ProjectsPage = () => {
       <Navbar/>
 
       <OverlayBackground>
-        <NewProjectMenu></NewProjectMenu>
+        <NewProjectMenu/>
+        <NewTaskMenu/>
       </OverlayBackground>
 
       <div

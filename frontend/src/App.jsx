@@ -11,7 +11,7 @@ import TasksPage from './pages/TasksPage'
 import UserDetialsPage from './pages/UserDetailsPage'
 import CalendarPage from './pages/CalendarPage'
 import { MockProvider } from './context/MockContext'
-import { MenuProvider } from './context/MenuContext'
+import { ModalProvider } from './context/ModalContext'
 
 function App() {
 
@@ -29,7 +29,7 @@ function App() {
     >
       <BrowserRouter>
         <MockProvider>
-          <MenuProvider>
+          <ModalProvider>
             <Routes>
               <Route
                 index
@@ -65,7 +65,7 @@ function App() {
                 element={loading ? <CalendarPage/> : <LoadingPage/>}
               />
             </Routes>
-          </MenuProvider>
+          </ModalProvider>
         </MockProvider>
       </BrowserRouter>
     </div>

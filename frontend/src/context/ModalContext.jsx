@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const MenuContext = createContext()
+const ModalContext = createContext()
 
-export const MenuProvider = ({ children }) => {
+export const ModalProvider = ({ children }) => {
 
     // toggles
     const [openProjectMenu, setOpenProjectMenu] = useState(false)
@@ -13,6 +13,7 @@ export const MenuProvider = ({ children }) => {
     const [toggleOverlayBackground, setToggleOverlayBackground] = useState(false)
     
     // state data
+    const [currentTasks, setCurrentTasks] = useState([]) // tasks to be added to a new project
     const [projectData, setProjectData] = useState({})
     const [taskData, setTaskData] = useState({})
     const [userData, setUserData] = useState({}) // Added missing userData state
@@ -56,7 +57,7 @@ export const MenuProvider = ({ children }) => {
     }, [toggleOverlayBackground])
 
     return (
-        <MenuContext.Provider
+        <ModalContext.Provider
             value={{
                 // States
                 toggleOverlayBackground,
@@ -68,6 +69,7 @@ export const MenuProvider = ({ children }) => {
                 projectData,
                 taskData,
                 userData,
+                currentTasks,
                 
                 // Setters
                 setToggleOverlayBackground,
@@ -79,6 +81,7 @@ export const MenuProvider = ({ children }) => {
                 setProjectData,
                 setTaskData,
                 setUserData,
+                setCurrentTasks,
                 
                 // Functions
                 handleSelectedProject,
@@ -87,8 +90,8 @@ export const MenuProvider = ({ children }) => {
             }}
         >
             {children}
-        </MenuContext.Provider>
+        </ModalContext.Provider>
     )
 } 
 
-export const useMenu = () => useContext(MenuContext)
+export const useModal = () => useContext(ModalContext)

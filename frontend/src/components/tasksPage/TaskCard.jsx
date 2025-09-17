@@ -91,7 +91,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                     </p>
                 </div>
             </div>
-            <span className='h-[0.04rem] w-full bg-primary'></span>
+            <span className='min-h-0.5 rounded-md w-full bg-primary'></span>
         </div>
         
         {/* description */}
