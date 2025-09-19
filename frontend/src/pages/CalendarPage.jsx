@@ -3,12 +3,13 @@ import Sidebar from '../components/General/Sidebar'
 import Navbar from '../components/General//Navbar'
 import { useMock } from '../context/MockContext'
 import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentYear, getDaysInMonth, formatDate } from '../utils/dateUtils'
+import { getSpecificUsers } from '../utils/userUtils'
 import TaskCard from '../components/CalendarPage/TaskCard'
 
 const CalendarPage = () => {
 
   // context
-  const { tasks, getSpecificUsers } = useMock()
+  const { tasks, users } = useMock()
   
   // date values
   const currentDayOfMonth = getCurrentDate()
@@ -292,7 +293,7 @@ const CalendarPage = () => {
                   name={task.name}
                   priority={task.priority}
                   description={task.description}
-                  teamMembers={getSpecificUsers(task.teamIds)}
+                  teamMembers={getSpecificUsers(task.teamIds, users)}
                 />
               ))
             }

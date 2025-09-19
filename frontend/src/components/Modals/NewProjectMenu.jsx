@@ -9,39 +9,62 @@ import { useMock } from '../../context/MockContext'
 const NewProjectMenu = () => {
 
     // context
-    const { setNewOpenProjectMenu, currentTasks } = useModal()
+    const { setNewOpenProjectMenu, currentTasks, setOpenNewTaskMenu } = useModal()
     const { users } = useMock()
 
     // toggles
     const [isCalendarActive, setIsCalendarActive] = useState(false)
 
     // state
-    const [view, setView] = useState("tasks") //  details |  tasks
+    const [view, setView] = useState("details") //  details |  tasks
     const [projectName, setProjectName] = useState("")
     const [dueDate, setDueDate] = useState("")
     const [description, setDescription] = useState("")
     const [tasks, setTasks] = useState([
-        {
-            taskId: 0,
-            name: "Create a task card component",
-            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
-            date: "Sep 28 2025",
-            priority: "Low",
-            teamIds: [0, 1, 4],
-            completed: false,
-            projectId: 0,
-        },
-        {
-            taskId: 1,
-            name: "Create a task card component",
-            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
-            date: "Sep 28 2025",
-            priority: "Low",
-            teamIds: [0, 1, 4],
-            completed: false,
-            projectId: 0,
-        },
+        // {
+        //     taskId: 0,
+        //     name: "Create a task card component",
+        //     description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+        //     date: "Sep 28 2025",
+        //     priority: "Low",
+        //     teamIds: [0, 1, 4],
+        //     completed: false,
+        //     projectId: 0,
+        // },
+        // {
+        //     taskId: 1,
+        //     name: "Create a task card component",
+        //     description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+        //     date: "Sep 28 2025",
+        //     priority: "Low",
+        //     teamIds: [0, 1, 4],
+        //     completed: false,
+        //     projectId: 0,
+        // },
+        // {
+        //     taskId: 2,
+        //     name: "Create a task card component",
+        //     description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+        //     date: "Sep 28 2025",
+        //     priority: "Low",
+        //     teamIds: [0, 1, 4],
+        //     completed: false,
+        //     projectId: 0,
+        // },
+        // {
+        //     taskId: 4,
+        //     name: "Create a task card component",
+        //     description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+        //     date: "Sep 28 2025",
+        //     priority: "Low",
+        //     teamIds: [0, 1, 4],
+        //     completed: false,
+        //     projectId: 0,
+        // },
     ])
+
+    // btns
+    const viewBtns = ["details", "tasks"]
 
     // refs
     const textAreaRef = useAutoResizeTextarea(description) // textArea hook
@@ -53,7 +76,7 @@ const NewProjectMenu = () => {
         setDescription("")
         setTasks([])
         setIsCalendarActive(false)
-
+        setOpenNewTaskMenu(false)
         setNewOpenProjectMenu(false)
 
     }
@@ -65,7 +88,7 @@ const NewProjectMenu = () => {
     >
 
         <div
-            className='p-5 pb-0 flex flex-col gap-10 w-full h-full  overflow-y-scroll scrollbar-hide'
+            className={`p-5  flex flex-col gap-8 w-full h-full scrollbar-hide`}
         >
             {/* close button */}
             <div
@@ -77,6 +100,22 @@ const NewProjectMenu = () => {
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
                 </button>
+            </div>
+
+            {/* view buttons */}
+            <div
+                className='flex flex-row items-center gap-2 w-full h-fit'
+            >
+                {
+                    viewBtns.map((viewBtn) => (
+                        <button
+                            className={`p-2 px-3 bg-background border-2 border-background ${viewBtn === view && "border-b-primary text-primary"} rounded-md rounded-b-none text-xs font-medium duration-200`}
+                            onClick={() => setView(viewBtn)}
+                        >   
+                            {viewBtn}
+                        </button>
+                    ))
+                }
             </div>
 
             {
@@ -177,23 +216,103 @@ const NewProjectMenu = () => {
                         </div>
                     </div>
                 
-                : <div>
-                    hi
-                  </div> 
+                :   <div
+                        className='flex flex-col gap-5 w-full h-full overflow-y-scroll scrollbar-hide'
+                    >
+                        
+                        {/* title */}
+                        <div
+                            className='flex flex-col gap-1'
+                        >
+                            <h1
+                                className='font-semibold text-xl'
+                            >
+                                Tasks
+                            </h1>
+                            <span className='w-full h-0.5 bg-primary rounded-md'></span>
+                        </div>
+
+                        <div
+                            className='flex flex-col gap-4 w-full h-fit'
+                        >
+                            {
+                                tasks.length > 0 
+                                ? tasks.map((task, index) => (
+                                        <div
+                                            className='flex flex-row items-start justify-start gap-5'
+                                        >
+                                            <p
+                                                className='flex items-center justify-center w-8 h-7 px-0.5 bg-background rounded-full border-2 border-primary text-xs mt-4'
+                                            >
+                                                {index + 1}
+                                            </p>
+                                            <TaskCard
+                                                key={task.taskId}
+                                                id={task.taskId}
+                                                name={task.name}
+                                                description={task.description}
+                                                date={task.date}
+                                                priority={task.priority}
+                                                completed={task.completed}
+                                                projectId={task.projectId}
+                                                teamMembers={getSpecificUsers(task.teamIds, users)}
+                                            />
+                                        </div>
+                                    )) 
+                                :   <div
+                                        className={`flex flex-col items-center gap-3 w-full h-full justify-center min-h-[55vh]`}
+                                    >
+                                        <span
+                                            className='p-3.5 text-primary bg-background rounded-full'
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><g fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2m7 7l-6 6m0-6l6 6"/></g></svg>
+                                        </span>
+
+                                        <div
+                                            className='flex flex-col gap-2 w-full items-center'
+                                        >
+                                        <h2
+                                            className='text-lg font-bold'
+                                        >
+                                            No tasks
+                                        </h2>
+                                        <p
+                                            className='px-20 text-center text-sm text-dimText'
+                                        >
+                                            Create a task to view the contents of the task
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div> 
             }
 
-            {/* add new task btn and finish creation btn */}
-            <div
-                className='w-full h-full flex flex-row items-center gap-2 justify-end bg-secondBackground rounded-b-md '
-            >
-                <button
-                    className={`${projectName === "" || dueDate === "" || description === "" ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}           
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5 14l4 4L19 8" />
-                    </svg>
-                </button> 
-            </div>
+           
+            {
+                view === "details"
+                ?   <div
+                        className={`${view === "details" ? "flex" : "hidden"} w-full h-full flex-row items-center gap-2 justify-end bg-secondBackground rounded-b-md`}
+                    >
+                        <button
+                            className={`${projectName === "" || dueDate === "" || description === "" || tasks.length <= 0 ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}           
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m5 14l4 4L19 8" />
+                            </svg>
+                        </button> 
+                    </div>
+                :   <div
+                        className={`${view === "tasks" ? "flex" : "hidden"} w-full h-fit flex-row items-center gap-2 justify-end bg-secondBackground rounded-b-md`}
+                    >
+                        <button
+                            className={`p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full `}     
+                            onClick={() => setOpenNewTaskMenu(true)}      
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        </button> 
+                    </div>
+            }
 
         </div>
 

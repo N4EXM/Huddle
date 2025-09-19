@@ -15,7 +15,7 @@ const StatisticsCard = ({title, num, extraNum, icon, extraText = "than last mont
                 {title}
             </p>
             <div
-                className='flex flex-col gap-2 w-fit'
+                className='flex flex-col h-full justify-between w-fit'
             >   
                 <p
                     className='text-4xl font-semibold md:text-text-3xl'
@@ -23,7 +23,7 @@ const StatisticsCard = ({title, num, extraNum, icon, extraText = "than last mont
                     {num}
                 </p>
                 <p
-                    className='text-xs flex flex-row items-center gap-2 pl-0.5 text-primary'
+                    className='text-xs flex flex-row items-center gap-2 pl-0.5 text-primary w-full'
                 >
                     <span
                         className='p-0.5 px-1 rounded-lg border border-primary text-text text-(length:--font-size-xxs)'
