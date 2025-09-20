@@ -51,16 +51,16 @@ const NewProjectMenu = () => {
         //     completed: false,
         //     projectId: 0,
         // },
-        // {
-        //     taskId: 4,
-        //     name: "Create a task card component",
-        //     description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
-        //     date: "Sep 28 2025",
-        //     priority: "Low",
-        //     teamIds: [0, 1, 4],
-        //     completed: false,
-        //     projectId: 0,
-        // },
+        {
+            taskId: 4,
+            name: "Create a task card component",
+            description: "Create a task card component that shows the title of the card the paragraph of the card, and the date its due.",
+            date: "Sep 28 2025",
+            priority: "Low",
+            teamIds: [0, 1, 4],
+            completed: false,
+            projectId: 0,
+        },
     ])
 
     // btns
@@ -88,7 +88,7 @@ const NewProjectMenu = () => {
     >
 
         <div
-            className={`p-5  flex flex-col gap-8 w-full h-full scrollbar-hide`}
+            className={`p-5  flex flex-col gap-8 w-full h-full scrollbar-hide overflow-y-scroll`}
         >
             {/* close button */}
             <div
@@ -107,8 +107,9 @@ const NewProjectMenu = () => {
                 className='flex flex-row items-center gap-2 w-full h-fit'
             >
                 {
-                    viewBtns.map((viewBtn) => (
+                    viewBtns.map((viewBtn, index) => (
                         <button
+                            key={index}
                             className={`p-2 px-3 bg-background border-2 border-background ${viewBtn === view && "border-b-primary text-primary"} rounded-md rounded-b-none text-xs font-medium duration-200`}
                             onClick={() => setView(viewBtn)}
                         >   
@@ -309,7 +310,7 @@ const NewProjectMenu = () => {
                             className={`p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full `}     
                             onClick={() => setOpenNewTaskMenu(true)}      
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                         </button> 
                     </div>
             }

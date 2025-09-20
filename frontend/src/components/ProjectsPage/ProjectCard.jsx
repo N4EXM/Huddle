@@ -43,9 +43,9 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
     handlePriorityColour()
   }, [])
 
-  useEffect(() => {
-    console.log(members)
-  }, [members])
+  // useEffect(() => {
+  //   console.log(members)
+  // }, [members])
 
   return (
     <div

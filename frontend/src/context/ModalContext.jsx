@@ -1,4 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useMock } from "./MockContext";
+import { getDatePriority } from '../utils/dateUtils'
+import { generateRandomId } from "../utils/dataUtils";
 
 const ModalContext = createContext()
 
@@ -13,12 +16,30 @@ export const ModalProvider = ({ children }) => {
     const [toggleOverlayBackground, setToggleOverlayBackground] = useState(false)
     
     // state data
+    const projectId = generateRandomId()
     const [currentTasks, setCurrentTasks] = useState([]) // tasks to be added to a new project
     const [projectData, setProjectData] = useState({})
     const [taskData, setTaskData] = useState({})
-    const [userData, setUserData] = useState({}) // Added missing userData state
+    const [userData, setUserData] = useState({}) 
 
     // functions 
+
+    const handleAddNewTask = (name, description, date, members) => {
+        
+        const newTask = {
+            taskId: generateRandomId(),
+            name: name,
+            description: description,
+            date: date,
+            priority: getDatePriority(date),
+            teamIds: members,
+            projectId: projectId,
+            completed:false
+        }
+
+        return newTask
+    }
+
     const handleItemData = (dataItemType, dataObject) => {
         if (dataItemType === 1) {
             setProjectData(dataObject)
@@ -86,7 +107,8 @@ export const ModalProvider = ({ children }) => {
                 // Functions
                 handleSelectedProject,
                 handleSelectedTask,
-                handleItemData
+                handleItemData,
+                handleAddNewTask
             }}
         >
             {children}
