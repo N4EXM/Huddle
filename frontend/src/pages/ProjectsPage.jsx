@@ -20,7 +20,7 @@ const ProjectsPage = () => {
 
   return (
     <div
-      className='w-full h-screen max-h-screen bg-background p-8 grid grid-cols-12 grid-rows-12 text-text gap-4 relative'
+      className='w-full h-screen max-h-screen bg-background grid grid-cols-12 grid-rows-12 text-text relative overflow-hidden'
     >
       <Sidebar/>
       <Navbar/>
@@ -34,7 +34,7 @@ const ProjectsPage = () => {
       </OverlayBackground>
 
       <div
-        className='w-full h-full col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4'
+        className='w-full h-[92.5vh] col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4 p-8'
       >
           
         {/* title */}

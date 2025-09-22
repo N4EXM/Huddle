@@ -13,7 +13,7 @@ const DashboardPage = () => {
       <Sidebar/>
       <Navbar/>
       <div
-        className='w-full h-[92.5vh] col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4 p-8'
+        className='w-full h-[92.5vh] col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4 p-8 px-6'
       >
         
         {/* title */}
