@@ -11,7 +11,6 @@ import TasksPage from './pages/TasksPage'
 import UserDetialsPage from './pages/UserDetailsPage'
 import CalendarPage from './pages/CalendarPage'
 import { MockProvider } from './context/MockContext'
-import { ModalProvider } from './context/ModalContext'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -31,43 +30,41 @@ function App() {
       <BrowserRouter>
         <MockProvider>
           <AuthProvider>
-            <ModalProvider>
-              <Routes>
-                <Route
-                  index
-                  path='/'
-                  element={loading ? <DashboardPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Projects'
-                  element={loading ? <ProjectsPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Login'
-                  element={loading ? <LoginPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Register'
-                  element={loading ? <RegisterPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Projects/:name'
-                  element={loading ? <SelectedProjectPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Tasks'
-                  element={loading ? <TasksPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/User'
-                  element={loading ? <UserDetialsPage/> : <LoadingPage/>}
-                />
-                <Route
-                  path='/Calendar'
-                  element={loading ? <CalendarPage/> : <LoadingPage/>}
-                />
-              </Routes>
-            </ModalProvider>
+            <Routes>
+              <Route
+                index
+                path='/'
+                element={loading ? <DashboardPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Projects'
+                element={loading ? <ProjectsPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Login'
+                element={loading ? <LoginPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Register'
+                element={loading ? <RegisterPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Projects/:name'
+                element={loading ? <SelectedProjectPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Tasks'
+                element={loading ? <TasksPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/User'
+                element={loading ? <UserDetialsPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Calendar'
+                element={loading ? <CalendarPage/> : <LoadingPage/>}
+              />
+            </Routes>
           </AuthProvider>
         </MockProvider>
       </BrowserRouter>

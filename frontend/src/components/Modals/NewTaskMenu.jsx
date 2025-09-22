@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useModal } from '../../context/ModalContext'
 import TeamSearchBar from '../General/TeamSearchBar'
 import Calendar from '../General/Calendar'
 import TeamMemberCard from '../General/TeamMemberCard'
 import { useMock } from '../../context/MockContext'
 import { data } from 'react-router-dom'
 
-const NewTaskMenu = () => {
+const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) => {
 
-    const { currentTasks, setCurrentTasks, openNewTaskMenu, setOpenNewTaskMenu, handleAddNewTask } = useModal()
     const { users } = useMock()
 
     // toggles
@@ -21,6 +19,7 @@ const NewTaskMenu = () => {
     const [teamMembers, setTeamMembers] = useState([])
     const [searchQuery, setSearchQuery] = useState("")
     const [debounceTerm, setDebounceTerm] = useState("")
+    const [membersId, setMembersId] = useState([])
 
     // functions
     const handleClosePage = () => {
@@ -38,6 +37,7 @@ const NewTaskMenu = () => {
     const handleAddMember = (user) => {
         if (!teamMembers.includes(user)) {
             setTeamMembers([...teamMembers, user])
+            setMembersId([...membersId, user.userId])
             setSearchQuery("")
         }
         else {
@@ -60,13 +60,16 @@ const NewTaskMenu = () => {
 
         return () => clearTimeout(timerId);
     }, [searchQuery])
+
+    useEffect(() => {
+        console.log(membersId)
+    }, [membersId])
     
 
   return (
     <div
         className={`bg-secondBackground  rounded-md border-2 relative border-thirdBackground/40 w-1/3 h-[95vh] ${openNewTaskMenu ? "flex" : "hidden"}`}
     >
-
         <div
             className='p-5 flex flex-col gap-8 w-full h-full  overflow-y-scroll scrollbar-hide'
         >
@@ -277,7 +280,7 @@ const NewTaskMenu = () => {
                 >
                     <button
                         className={`${name === "" || dueDate === "" || description === "" || teamMembers.length <= 0 ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}    
-                        onClick={() => handleAddNewTask(name, description, dueDate, )}       
+                        onClick={() => handleAddNewTask(name, description, dueDate, membersId)}       
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m5 14l4 4L19 8" />

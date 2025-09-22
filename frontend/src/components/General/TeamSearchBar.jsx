@@ -43,38 +43,35 @@ const TeamSearchBar = ({ searchQuery, setSearchQuery, filteredUsers, handleAddMe
             </svg>
         </div>
         <div
-            className={`flex-col ${isDropDownActive ? "flex" : "hidden"} border-2 border-thirdBackground absolute top-12 left-0 rounded-md w-full bg-secondBackground divide-y-2 divide-thirdBackground`}
+            className={`flex-col border-2 border-thirdBackground absolute top-12 left-0 rounded-md w-full bg-secondBackground divide-y-2 divide-thirdBackground transition-all duration-300 ease-in-out ${
+                isDropDownActive 
+                    ? "flex opacity-100 translate-y-0" 
+                    : "hidden opacity-0 -translate-y-2"
+            }`}
+            style={{ maxHeight: '200px', overflowY: 'auto' }}
         >  
-            {
-                filteredUsers.map((user, index) => (
-                    <div
-                        className={`${index === 0 && "rounded-t-md"} ${index === filteredUsers.length -     1 && "rounded-b-md"} flex flex-row items-center hover:bg-background bg-secondBackground gap-2 duration-200 p-2 cursor-pointer`}
-                        onClick={() => handleAddMember(user)}
-                    >
-                        <img 
-                            src={user.image} 
-                            alt="userImage"
-                            className='w-9 h-8 max-h-8 max-w-8 rounded-full' 
-                         />
-                         {/* name and email */}
-                        <div
-                            className='flex flex-col gap-0'
-                        >
-                            <h1
-                                className='font-semibold text-xs'
-                            >
-                                {user.name}
-                            </h1>
-                            <p
-                                className='text-dimText text-[10px]'
-                            >
-                                {user.email}
-                            </p>
-                        </div>
+            {filteredUsers.map((user, index) => (
+                <div
+                    key={user.userId} // Always add keys!
+                    className={`flex flex-row items-center hover:bg-background bg-secondBackground gap-2 duration-200 p-2 cursor-pointer transition-colors ${
+                        index === 0 && "rounded-t-md"
+                    } ${
+                        index === filteredUsers.length - 1 && "rounded-b-md"
+                    }`}
+                    onClick={() => handleAddMember(user)}
+                >
+                    <img 
+                        src={user.image} 
+                        alt="userImage"
+                        className='w-9 h-8 max-h-8 max-w-8 rounded-full object-cover transition-transform duration-200 hover:scale-105' 
+                    />
+                    <div className='flex flex-col gap-0'>
+                        <h1 className='font-semibold text-xs'>{user.name}</h1>
+                        <p className='text-dimText text-[10px]'>{user.email}</p>
                     </div>
-                ))
-            }
-        </div>  
+                </div>
+            ))}
+        </div>
 
     </div>
   )

@@ -48,7 +48,7 @@ export const MockProvider = ({ children }) => {
         },
     ]
 
-    const projects = [
+    const [projects, setProjects] = useState([
         {
             projectId: 0
             ,
@@ -93,9 +93,9 @@ export const MockProvider = ({ children }) => {
             date: "oct 10 2025",
             teamIds: [0, 1 ,4]
         },
-    ]
+    ])
 
-    const tasks = [
+    const [tasks, setTasks] = useState([
         {
             taskId: 0,
             name: "Create a task card component",
@@ -256,7 +256,7 @@ export const MockProvider = ({ children }) => {
             completed: false,
             projectId: 0,
         }
-    ];
+    ])
 
     const userTasks = [
         {
@@ -313,7 +313,20 @@ export const MockProvider = ({ children }) => {
 
     return (
         <MockContext.Provider 
-            value={{ users, projects, tasks, userTasks , currentUser }}
+            value={{ 
+                
+                // state
+                users,
+                projects,
+                tasks,
+                userTasks,
+                currentUser,
+                
+                // setters
+                setTasks,
+                setProjects
+
+            }}
         >
             {children}
         </MockContext.Provider>

@@ -4,7 +4,6 @@ import Navbar from '../components/General/Navbar'
 import { useMock } from '../context/MockContext'
 import ProjectCard from '../components/ProjectsPage/ProjectCard'
 import ProjectListItem from '../components/ProjectsPage/ProjectListItem'
-import { useModal } from '../context/ModalContext'
 import NewProjectMenu from '../components/Modals/NewProjectMenu'
 import OverlayBackground from '../components/General/OverlayBackground'
 import { getSpecificUsers } from '../utils/userUtils'
@@ -14,10 +13,10 @@ const ProjectsPage = () => {
 
   // toggles
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
-  
+  const [toggleOverlay, setToggleOverlay] = useState(false) 
+
   // data
   const { users, projects } = useMock()
-  const { setNewOpenProjectMenu } = useModal()
 
   return (
     <div
@@ -26,9 +25,12 @@ const ProjectsPage = () => {
       <Sidebar/>
       <Navbar/>
 
-      <OverlayBackground>
-        <NewProjectMenu/>
-        <NewTaskMenu/>
+      <OverlayBackground
+        toggleOverlayBackground={toggleOverlay}
+      >
+        <NewProjectMenu
+          setToggleOverlay={setToggleOverlay}
+        />
       </OverlayBackground>
 
       <div
@@ -83,7 +85,7 @@ const ProjectsPage = () => {
             {/* new project card */}
             <button
               className='text-sm p-2 px-3 flex items-center gap-1 border border-primary rounded-md duration-200 hover:bg-primary'
-              onClick={() => setNewOpenProjectMenu(true)}
+              onClick={() => setToggleOverlay(true)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" d="M12 4.5v15m7.5-7.5h-15"/></svg>
               Project

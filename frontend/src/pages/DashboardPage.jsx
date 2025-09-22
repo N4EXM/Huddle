@@ -8,12 +8,12 @@ import PendingProjectsCard from '../components/HomePage/PendingProjectsCard'
 const DashboardPage = () => {
   return (
     <div
-      className='w-full h-screen max-h-screen bg-background p-8 grid grid-cols-12 grid-rows-12 text-text gap-4'
+      className='w-full h-screen max-h-screen bg-background  grid grid-cols-12 grid-rows-12 text-text overflow-hidden'
     >
       <Sidebar/>
       <Navbar/>
       <div
-        className='w-full h-full col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4'
+        className='w-full h-[92.5vh] col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4 p-8'
       >
         
         {/* title */}

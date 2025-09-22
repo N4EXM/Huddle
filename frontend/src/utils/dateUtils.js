@@ -88,12 +88,12 @@ export function getDatePriority (dateString) {
   
   // Determine priority
   if (daysDiff < 0) {
-    return "overdue"; // Date is in the past
+    return "Overdue"; // Date is in the past
   } else if (daysDiff <= 3) {
-    return "high"; // Due in 3 days or less
+    return "High"; // Due in 3 days or less
   } else if (daysDiff <= 7) {
-    return "medium"; // Due in 4-7 days
+    return "Medium"; // Due in 4-7 days
   } else {
-    return "low"; // Due in more than 7 days
+    return "Low"; // Due in more than 7 days
   }
 };

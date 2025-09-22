@@ -1,8 +1,6 @@
 import React from 'react'
-import { useModal } from '../../context/ModalContext'
 
-const OverlayBackground = ({ children }) => {
-  const { toggleOverlayBackground } = useModal()
+const OverlayBackground = ({ children, toggleOverlayBackground }) => {
 
   return (
     <div

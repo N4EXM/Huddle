@@ -52,7 +52,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
         <h1
             className='font-semibold pr-10 text-teal-50 min-h-12'
         >
-            {name}
+            {truncateText(name, 50)}
         </h1>
 
         {/* date and team */}
@@ -84,8 +84,8 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                     )
                     })}
                     <p
-                    className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
-                    style={{ left: `${overlapAmount * 15}px` }}              
+                        className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                        style={{ left: `${overlapAmount * 15}px` }}              
                     >
                     {teamMembers.length}+ 
                     </p>

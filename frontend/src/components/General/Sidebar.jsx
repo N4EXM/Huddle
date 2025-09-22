@@ -53,7 +53,7 @@ const Sidebar = () => {
 
   return (
     <div
-        className='col-span-3 bg-secondBackground row-span-12 rounded-lg flex flex-col gap-12'
+        className='col-span-3 bg-secondBackground row-span-12 border-r border-thirdBackground flex flex-col gap-12'
     >
         
         {/* title */}

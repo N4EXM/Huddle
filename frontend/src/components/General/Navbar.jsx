@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <div
-        className='w-full col-start-4 col-span-9 p-5 px-4 rounded-lg row-span-2 bg-secondBackground mb-8 flex items-center justify-between '
+        className='w-full col-start-4 col-span-9 p-8 row-span-1 bg-background flex items-center justify-between '
     >
         {/* search bar */}
         <div
@@ -22,7 +22,7 @@ const Navbar = () => {
         >
             <input 
                 type="text"
-                className='p-2 pl-12 text-sm bg-accent rounded-md w-64 outline-none '
+                className='lg:p-2 lg:pl-12 lg:text-sm bg-accent rounded-md w-64 outline-none md:text-xs md:p-1 md:pl-10'
                 placeholder='Search...' 
             />
             <i
