@@ -32,6 +32,13 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
     
     }
 
+    const truncateText = (str, maxLength) => {
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
+    }
+
     useEffect(() => {
         handlePriorityColour()
     }, [])
@@ -45,7 +52,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
         <p
             className='font-bold'
         >
-            {name}
+            {truncateText(name, 25)}
         </p>
 
         {/* team */}

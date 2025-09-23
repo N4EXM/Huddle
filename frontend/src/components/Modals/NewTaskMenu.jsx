@@ -28,6 +28,7 @@ const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) =>
         setDueDate("")
         setDescription("")
         setTeamMembers([])
+        setMembersId([])
         setIsCalendarActive(false)
 
         setOpenNewTaskMenu(false)
@@ -49,10 +50,18 @@ const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) =>
         setTeamMembers(prevMembers => prevMembers.filter(member => member.userId !== userId))
     }
 
+    const handleNewTask = () => {
+
+        handleAddNewTask(name, description, dueDate, membersId)
+        handleClosePage()
+
+    }
+
     const filteredUsers = useMemo(() => {
         return users.filter(user => user.name.toLowerCase().includes(debounceTerm.toLowerCase()))
     }, [users, debounceTerm])
 
+    
     useEffect(() => {
         const timerId = setTimeout(() => {
             setDebounceTerm(searchQuery);
@@ -280,7 +289,7 @@ const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) =>
                 >
                     <button
                         className={`${name === "" || dueDate === "" || description === "" || teamMembers.length <= 0 ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}    
-                        onClick={() => handleAddNewTask(name, description, dueDate, membersId)}       
+                        onClick={() => handleNewTask()}       
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m5 14l4 4L19 8" />

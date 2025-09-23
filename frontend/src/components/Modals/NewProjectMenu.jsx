@@ -13,7 +13,7 @@ import { useAuth } from '../../context/AuthContext'
 const NewProjectMenu = ({ setToggleOverlay }) => {
 
     // context
-    const { users, setProjects, setTasks } = useMock()
+    const { users, setProjects, setTasks, projects, tasks } = useMock()
     const { user } = useAuth()
 
     // toggles
@@ -40,7 +40,7 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
         setProjectName("")
         setDueDate("")
         setDescription("")
-        setTasks([])
+        setNewTasks([])
         setToggleOverlay(false)
         setIsCalendarActive(false)
         setOpenNewTaskMenu(false)
@@ -60,13 +60,17 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
             teamIds: [0 ,2 ,3],
         }
 
-        
+        setProjects([...projects, newProject])
+        setTasks(prevTasks => [...prevTasks, ...newTasks])
+
+        handleClosePage()
 
     }
 
     const handleAddNewTask = (name, description, date, members) => {
 
         const newTask = {
+            taskId: generateRandomId(),
             name: name,
             description: description,
             date: date,
@@ -76,10 +80,7 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
             projectId: projectId
         }
 
-        setNewTasks([...newTasks, newTask])
-
-        setOpenNewTaskMenu(false)
-
+        setNewTasks([...newTasks, newTask]) 
     }
 
   return (
@@ -242,6 +243,7 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
                                     ? newTasks.map((task, index) => (
                                             <div
                                                 className='flex flex-row items-start justify-start gap-5'
+                                                key={task.taskId}
                                             >
                                                 <p
                                                     className='flex items-center justify-center w-8 h-7 px-0.5 bg-background rounded-full border-2 border-primary text-xs mt-4'
@@ -249,7 +251,6 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
                                                     {index + 1}
                                                 </p>
                                                 <TaskCard
-                                                    key={task.taskId}
                                                     id={task.taskId}
                                                     name={task.name}
                                                     description={task.description}
@@ -297,7 +298,8 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
                             className={`${view === "details" ? "flex" : "hidden"} w-full h-full flex-row items-center gap-2 justify-end bg-secondBackground rounded-b-md`}
                         >
                             <button
-                                className={`${projectName === "" || dueDate === "" || description === "" || tasks.length <= 0 ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}           
+                                className={`${projectName === "" || dueDate === "" || description === "" || newTasks.length <= 0 ? "hidden" : "flex"} p-2 bg-background hover:bg-primary duration-200 border-primary border-2 rounded-full`}      
+                                onClick={() => handleCreateProject()}     
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m5 14l4 4L19 8" />

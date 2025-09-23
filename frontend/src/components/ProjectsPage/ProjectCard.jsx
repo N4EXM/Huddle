@@ -62,7 +62,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           <h1
             className='text-lg font-semibold'
           >
-            {name}
+            {truncateText(name, 30)}
           </h1>
           <p
             className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}

@@ -40,14 +40,7 @@ function App() {
                 path='/Projects'
                 element={loading ? <ProjectsPage/> : <LoadingPage/>}
               />
-              <Route
-                path='/Login'
-                element={loading ? <LoginPage/> : <LoadingPage/>}
-              />
-              <Route
-                path='/Register'
-                element={loading ? <RegisterPage/> : <LoadingPage/>}
-              />
+              
               <Route
                 path='/Projects/:name'
                 element={loading ? <SelectedProjectPage/> : <LoadingPage/>}
@@ -63,6 +56,14 @@ function App() {
               <Route
                 path='/Calendar'
                 element={loading ? <CalendarPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Login'
+                element={loading ? <LoginPage/> : <LoadingPage/>}
+              />
+              <Route
+                path='/Register'
+                element={loading ? <RegisterPage/> : <LoadingPage/>}
               />
             </Routes>
           </AuthProvider>

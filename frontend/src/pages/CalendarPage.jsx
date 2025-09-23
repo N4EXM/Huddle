@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import Sidebar from '../components/General/Sidebar'
-import Navbar from '../components/General//Navbar'
 import { useMock } from '../context/MockContext'
 import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentYear, getDaysInMonth, formatDate } from '../utils/dateUtils'
 import { getSpecificUsers } from '../utils/userUtils'
 import TaskCard from '../components/CalendarPage/TaskCard'
+import Layout from '../components/General/Layout'
 
 const CalendarPage = () => {
 
@@ -160,183 +159,173 @@ const CalendarPage = () => {
   
 
   return (
-    <div
-      className='w-full h-screen max-h-screen bg-background  grid grid-cols-12 grid-rows-12 text-text overflow-hidden'
-    >
-      <Sidebar/>
-      <Navbar/>
+    <Layout>
+      {/* title */}
       <div
-        className='w-full h-[92.5vh] col-span-9 row-span-10 grid grid-cols-12 grid-rows-12 gap-4 p-8 px-6'
+        className='col-span-12'
       >
-        {/* title */}
-        <div
-          className='col-span-12'
+        <p
+          className='font-semibold text-3xl'
         >
-          <p
-            className='font-semibold text-3xl'
-          >
-            Calendar
-          </p>
-        </div>   
+          Calendar
+        </p>
+      </div>   
 
-        {/* calendar container */}
+      {/* calendar container */}
+      <div
+        className='flex p-5 flex-col gap-4 col-span-7 row-span-11 bg-secondBackground rounded-md'
+      >
+
+        {/* month, year and buttons */}
         <div
-          className='flex p-5 flex-col gap-4 col-span-7 row-span-11 bg-secondBackground rounded-md'
+          className='flex flex-row items-center justify-between w-full h-fit'
         >
-
-          {/* month, year and buttons */}
-          <div
-            className='flex flex-row items-center justify-between w-full h-fit'
+          <h1
+            className='text-xl font-bold'
           >
-            <h1
-              className='text-xl font-bold'
-            >
-              {monthNames[selectedMonthIndex].fullName} {selectedYear}
-            </h1>
-            <div
-              className='flex flex-row items-center gap-2'
-            >
-              <button
-                className='bg-background p-2 rounded-full hover:bg-primary duration-200'
-                onClick={() => handleMonthNavigation("previous")}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
-              </button>
-              <button
-                className='rotate-180 bg-background p-2 rounded-full hover:bg-primary duration-200'
-                onClick={() => handleMonthNavigation("next")}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
-              </button>
-            </div>
-          </div>
-
-          {/* date buttons */}
+            {monthNames[selectedMonthIndex].fullName} {selectedYear}
+          </h1>
           <div
-            className='grid grid-cols-6 w-full h-full grid-rows-6 gap-2 overflow-y-scroll'
+            className='flex flex-row items-center gap-2'
           >
-            {
-              Array.from({ length: daysInSelectedMonth }, (_, index) => {
-                const dayNumber = index + 1;
-                const date = new Date(selectedYear, selectedMonthIndex, dayNumber);
-                const dayOfWeekIndex = date.getDay();
-                
-                // Format date to match "Aug 26 2025" format
-                const formattedDate = date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                }).replace(/,/g, '');
-
-                // Count tasks for this date using filter
-                const taskCount = tasksByDate.get(formattedDate) || 0;
-                
-                return (
-                  <div
-                    className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary" : "bg-background border-primary/10"} border-2 duration-200 hover:border-primary flex flex-col items-start justify-between cursor-pointer`}
-                    key={dayNumber}
-                    onClick={() => setSelectedDayOfMonth(dayNumber)}
-                  >
-                    <p className='font-medium text-xs'>
-                      {dayNames[dayOfWeekIndex].abrName} {dayNumber}
-                    </p>
-                    <div className='w-full flex-row flex gap-1 items-center'>
-                      {taskCount > 0 && (
-                        <>
-                          {Array.from({ length: Math.min(taskCount, 3) }, (_, dotIndex) => (
-                            <span
-                              key={dotIndex}
-                              className={`${selectedDayOfMonth === dayNumber ? "text-background" : "text-primary"}`}
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/>
-                              </svg>
-                            </span>
-                          ))}
-                          {taskCount > 3 && (
-                            <span className="text-(length:--font-size-xxs) text-dimText">+{taskCount - 3}</span>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                );
-              })
-            }
+            <button
+              className='bg-background p-2 rounded-full hover:bg-primary duration-200 hover:text-secondBackground'
+              onClick={() => handleMonthNavigation("previous")}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
+            </button>
+            <button
+              className='rotate-180 bg-background p-2 rounded-full hover:bg-primary duration-200 hover:text-secondBackground'
+              onClick={() => handleMonthNavigation("next")}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
+            </button>
           </div>
-
         </div>
 
-        {/* selected date Tasks */}
+        {/* date buttons */}
         <div
-          className={`col-span-5 ${tasksView ? "flex flex-col" : "flex items-center justify-center"} gap-5 row-span-11 bg-secondBackground rounded-md p-5`}
+          className='grid grid-cols-6 w-full h-full grid-rows-6 gap-2 overflow-y-scroll'
         >
+          {
+            Array.from({ length: daysInSelectedMonth }, (_, index) => {
+              const dayNumber = index + 1;
+              const date = new Date(selectedYear, selectedMonthIndex, dayNumber);
+              const dayOfWeekIndex = date.getDay();
+              
+              // Format date to match "Aug 26 2025" format
+              const formattedDate = date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              }).replace(/,/g, '');
 
-          <div
-            className={`${tasksView ? "block" : "hidden"} font-semibold text-xl flex flex-row items-center gap-1  `}
-          >
-            <p>
-              {dayNames[new Date(selectedYear, selectedMonthIndex, selectedDayOfMonth).getDay()].abrName }
-            </p>
-            <p>
-              {formatDate(selectedYear, selectedMonthIndex, selectedDayOfMonth)}
-            </p>
-          </div>
-
-          <div
-            className={`${tasksView ? "flex flex-col gap-4 overflow-y-scroll" : "hidden"} scrollbar-hide`}
-          >
-            {
-              tasksForSelectedDate.map((task) => (
-                <TaskCard
-                  key={task.taskId}
-                  name={task.name}
-                  priority={task.priority}
-                  description={task.description}
-                  teamMembers={getSpecificUsers(task.teamIds, users)}
-                />
-              ))
-            }
-          </div>
-
-          {/* data doesnt have any tasks */}
-          <div
-            className={`${tasksView ? "hidden" : "flex"} flex-col items-center gap-3`}
-          >
-            <span
-              className='p-3 text-primary bg-background rounded-full'
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><g fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2m7 7l-6 6m0-6l6 6"/></g></svg>
-            </span>
-
-            <div
-              className='flex flex-col gap-2 w-full items-center'
-            >
-              <h2
-                className='text-lg font-bold'
-              >
-                No tasks
-              </h2>
-              <p
-                className='px-16 text-center text-sm text-dimText'
-              >
-                Create a project or join a project to view tasks
-              </p>
-              <button
-                className='flex flex-row items-center gap-2 text-xs border border-primary rounded-md px-4 p-2 mt-10 duration-200 hover:bg-primary'
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" strokeLinecap="round" d="M12 3.5v17m8.5-8.5h-17" strokeWidth="2"/></svg>
-                <span>
-                  Add project
-                </span>
-              </button>
-            </div>
-          </div>
+              // Count tasks for this date using filter
+              const taskCount = tasksByDate.get(formattedDate) || 0;
+              
+              return (
+                <div
+                  className={` w-full h-full rounded-md p-2 ${selectedDayOfMonth === dayNumber ? "bg-primary border-primary text-secondBackground" : "bg-background border-primary/10"} border-2 duration-200 hover:border-primary flex flex-col items-start justify-between cursor-pointer`}
+                  key={dayNumber}
+                  onClick={() => setSelectedDayOfMonth(dayNumber)}
+                >
+                  <p className='font-medium text-xs '>
+                    {dayNames[dayOfWeekIndex].abrName} {dayNumber}
+                  </p>
+                  <div className='w-full flex-row flex gap-1 items-center'>
+                    {taskCount > 0 && (
+                      <>
+                        {Array.from({ length: Math.min(taskCount, 3) }, (_, dotIndex) => (
+                          <span
+                            key={dotIndex}
+                            className={`${selectedDayOfMonth === dayNumber ? "text-background" : "text-primary"}`}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/>
+                            </svg>
+                          </span>
+                        ))}
+                        {taskCount > 3 && (
+                          <span className={`${selectedDayOfMonth === dayNumber && "text-secondBackground" } text-(length:--font-size-xxs) text-dimText`}>+{taskCount - 3}</span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
 
       </div>
-      
-    </div>
+
+      {/* selected date Tasks */}
+      <div
+        className={`col-span-5 ${tasksView ? "flex flex-col" : "flex items-center justify-center"} gap-5 row-span-11 bg-secondBackground rounded-md p-5`}
+      >
+
+        <div
+          className={`${tasksView ? "block" : "hidden"} font-semibold text-xl flex flex-row items-center gap-1  `}
+        >
+          <p>
+            {dayNames[new Date(selectedYear, selectedMonthIndex, selectedDayOfMonth).getDay()].abrName }
+          </p>
+          <p>
+            {formatDate(selectedYear, selectedMonthIndex, selectedDayOfMonth)}
+          </p>
+        </div>
+
+        <div
+          className={`${tasksView ? "flex flex-col gap-4 overflow-y-scroll" : "hidden"} scrollbar-hide`}
+        >
+          {
+            tasksForSelectedDate.map((task) => (
+              <TaskCard
+                key={task.taskId}
+                name={task.name}
+                priority={task.priority}
+                description={task.description}
+                teamMembers={getSpecificUsers(task.teamIds, users)}
+              />
+            ))
+          }
+        </div>
+
+        {/* data doesnt have any tasks */}
+        <div
+          className={`${tasksView ? "hidden" : "flex"} flex-col items-center gap-3`}
+        >
+          <span
+            className='p-3 text-primary bg-background rounded-full'
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><g fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2m7 7l-6 6m0-6l6 6"/></g></svg>
+          </span>
+
+          <div
+            className='flex flex-col gap-2 w-full items-center'
+          >
+            <h2
+              className='text-lg font-bold'
+            >
+              No tasks
+            </h2>
+            <p
+              className='px-16 text-center text-sm text-dimText'
+            >
+              Create a project or join a project to view tasks
+            </p>
+            <button
+              className='flex flex-row items-center gap-2 text-xs border border-primary rounded-md px-4 p-2 mt-10 duration-200 hover:bg-primary'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentcolor" strokeLinecap="round" d="M12 3.5v17m8.5-8.5h-17" strokeWidth="2"/></svg>
+              <span>
+                Add project
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Layout>
   )
 }
 

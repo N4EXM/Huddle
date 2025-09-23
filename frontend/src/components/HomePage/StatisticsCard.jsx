@@ -3,7 +3,7 @@ import React from 'react'
 const StatisticsCard = ({title, num, extraNum, icon, extraText = "than last month"}) => {
   return (
     <div
-        className='pt-2 col-span-4 row-span-3'
+        className=' col-span-4 row-span-3'
     >
         <div
             className='w-full h-full bg-secondBackground p-3 px-4  rounded-lg flex flex-row items-center justify-between'
