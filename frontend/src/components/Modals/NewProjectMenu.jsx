@@ -21,7 +21,7 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
     const [openNewTaskMenu, setOpenNewTaskMenu] = useState(false)
 
     // state
-    const projectId = generateRandomId()
+    const [projectId, setProjectId] = useState("")
     const [view, setView] = useState("details") //  details |  tasks
     const [projectName, setProjectName] = useState("")
     const [dueDate, setDueDate] = useState("")
@@ -82,6 +82,10 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
 
         setNewTasks([...newTasks, newTask]) 
     }
+
+    useEffect(() => {
+        setProjectId(generateRandomId())
+    }, [])
 
   return (
     <>

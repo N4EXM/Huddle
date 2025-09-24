@@ -42,7 +42,7 @@ const ProjectsPage = () => {
 
         {/* buttons */}
         <div
-          className='flex flex-row items-center justify-between w-full px-3'
+          className='flex flex-row items-center justify-between w-full px-4'
         >
           {/* project card view */}
           <div

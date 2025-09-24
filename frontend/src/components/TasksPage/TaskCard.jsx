@@ -52,7 +52,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
         <h1
             className='font-semibold pr-10 text-teal-50 min-h-12'
         >
-            {truncateText(name, 50)}
+            {truncateText(name, 40)}
         </h1>
 
         {/* date and team */}
