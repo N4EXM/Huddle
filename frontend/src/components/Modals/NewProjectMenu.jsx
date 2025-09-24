@@ -10,7 +10,7 @@ import { getDatePriority } from '../../utils/dateUtils'
 import { useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 
-const NewProjectMenu = ({ setToggleOverlay }) => {
+const NewProjectMenu = ({ handleNewProjectState, isNewProjectActive }) => {
 
     // context
     const { users, setProjects, setTasks, projects, tasks } = useMock()
@@ -41,9 +41,10 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
         setDueDate("")
         setDescription("")
         setNewTasks([])
-        setToggleOverlay(false)
         setIsCalendarActive(false)
         setOpenNewTaskMenu(false)
+
+        handleNewProjectState()
 
     }
 
@@ -90,7 +91,7 @@ const NewProjectMenu = ({ setToggleOverlay }) => {
   return (
     <>
         <div
-            className={`bg-secondBackground rounded-md border-2 relative border-thirdBackground/40 w-1/3 h-[95vh]`}
+            className={`${isNewProjectActive ? "flex" : "hidden"} bg-secondBackground rounded-md border-2 relative border-thirdBackground/40 w-1/3 h-[95vh]`}
         >
 
             <div

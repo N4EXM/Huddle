@@ -55,7 +55,7 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
             <h1
                 className='font-semibold pr-12'
             >
-                {name}
+                {truncateText(name, 40)}
             </h1>
             <p
                     className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
@@ -76,7 +76,7 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
                 <p
                     className='text-xs text-dimText'
                 >
-                    {truncateText(description, 99)}
+                    {truncateText(description, 120)}
                 </p>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProgressBar from '../General/ProgressBar'
 
-const ProjectCard = ({name, priority, description, percentage, date, projectLeaderId, teamMembers}) => {
+const ProjectCard = ({name, priority, description, percentage, date, projectLeaderId, teamMembers, handleSelectedProject}) => {
 
   const [priorityId, setPriorityId] = useState(0)
   const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
@@ -55,6 +55,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
       {/* title, desc, priority */}
       <div
         className='flex flex-col gap-3 h-full'
+        onClick={handleSelectedProject}
       >
         <div
           className='flex flex-row items-center justify-between w-full'

@@ -7,15 +7,48 @@ import OverlayBackground from '../components/General/OverlayBackground'
 import { getSpecificUsers } from '../utils/userUtils'
 import NewTaskMenu from '../components/Modals/NewTaskMenu'
 import Layout from '../components/General/Layout'
+import ProjectMenu from '../components/Modals/ProjectMenu'
 
 const ProjectsPage = () => {
 
   // toggles
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
   const [toggleOverlay, setToggleOverlay] = useState(false) 
+  const [isNewProjectActive, setIsNewProjectActive] = useState(false) // checks if the user wants to create a new project
+  const [isSelectedProjectActive, setIsSelectedProjectActive] = useState(false)
 
   // data
   const { users, projects } = useMock()
+
+  // state
+  const [selectedProject, setSelectedProject] = useState({})
+
+  // functions
+  const handleSelectedProject = (projectId, name, priority, description, percentage, date, projectLeaderId, teamMembers) => {
+    
+    const currentProject = { 
+      projectId: projectId,
+      name: name,
+      priority: priority,
+      description: description, 
+      percentage: percentage, 
+      date: date,
+      projectLeaderId: projectLeaderId,
+      teamMembers: teamMembers
+    }
+
+    setSelectedProject(currentProject)
+
+    setIsSelectedProjectActive(true)
+    setToggleOverlay(true)
+
+  }
+
+  const handleNewProjectState = () => { // toggles the isNewProjectActive
+    setIsNewProjectActive(!isNewProjectActive)
+    setToggleOverlay(!toggleOverlay)
+  }
+
 
   return (
     <Layout>
@@ -23,6 +56,13 @@ const ProjectsPage = () => {
         toggleOverlayBackground={toggleOverlay}
       >
         <NewProjectMenu
+          isNewProjectActive={isNewProjectActive}
+          handleNewProjectState={handleNewProjectState}
+        />
+        <ProjectMenu
+          isSelectedProjectActive={isSelectedProjectActive}
+          setIsSelectedProjectActive={setIsSelectedProjectActive}
+          selectedProject={selectedProject}
           setToggleOverlay={setToggleOverlay}
         />
       </OverlayBackground>
@@ -73,7 +113,7 @@ const ProjectsPage = () => {
           {/* new project card */}
           <button
             className='text-sm p-2 px-3 flex items-center gap-1 border border-primary hover:text-secondBackground rounded-md duration-200 hover:bg-primary'
-            onClick={() => setToggleOverlay(true)}
+            onClick={() => handleNewProjectState()}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" d="M12 4.5v15m7.5-7.5h-15"/></svg>
             Project
@@ -96,6 +136,7 @@ const ProjectsPage = () => {
                   date={project.date}
                   projectLeaderId={project.projectLeaderId}
                   teamMembers={getSpecificUsers(project.teamIds, users)}
+                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
                 />
               ))
             : projects.map((project) => (
@@ -108,6 +149,7 @@ const ProjectsPage = () => {
                   date={project.date}
                   projectLeaderId={project.projectLeaderId}
                   teamMembers={getSpecificUsers(project.teamIds, users)}
+                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
                 />
               ))
           }
