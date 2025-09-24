@@ -21,7 +21,16 @@ const ProjectsPage = () => {
   const { users, projects } = useMock()
 
   // state
-  const [selectedProject, setSelectedProject] = useState({})
+  const [selectedProject, setSelectedProject] = useState({ 
+    projectId: null,
+    name: "",
+    priority: "",
+    description: "", 
+    percentage: 0, 
+    date: "",
+    projectLeaderId: null,
+    teamMembers: null
+  })
 
   // functions
   const handleSelectedProject = (projectId, name, priority, description, percentage, date, projectLeaderId, teamMembers) => {
@@ -49,6 +58,9 @@ const ProjectsPage = () => {
     setToggleOverlay(!toggleOverlay)
   }
 
+  useEffect(() => {
+    console.log(selectedProject)
+  }, [selectedProject]) 
 
   return (
     <Layout>
