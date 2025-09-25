@@ -14,7 +14,7 @@ const TasksPage = () => {
   const { users, projects, tasks } = useMock()
 
   // state
-  const [currentTasks, setCurrentTasks] = useState([])
+  const [currentTasks, setCurrentTasks] = useState(tasks || [])
 
   const truncateText = (str, maxLength) => {
     if (str.length > maxLength) {
@@ -23,12 +23,6 @@ const TasksPage = () => {
     return str;
   }
 
-  useEffect(() => {
-    setCurrentTasks(tasks)
-    console.log("tasks: ", tasks)
-
-    console.log("projects:", projects)
-  }, [])
 
   return (
     <Layout>

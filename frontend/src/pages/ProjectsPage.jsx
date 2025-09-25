@@ -59,8 +59,8 @@ const ProjectsPage = () => {
   }
 
   useEffect(() => {
-    console.log(selectedProject)
-  }, [selectedProject]) 
+    console.log(projects)
+  }, []) 
 
   return (
     <Layout>
@@ -148,8 +148,7 @@ const ProjectsPage = () => {
                   date={project.date}
                   projectLeaderId={project.projectLeaderId}
                   teamMembers={getSpecificUsers(project.teamIds, users)}
-                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
-                />
+                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.description, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}                />
               ))
             : projects.map((project) => (
                 <ProjectCard
@@ -161,7 +160,7 @@ const ProjectsPage = () => {
                   date={project.date}
                   projectLeaderId={project.projectLeaderId}
                   teamMembers={getSpecificUsers(project.teamIds, users)}
-                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
+                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.description, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
                 />
               ))
           }

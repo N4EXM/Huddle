@@ -1,22 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useMock } from '../../context/MockContext'
+import ProgressBar from '../General/ProgressBar'
 
 const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedProjectActive, selectedProject }) => {
 
+    // context
+    const { getSpecificUsers } = useMock()
+
     // toggles
     const [isEdit, setIsEdit] = useState(false)
+    const [overlapAmount, setOverlapAmount] = useState(0)
 
     // state
     const [view, setView] = useState("details")
     const [viewBtns] = useState(["details", "tasks"])
     
-    const [projectId, setProjectId] = useState(selectedProject.projectId)
-    const [name,setName] = useState(selectedProject.name)
-    const [description, setDescription] = useState(selectedProject.description)
-    const [priority, setPriority] = useState(selectedProject.priority)
-    const [projectLeaderId, setProjectLeaderId] = useState(selectedProject.projectLeaderId)
-    const [percentage, setPercentage] = useState(selectedProject.percentage)
-    const [date, setDate] = useState(selectedProject.date)
-    const [teamIds, setTeamIds] = useState(selectedProject.teamIds) 
+    const [projectId, setProjectId] = useState(null)
+    const [name,setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [priority, setPriority] = useState("")
+    const [projectLeaderId, setProjectLeaderId] = useState(null)
+    const [percentage, setPercentage] = useState(0)
+    const [date, setDate] = useState("")
+    const [teamMembers, setTeamMembers] = useState(null) 
 
     // functions 
     const handleClosePage = () => {
@@ -30,6 +36,29 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
         }
         return str;
     }
+
+    useEffect(() => {
+        setProjectId(selectedProject.projectLeaderId)
+        setName(selectedProject.name)
+        setDescription(selectedProject.description)
+        setPriority(selectedProject.priority)
+        setProjectLeaderId(selectedProject.projectLeaderId)
+        setPercentage(selectedProject.percentage)
+        setDate(selectedProject.date)
+        setTeamMembers(selectedProject.teamMembers)
+
+    }, [selectedProject])
+
+    useEffect(() => {
+        console.log("projectId",projectId)
+        console.log("name:", name)
+        console.log("description:", description)
+        console.log("priority:",priority)
+        console.log("projectLeaderId:",projectLeaderId)
+        console.log("percentage:",percentage)
+        console.log("date:",date)
+        console.log("teamIds:", teamMembers)
+    }, [projectId])
 
   return (
         <div
@@ -63,7 +92,7 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
                 </div>
 
                 <div
-                    className='px-2 flex flex-col w-full h-full gap-5'
+                    className='px-2 flex flex-col w-full h-full gap-10'
                 >
                     {/* view buttons */}
                     <div
@@ -105,12 +134,12 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
 
                                         {/* status */}
                                         <div
-                                            className='w-56 flex flex-row items-center justify-between'
+                                            className='w-64 grid grid-cols-2 items-center justify-between'
                                         >
                                             <div
                                                 className='flex flex-row items-center gap-2 text-slate-200/70'
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                <svg className='text-primary' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                                     <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="1.5" d="M12 16h.008M12 8v5m10-1c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10s10-4.477 10-10" />
                                                 </svg>
                                                 <p className='font-medium text-sm'>
@@ -127,13 +156,117 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
                                                     </g>
                                                 </svg>
                                                 <p
-                                                    className='text-xs'
+                                                    className='text-xs font-medium'
                                                 >
                                                     In progress
                                                 </p>
                                             </div>
                                         </div>
 
+                                        {/* date */}
+                                        <div
+                                            className='w-64 grid grid-cols-2 items-center justify-between'
+                                        >
+                                            <div
+                                                className='flex flex-row items-center gap-2 text-slate-200/70'
+                                            >
+                                                <svg className='text-primary' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" strokeWidth="1.5" d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14z"/><path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M7 4V2.5M17 4V2.5M2.5 9h19"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></g></svg>
+                                                <p className='font-medium text-sm'>
+                                                    Due Date
+                                                </p>
+                                            </div>
+                                            <p
+                                                className='text-xs font-medium pl-1'
+                                            >
+                                                {date}
+                                            </p>
+                                        </div>
+
+                                        {/* teammates */}
+                                        <div
+                                            className='w-full flex flex-row gap-8 items-center justify-between'
+                                        >
+                                            <div
+                                                className='flex flex-row items-center gap-2 text-slate-200/70'
+                                            >
+                                                <svg className='text-primary' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 28 28"><path fill="currentColor" d="M17.254 11a2.25 2.25 0 0 1 2.25 2.25v6.249a5.501 5.501 0 0 1-11.002 0V13.25a2.25 2.25 0 0 1 2.25-2.25zm0 1.5h-6.502a.75.75 0 0 0-.75.75v6.249a4.001 4.001 0 0 0 8.002 0V13.25a.75.75 0 0 0-.75-.75M4.25 11h4.156a3.24 3.24 0 0 0-.817 1.5H4.25a.75.75 0 0 0-.75.75v5.249a3 3 0 0 0 4.238 2.735c.133.49.324.956.564 1.392A4.5 4.5 0 0 1 2 18.499V13.25A2.25 2.25 0 0 1 4.25 11m19.5 0A2.25 2.25 0 0 1 26 13.25v5.25a4.5 4.5 0 0 1-6.298 4.127l.056-.102c.214-.406.387-.837.511-1.289A3 3 0 0 0 24.5 18.5v-5.25a.75.75 0 0 0-.749-.75h-3.333A3.24 3.24 0 0 0 19.6 11zM14 3a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7m8.003 1a3 3 0 1 1 0 6a3 3 0 0 1 0-6M5.997 4a3 3 0 1 1 0 6a3 3 0 0 1 0-6M14 4.5a2 2 0 1 0 0 4a2 2 0 0 0 0-4m8.003 1a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3m-16.006 0a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3"/></svg>
+                                                <p className='font-medium text-sm'>
+                                                    Assignee
+                                                </p>
+                                            </div>
+                                            <div
+                                                className='flex flex-row gap-4 items-center w-full overflow-x-scroll scrollbar-hide pl-2 '
+                                            >
+                                                {teamMembers.map((member, index) => {
+                                                    return (
+                                                        <div
+                                                            className='flex flex-row items-center gap-2 rounded-full w-full '
+                                                            key={index + 1}
+                                                        >
+                                                            <img 
+                                                                className={`max-w-6 w-6 h-6 max-h-6 rounded-full border-2 border-primary object-fit object-center`}
+                                                                src={member.image} 
+                                                                alt="" 
+                                                            />
+                                                            <p
+                                                                className='text-xs font-medium w-full text-nowrap'
+                                                            >
+                                                                {member.name}
+                                                            </p>
+                                                        </div>
+                                                            
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    {/* description */}
+                                    <div
+                                        className='w-full h-fit flex flex-col gap-2'
+                                    >
+                                        <div
+                                            className='flex flex-row items-center gap-2 text-slate-100/70'
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.75 13a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75m0 4a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75"/><path fill="currentColor" fillRule="evenodd" d="M7 2.25A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V7.968c0-.381-.124-.751-.354-1.055l-2.998-3.968a1.75 1.75 0 0 0-1.396-.695zM5.75 5c0-.69.56-1.25 1.25-1.25h7.25v4.397c0 .414.336.75.75.75h3.25V19c0 .69-.56 1.25-1.25 1.25H7c-.69 0-1.25-.56-1.25-1.25z" clipRule="evenodd"/></svg>
+                                            <p
+                                                className='text-sm font-medium'
+                                            >
+                                                description
+                                            </p>
+                                        </div>
+                                        <div>
+
+                                        </div>
+                                        <p
+                                            className='text-sm p-3 bg-background rounded-md text-dimText min-h-40'
+                                        >
+                                            {description}
+                                        </p>
+                                    </div>
+
+                                    {/* project completion */}
+                                    <div
+                                        className='p-3 rounded-md bg-background flex flex-col gap-4'
+                                    >
+                                        <p
+                                            className='font-medium text-lg'
+                                        >
+                                            Project Completion
+                                        </p>
+                                        <div
+                                            className='flex flex-col gap-2 w-full h-fit'
+                                        >
+                                            <ProgressBar
+                                                progress={percentage}
+                                            />
+                                            <p
+                                                className='text-dimText text-xs font-medium'
+                                            >
+                                                The Project has been <span className='text-primary'>{percentage}% completed.</span> Only <span className='text-primary'>{100 - percentage}% is remaining</span>.
+                                            </p>
+                                        </div>
                                     </div>
 
                                 </div>
