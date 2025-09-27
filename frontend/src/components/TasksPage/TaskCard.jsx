@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-const TaskCard = ({id, name, description, date, priority, completed, projectId, teamMembers}) => {
+const TaskCard = ({id, name, description, date, priority, completed, projectId, teamMembers, handleSelectedTask}) => {
 
     const [priorityId, setPriorityId] = useState(0)
     const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
@@ -49,57 +49,61 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
     >
 
         {/* title */}
-        <h1
-            className='font-semibold pr-10 text-teal-50 min-h-12'
-        >
-            {truncateText(name, 40)}
-        </h1>
-
-        {/* date and team */}
         <div
-            className='flex flex-col gap-3'
+            className='flex flex-col gap-3 w-full h-fit'
         >
+            {/* date and team */}
             <div
-                className='flex flex-row items-center justify-between'
+                className='flex flex-col gap-3 cursor-pointer'
+                onClick={handleSelectedTask}
             >
-                <p
-                    className='text-xs font-medium text-dimText'
+                <h1
+                    className='font-semibold pr-10 text-teal-50 min-h-12'
                 >
-                    {date}
-                </p>
-
-                {/* team */}
+                    {truncateText(name, 40)}
+                </h1>
                 <div
-                    className='relative w-fit flex items-center justify-start'
+                    className='flex flex-row items-center justify-between'
                 >
-                    {members.slice(0,4).map((member, index) => {
-                    return (
-                        <img 
-                        key={index + 1}
-                        className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
-                        style={{ right: `${index * 15}px` }}
-                        src={member.image} 
-                        alt="" 
-                        />    
-                    )
-                    })}
                     <p
-                        className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
-                        style={{ left: `${overlapAmount * 15}px` }}              
+                        className='text-xs font-medium text-dimText'
                     >
-                    {teamMembers.length}+ 
+                        {date}
                     </p>
+
+                    {/* team */}
+                    <div
+                        className='relative w-fit flex items-center justify-start'
+                    >
+                        {members.slice(0,4).map((member, index) => {
+                        return (
+                            <img 
+                            key={index + 1}
+                            className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
+                            style={{ right: `${index * 15}px` }}
+                            src={member.image} 
+                            alt="" 
+                            />    
+                        )
+                        })}
+                        <p
+                            className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                            style={{ left: `${overlapAmount * 15}px` }}              
+                        >
+                        {teamMembers.length}+ 
+                        </p>
+                    </div>
                 </div>
+                <span className='min-h-0.5 rounded-md w-full bg-primary'></span>
+                
+                {/* description */}
+                <p
+                    className='text-dimText text-xs'
+                >
+                    {truncateText(description, 100)}
+                </p>
             </div>
-            <span className='min-h-0.5 rounded-md w-full bg-primary'></span>
         </div>
-        
-        {/* description */}
-        <p
-            className='text-dimText text-xs'
-        >
-            {truncateText(description, 100)}
-        </p>
 
         {/* priority and checkbox */}
         <div

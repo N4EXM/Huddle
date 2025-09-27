@@ -43,10 +43,20 @@ const PendingProjectsCard = () => {
       <div
         className='flex flex-col gap-4 w-full h-full'
       >
-        <h1>Pending Projects</h1>
+        <div
+          className='flex flex-row items-center justify-between w-full h-fit'
+        >
+          <h1>Pending Projects</h1>
+          <button
+            className='flex flex-row items-center gap-1 border-2 border-primary rounded-lg p-1  font-medium hover:bg-primary duration-200 px-2 hover:text-secondBackground text-xs'
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256"><path fill="currentcolor" d="M222 128a6 6 0 0 1-6 6h-82v82a6 6 0 0 1-12 0v-82H40a6 6 0 0 1 0-12h82V40a6 6 0 0 1 12 0v82h82a6 6 0 0 1 6 6" stroke-width="6.5" stroke="currentcolor"/></svg>
+            New
+          </button>
+        </div>
 
         <div
-          className='flex flex-col gap-3 overflow-y-scroll h-[37vh] scrollbar-hide'
+          className='flex flex-col gap-3 overflow-y-scroll h-full scrollbar-hide'
         >
           {mockProjects.map((project) => (
             <button
@@ -70,21 +80,8 @@ const PendingProjectsCard = () => {
               </i>
             </button>
           ))}
-        
         </div>
       </div>
-
-      <div
-        className='w-full h-fit flex items-center justify-end'
-      >
-        <button
-          className='flex flex-row items-center gap-1 border-2 border-primary rounded-lg p-1 text-sm font-medium hover:bg-primary duration-200 px-2 hover:text-secondBackground'
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="currentcolor" d="M222 128a6 6 0 0 1-6 6h-82v82a6 6 0 0 1-12 0v-82H40a6 6 0 0 1 0-12h82V40a6 6 0 0 1 12 0v82h82a6 6 0 0 1 6 6" stroke-width="6.5" stroke="currentcolor"/></svg>
-          New
-        </button>
-      </div>
-
     </div>
   )
 }

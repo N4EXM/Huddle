@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProgressBar from '../General/ProgressBar'
 
-const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, teamMembers }) => {
+const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, teamMembers, handleSelectedProject }) => {
 
     const [priorityId, setPriorityId] = useState(0)
     const [overlapAmount] = useState(teamMembers.length + 1)
@@ -46,6 +46,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
   return (
     <div
         className='grid grid-cols-5 items-center justify-between bg-background p-4 px-6 rounded-md text-sm'
+        onClick={handleSelectedProject}
     >
         
         {/* title */}

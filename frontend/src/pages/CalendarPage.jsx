@@ -205,7 +205,7 @@ const CalendarPage = () => {
 
         {/* date buttons */}
         <div
-          className='grid grid-cols-6 w-full h-full grid-rows-6 gap-2 overflow-y-scroll'
+          className='grid grid-cols-6 w-full h-full grid-rows-6 gap-1 overflow-y-scroll'
         >
           {
             Array.from({ length: daysInSelectedMonth }, (_, index) => {
@@ -293,7 +293,7 @@ const CalendarPage = () => {
 
         {/* data doesnt have any tasks */}
         <div
-          className={`${tasksView ? "hidden" : "flex"} flex-col items-center gap-3`}
+          className={`${tasksView ? "hidden" : "flex"} flex-col items-center gap-3 rounded-md`}
         >
           <span
             className='p-3 text-primary bg-background rounded-full'
@@ -310,7 +310,7 @@ const CalendarPage = () => {
               No tasks
             </h2>
             <p
-              className='px-16 text-center text-sm text-dimText'
+              className='px-8 text-center text-sm text-dimText'
             >
               Create a project or join a project to view tasks
             </p>
