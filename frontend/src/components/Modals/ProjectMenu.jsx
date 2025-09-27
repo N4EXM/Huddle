@@ -104,7 +104,7 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
   return (
         <>
             <div
-                className={`${isSelectedProjectActive ? "flex" : "hidden"} bg-secondBackground rounded-md border-2 relative border-thirdBackground/40 w-1/3 h-[95vh] ${!isEdit && "pb-10"}`}
+                className={`${isSelectedProjectActive ? "flex" : "hidden"} bg-secondBackground rounded-md border-2 relative border-primary w-1/3 h-[95vh] ${!isEdit && "pb-10"}`}
             >
                 <div
                     className={`p-5 flex flex-col gap-4 w-full h-full scrollbar-hide overflow-y-scroll`}
@@ -396,20 +396,17 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
 
                                         {/* description */}
                                         <div
-                                            className='w-full h-fit flex flex-col gap-2'
+                                            className='w-full h-fit flex flex-col gap-3'
                                         >
                                             <div
                                                 className='flex flex-row items-center gap-2 text-slate-100/70'
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.75 13a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75m0 4a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75"/><path fill="currentColor" fillRule="evenodd" d="M7 2.25A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V7.968c0-.381-.124-.751-.354-1.055l-2.998-3.968a1.75 1.75 0 0 0-1.396-.695zM5.75 5c0-.69.56-1.25 1.25-1.25h7.25v4.397c0 .414.336.75.75.75h3.25V19c0 .69-.56 1.25-1.25 1.25H7c-.69 0-1.25-.56-1.25-1.25z" clipRule="evenodd"/></svg>
+                                                <svg className='text-primary' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15.75 13a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75m0 4a.75.75 0 0 0-.75-.75H9a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 .75-.75"/><path fill="currentColor" fillRule="evenodd" d="M7 2.25A2.75 2.75 0 0 0 4.25 5v14A2.75 2.75 0 0 0 7 21.75h10A2.75 2.75 0 0 0 19.75 19V7.968c0-.381-.124-.751-.354-1.055l-2.998-3.968a1.75 1.75 0 0 0-1.396-.695zM5.75 5c0-.69.56-1.25 1.25-1.25h7.25v4.397c0 .414.336.75.75.75h3.25V19c0 .69-.56 1.25-1.25 1.25H7c-.69 0-1.25-.56-1.25-1.25z" clipRule="evenodd"/></svg>
                                                 <p
                                                     className='text-sm font-medium'
                                                 >
                                                     description
                                                 </p>
-                                            </div>
-                                            <div>
-
                                             </div>
                                             <p
                                                 className='text-sm p-3 bg-background rounded-md min-h-40'

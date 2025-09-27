@@ -74,7 +74,7 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
         <p
           className='text-dimText text-xs pr-14'
         >
-          {truncateText(description, 180)}
+          {truncateText(description, 150)}
         </p>
       </div>
       
