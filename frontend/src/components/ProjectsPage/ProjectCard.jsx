@@ -49,13 +49,13 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
 
   return (
     <div
-      className='flex flex-col gap-5 w-full bg-background min-h-56 rounded-lg p-5'
+      className='flex flex-col gap-5 w-full cursor-pointer bg-background min-h-56 rounded-lg p-5'
+      onClick={handleSelectedProject}
     >
       
       {/* title, desc, priority */}
       <div
         className='flex flex-col gap-3 h-full'
-        onClick={handleSelectedProject}
       >
         <div
           className='flex flex-row items-center justify-between w-full'

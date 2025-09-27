@@ -58,9 +58,9 @@ const ProjectsPage = () => {
     setToggleOverlay(!toggleOverlay)
   }
 
-  useEffect(() => {
-    console.log(projects)
-  }, []) 
+  // useEffect(() => {
+  //   console.log(projects)
+  // }, []) 
 
   return (
     <Layout>
@@ -71,12 +71,16 @@ const ProjectsPage = () => {
           isNewProjectActive={isNewProjectActive}
           handleNewProjectState={handleNewProjectState}
         />
-        <ProjectMenu
-          isSelectedProjectActive={isSelectedProjectActive}
-          setIsSelectedProjectActive={setIsSelectedProjectActive}
-          selectedProject={selectedProject}
-          setToggleOverlay={setToggleOverlay}
-        />
+        {
+          isSelectedProjectActive &&
+            <ProjectMenu
+              isSelectedProjectActive={isSelectedProjectActive}
+              setIsSelectedProjectActive={setIsSelectedProjectActive}
+              selectedProject={selectedProject}
+              setToggleOverlay={setToggleOverlay}
+            />
+        }
+        
       </OverlayBackground>
       <div
         className='col-span-12'

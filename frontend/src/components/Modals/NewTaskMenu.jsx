@@ -70,9 +70,9 @@ const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) =>
         return () => clearTimeout(timerId);
     }, [searchQuery])
 
-    useEffect(() => {
-        console.log(membersId)
-    }, [membersId])
+    // useEffect(() => {
+    //     console.log(membersId)
+    // }, [membersId])
     
 
   return (

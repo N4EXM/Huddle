@@ -88,6 +88,8 @@ const NewProjectMenu = ({ handleNewProjectState, isNewProjectActive }) => {
         setProjectId(generateRandomId())
     }, [])
 
+
+
   return (
     <>
         <div
@@ -102,7 +104,7 @@ const NewProjectMenu = ({ handleNewProjectState, isNewProjectActive }) => {
                     className={`duration-300 flex flex-row w-full items-center justify-between`}
                 >
                     <button
-                        className='p-1 rounded-full bg-background duration-200 hover:bg-primary'
+                        className='p-1 rounded-full bg-background duration-200 hover:bg-primary hover:text-background'
                         onClick={() => handleClosePage()}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
@@ -111,13 +113,13 @@ const NewProjectMenu = ({ handleNewProjectState, isNewProjectActive }) => {
 
                 {/* view buttons */}
                 <div
-                    className='flex flex-row items-center gap-2 w-full h-fit'
+                    className='flex flex-row items-center gap-2 w-full h-fit px-2'
                 >
                     {
                         viewBtns.map((viewBtn, index) => (
                             <button
                                 key={index}
-                                className={`p-2 px-3 bg-background border-2 border-background ${viewBtn === view && "border-b-primary text-primary"} rounded-md rounded-b-none text-xs font-medium duration-200`}
+                                className={`p-2 px-3 bg-background border-2 border-background ${viewBtn === view && "border-b-primary text-primary"} rounded-md rounded-b-none text-xs font-medium duration-200 cursor-pointer hover:border-b-primary`}
                                 onClick={() => setView(viewBtn)}
                             >   
                                 {viewBtn}
@@ -225,9 +227,8 @@ const NewProjectMenu = ({ handleNewProjectState, isNewProjectActive }) => {
                         </div>
                     
                     :   <div
-                            className='flex flex-col gap-5 w-full h-full overflow-y-scroll scrollbar-hide'
+                            className='flex flex-col gap-5 w-full h-full overflow-y-scroll scrollbar-hide px-2'
                         >
-                            
                             {/* title */}
                             <div
                                 className='flex flex-col gap-1'
