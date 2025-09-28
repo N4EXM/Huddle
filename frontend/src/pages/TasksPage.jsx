@@ -3,17 +3,32 @@ import { useMock } from '../context/MockContext'
 import TaskCard from '../components/TasksPage/TaskCard'
 import TaskListItem from '../components/TasksPage/TaskListItem'
 import Layout from '../components/General/Layout'
+import OverlayBackground from '../components/General/OverlayBackground'
+import TaskMenu from '../components/Modals/TaskMenu'
 
 const TasksPage = () => {
 
   // toggles
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
+  const [isSelectedTaskActive, setIsSelectedTaskActive] = useState(false)
+  const [toggleOverlay, setToggleOverlay] = useState(false)   
 
   // data
   const { users, projects, tasks, getSpecificUsers } = useMock()
 
   // state
   const [currentTasks, setCurrentTasks] = useState(tasks || [])
+  const [selectedTask, setSelectedTask] = useState({
+    taskId: null,
+    name: "",
+    description: "",
+    date: "",
+    priority: "",
+    teamIds: [],
+    completed: false,
+    projectId: null
+  })
+
 
   const truncateText = (str, maxLength) => {
     if (str.length > maxLength) {
@@ -22,9 +37,26 @@ const TasksPage = () => {
     return str;
   }
 
+  const handleSelectedTask = (task) => {
+    setSelectedTask(task)
+    setIsSelectedTaskActive(true)
+    setToggleOverlay(true)
+  }
 
   return (
     <Layout>
+      
+      <OverlayBackground
+        toggleOverlayBackground={toggleOverlay}
+      >
+        {isSelectedTaskActive &&
+          <TaskMenu
+            selectedTask={selectedTask}
+            setIsSelectedTaskActive={setIsSelectedTaskActive}
+          />
+        }
+      </OverlayBackground>
+
       {/* title */}
       <div
         className='col-span-12'
@@ -118,7 +150,7 @@ const TasksPage = () => {
                             <TaskCard
                               key={task.taskId}
                               task={task}
-                              teamMembers={getSpecificUsers(project.teamIds)}
+                              handleSelectedTask={() => handleSelectedTask(task)}
                             />
                           )})
                   }

@@ -31,11 +31,11 @@ const TeamSearchBar = ({ searchQuery, setSearchQuery, filteredUsers, handleAddMe
                 className=' rounded-md duration-200 absolute top-2.5 right-2.5 cursor-pointer '
                 onClick={() => setSearchQuery("")}
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
                     <path fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="m8 8l32 32M8 40L40 8" />
                 </svg>
             </button>
-            <svg className='absolute top-2 left-2' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <svg className='absolute top-2 left-2' xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
                 <g fill="currentcolor" fillRule="evenodd" clipRule="evenodd">
                     <path d="M10.5 5.5a5 5 0 1 0 0 10a5 5 0 0 0 0-10m-6.5 5a6.5 6.5 0 1 1 13 0a6.5 6.5 0 0 1-13 0" />
                     <path d="M14.47 14.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 1 1-1.06 1.06l-4-4a.75.75 0 0 1 0-1.06" />

@@ -177,7 +177,7 @@ const NewTaskMenu = ({handleAddNewTask, openNewTaskMenu, setOpenNewTaskMenu}) =>
                         onChange={(e) => setDescription(e.target.value)}
                         type="text"
                         value={description}
-                        className='p-2 pl-3 placeholder:text-dimText outline-none font-medium border-2 border-primary resize-none rounded-md text-xs w-full scrollbar-hide bg-background min-h-40'
+                        className='p-3 placeholder:text-dimText outline-none font-medium border-2 border-primary resize-none rounded-md text-xs w-full scrollbar-hide bg-background min-h-40'
                         placeholder='Enter your task description...'
                         required
                     ></textarea>
