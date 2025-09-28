@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react'
+import { useMock } from '../../context/MockContext'
 
-const TaskListItem = ({id, name, description, date, priority, completed, projectId, teamMembers}) => {
+const TaskListItem = ({ task }) => {
+
+    const { getSpecificUsers } = useMock()
 
     const [priorityId, setPriorityId] = useState(0)
-    const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
-    const [members, setMembers] = useState(teamMembers || [])
-    const [completion, setCompletion] = useState(completed)
+    const [members, setMembers] = useState(getSpecificUsers(task.teamIds) || [])
+    const [overlapAmount, setOverlapAmount] = useState(members.length + 1)
+    const [completion, setCompletion] = useState(task.completed)
 
     
 
@@ -27,13 +30,19 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
     const handlePriorityColour = () => {
 
         for (let i = 0; i < priorityColours.length; i++ ) {
-            if (priority === priorityColours[i].priority) {
-            setPriorityId(priorityColours[i].id)
+            if (task.priority === priorityColours[i].priority) {
+                setPriorityId(priorityColours[i].id)
             }
         }
 
     }
 
+    const truncateText = (str, maxLength) => {
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
+    }
     
     useEffect(() => {
         handlePriorityColour()
@@ -48,7 +57,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
         <h1
             className='font-semibold text-sm w-2/5'
         >
-            {name}
+            {truncateText(task.name, 90)}
         </h1>
 
         {/* columns */}
@@ -74,10 +83,10 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
                         )
                     })}
                     <p
-                        className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                        className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${members.length > 4 ? "block" : "hidden"}`}
                         style={{ left: `${overlapAmount * 15}px` }}              
                     >
-                        {teamMembers.length}+ 
+                        {members.length}+ 
                     </p>
                 </div>
             </div>
@@ -90,7 +99,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
                 <p
                     className='text-dimText text-xs font-medium'
                 >
-                    {date}
+                    {task.date}
                 </p>
             </div>
 
@@ -101,7 +110,7 @@ const TaskListItem = ({id, name, description, date, priority, completed, project
                 <p
                     className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium w-fit`}
                 >
-                    {priority}
+                    {task.priority}
                 </p>
             </div>
         

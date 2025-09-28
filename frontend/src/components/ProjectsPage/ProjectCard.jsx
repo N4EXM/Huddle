@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import ProgressBar from '../General/ProgressBar'
+import { useMock } from '../../context/MockContext'
 
-const ProjectCard = ({name, priority, description, percentage, date, projectLeaderId, teamMembers, handleSelectedProject}) => {
+const ProjectCard = ({project, handleSelectedProject}) => {
 
+  const { getSpecificUsers } = useMock()
+  
   const [priorityId, setPriorityId] = useState(0)
-  const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
-  const [members, setMembers] = useState(teamMembers || [])
-
+  const [members, setMembers] = useState(getSpecificUsers(project.teamIds) || [])
+  const [overlapAmount] = useState(members.length + 1)
+  
   const priorityColours = [
     { 
       id: 0, 
@@ -21,26 +24,26 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
       priority: "Low",
     },
   ]
-
+  
   const handlePriorityColour = () => {
-
+  
     for (let i = 0; i < priorityColours.length; i++ ) {
-      if (priority === priorityColours[i].priority) {
+      if (project.priority === priorityColours[i].priority) {
         setPriorityId(priorityColours[i].id)
       }
     }
-
+  
   }
 
   const truncateText = (str, maxLength) => {
-    if (str.length > maxLength) {
-        return str.substring(0, maxLength) + '...';
-    }
-    return str;
+      if (str.length > maxLength) {
+          return str.substring(0, maxLength) + '...';
+      }
+      return str;
   }
 
   useEffect(() => {
-    handlePriorityColour()
+      handlePriorityColour()
   }, [])
 
   // useEffect(() => {
@@ -63,18 +66,18 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           <h1
             className='text-lg font-semibold'
           >
-            {truncateText(name, 30)}
+            {truncateText(project.name, 30)}
           </h1>
           <p
             className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
           >
-            {priority}
+            {project.priority}
           </p>
         </div>  
         <p
           className='text-dimText text-xs pr-14'
         >
-          {truncateText(description, 150)}
+          {truncateText(project.description, 150)}
         </p>
       </div>
       
@@ -103,17 +106,17 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
               )
             })}
             <p
-              className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+              className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${members.length > 4 ? "block" : "hidden"}`}
               style={{ left: `${overlapAmount * 15}px` }}              
             >
-              {teamMembers.length}+ 
+              {members.length}+ 
             </p>
           </div>
 
           <p
             className='text-sm text-dimText'
           >
-            {percentage}%
+            {project.percentage}%
           </p>
 
         </div>
@@ -123,13 +126,13 @@ const ProjectCard = ({name, priority, description, percentage, date, projectLead
           className='flex flex-col items-end justify-end gap-1 w-full h-full'
         >
           <ProgressBar
-            progress={percentage}
+            progress={project.percentage}
           />
 
           <p
             className='text-xs text-dimText pt-2'
           >
-            {date}
+            {project.date}
           </p>
 
         </div>

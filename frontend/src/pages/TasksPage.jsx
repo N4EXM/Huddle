@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { useMock } from '../context/MockContext'
 import TaskCard from '../components/TasksPage/TaskCard'
 import TaskListItem from '../components/TasksPage/TaskListItem'
-import { getSpecificUsers } from '../utils/userUtils'
 import Layout from '../components/General/Layout'
 
 const TasksPage = () => {
@@ -11,7 +10,7 @@ const TasksPage = () => {
   const [toggleListView, setToggleListView] = useState(false) // false: cards | true: list items 
 
   // data
-  const { users, projects, tasks } = useMock()
+  const { users, projects, tasks, getSpecificUsers } = useMock()
 
   // state
   const [currentTasks, setCurrentTasks] = useState(tasks || [])
@@ -107,13 +106,8 @@ const TasksPage = () => {
                           return (
                             <TaskListItem
                               key={task.taskId}
-                              id={task.taskId}
-                              name={task.name}
-                              date={task.date}
-                              priority={task.priority}
-                              completed={task.completed}
-                              projectId={task.projectId}
-                              teamMembers={getSpecificUsers(project.teamIds, users)}
+                              task={task}
+                              teamMembers={getSpecificUsers(project.teamIds)}
                             />
                           )})
                     : currentTasks
@@ -123,14 +117,8 @@ const TasksPage = () => {
                           return (
                             <TaskCard
                               key={task.taskId}
-                              id={task.taskId}
-                              name={task.name}
-                              description={task.description}
-                              date={task.date}
-                              priority={task.priority}
-                              completed={task.completed}
-                              projectId={task.projectId}
-                              teamMembers={getSpecificUsers(project.teamIds, users)}
+                              task={task}
+                              teamMembers={getSpecificUsers(project.teamIds)}
                             />
                           )})
                   }

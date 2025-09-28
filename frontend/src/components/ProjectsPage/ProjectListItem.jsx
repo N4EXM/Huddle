@@ -1,33 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import ProgressBar from '../General/ProgressBar'
+import { useMock } from '../../context/MockContext'
 
-const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, teamMembers, handleSelectedProject }) => {
+const ProjectListItem = ({ project, handleSelectedProject }) => {
+
+    const { getSpecificUsers } = useMock()
 
     const [priorityId, setPriorityId] = useState(0)
-    const [overlapAmount] = useState(teamMembers.length + 1)
-    const [members, setMembers] = useState(teamMembers || [])
+    const [members, setMembers] = useState(getSpecificUsers(project.teamIds) || [])
+    const [overlapAmount] = useState(members.length + 1)
     
     const priorityColours = [
         { 
-          id: 0, 
-          priority: "High",
+            id: 0, 
+            priority: "High",
         },
         {
-          id: 1, 
-          priority: "Medium",
+            id: 1, 
+            priority: "Medium",
         },
         {
-          id: 2, 
-          priority: "Low",
+            id: 2, 
+            priority: "Low",
         },
     ]
     
     const handlePriorityColour = () => {
     
         for (let i = 0; i < priorityColours.length; i++ ) {
-          if (priority === priorityColours[i].priority) {
-            setPriorityId(priorityColours[i].id)
-          }
+            if (project.priority === priorityColours[i].priority) {
+                setPriorityId(priorityColours[i].id)
+            }
         }
     
     }
@@ -45,7 +48,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
 
   return (
     <div
-        className='grid grid-cols-5 items-center justify-between bg-background p-4 px-6 rounded-md text-sm'
+        className='grid grid-cols-5 items-center cursor-pointer justify-between bg-background p-4 px-6 rounded-md text-sm'
         onClick={handleSelectedProject}
     >
         
@@ -53,7 +56,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
         <p
             className='font-bold'
         >
-            {truncateText(name, 25)}
+            {truncateText(project.name, 25)}
         </p>
 
         {/* team */}
@@ -72,10 +75,10 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
             )
         })}
         <p
-            className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+            className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${members.length > 4 ? "block" : "hidden"}`}
             style={{ left: `${overlapAmount * 15}px` }}              
         >
-            {teamMembers.length}+ 
+            {members.length}+ 
         </p>
         </div>
 
@@ -87,14 +90,14 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
                 className='w-32'
             >
                 <ProgressBar
-                    progress={percentage}
+                    progress={project.percentage}
                 />
             </div>
             
             <p
                 className='text-xs text-dimText'
             >
-                {percentage}%
+                {project.percentage}%
             </p>
         </div>
 
@@ -105,7 +108,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
             <p
                 className='text-xs text-dimText'
             >
-                {date}
+                {project.date}
             </p>
         </div>
         
@@ -117,7 +120,7 @@ const ProjectListItem = ({ name, priority, percentage, date, projectLeaderId, te
             <p
                 className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
             >
-                {priority}
+                {project.priority}
             </p>
         </div>
         

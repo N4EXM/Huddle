@@ -20,7 +20,6 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
     const [viewBtns] = useState(["details", "tasks"])
     
     const [projectId, setProjectId] = useState(null)
-    const [priorityId, setPriorityId] = useState(0)
     const [name,setName] = useState("")
     const [description, setDescription] = useState("")
     const [priority, setPriority] = useState("")
@@ -41,25 +40,29 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
         projectId: null
     })
 
+    const priorityColours = [
+        { 
+            id: 0, 
+            priority: "High",
+        },
+        {
+            id: 1, 
+            priority: "Medium",
+        },
+        {
+            id: 2, 
+            priority: "Low",
+        },
+    ]
+
     // functions 
     const handleClosePage = () => {
         setIsSelectedProjectActive(false)
         setToggleOverlay(false)
     }
 
-    const handleSelectedTask = (taskId, name, description, date, priority, teamIds, completed, projectId) => {
-        const newSelectedTask = {
-            taskId: taskId,
-            name: name,
-            description: description,
-            date: date,
-            priority: priority,
-            teamIds: teamIds,
-            completed: completed,
-            projectId: projectId
-        }
-
-        setSelectedTask(newSelectedTask)
+    const handleSelectedTask = (task) => {
+        setSelectedTask(task)
         setIsSelectedTaskActive(true)
     }
 
@@ -75,6 +78,18 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
         return newTasks
     }
 
+    // Calculate priorityId directly from priority
+    const getPriorityId = () => {
+        for (let i = 0; i < priorityColours.length; i++ ) {
+            if (priority === priorityColours[i].priority) {
+                return priorityColours[i].id
+            }
+        }
+      return 0 // default
+    }
+
+    const priorityId = getPriorityId() // This will update automatically
+
     // loads the data to the state
     useEffect(() => {
         setProjectId(selectedProject.projectLeaderId)
@@ -84,22 +99,10 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
         setProjectLeaderId(selectedProject.projectLeaderId)
         setPercentage(selectedProject.percentage)
         setDate(selectedProject.date)
-        setTeamMembers(selectedProject.teamMembers)
+        setTeamMembers(getSpecificUsers(selectedProject.teamIds))
         setCurrentTasks(handleFilteringTasks())
 
     }, [selectedProject])
-
-    useEffect(() => {
-        console.log("projectId",projectId)
-        console.log("name:", name)
-        console.log("description:", description)
-        console.log("priority:",priority)
-        console.log("projectLeaderId:",projectLeaderId)
-        console.log("percentage:",percentage)
-        console.log("date:",date)
-        console.log(currentTasks)
-        // console.log("teamIds:", teamMembers)
-    }, [projectId])
 
   return (
         <>
@@ -120,16 +123,20 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
                         </button>
                         <button
-                            className={`${view === "tasks" ? "opacity-0" : "opacity-100"} cursor-pointer p-2 rounded-full text duration-200 hover:bg-primary hover:text-background bg-secondBackground`}
+                            className={` p-1.5 rounded-full text duration-200 hover:bg-primary hover:text-background bg-secondBackground ${view !== "tasks" ? "opacity-100 cursor-pointer" : "opacity-0 cursor-auto"}`}
                             onClick={() => setIsEdit(!isEdit)}
                             disabled={view === "tasks"}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                <g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                                    <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                    <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                                </g>
-                            </svg>
+                            {
+                            isEdit
+                            ?   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="m14.685 11.829l-.708-.708l2.82-2.819l-1.099-1.098l-2.82 2.819l-.707-.707l5.01-5.03q.146-.145.335-.216q.19-.07.398-.07q.188 0 .38.064t.352.228l1.067 1.074q.166.159.226.351q.061.193.061.395q0 .188-.07.378q-.07.189-.217.335zM5 19h1.098l5.74-5.74l-.546-.552l-.552-.547L5 17.902zm14.762 2.177l-7.21-7.185L6.519 20H4v-2.513l6.014-6.033l-7.191-7.215l.714-.714l16.938 16.938zm-.743-15.085l-1.111-1.111zm-3.321 1.112l1.098 1.098zm-4.406 5.504l-.551-.546l1.098 1.097z"/>
+                                </svg>
+                            :   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M5 19h1.098L16.796 8.302l-1.098-1.098L5 17.902zm-.192 1q-.343 0-.576-.232T4 19.192v-1.04q0-.332.13-.632t.349-.518L17.18 4.287q.153-.137.339-.212T17.907 4t.39.064t.35.228l1.067 1.074q.165.159.226.35q.06.19.06.38q0 .204-.068.39q-.069.185-.218.339L6.998 19.521q-.217.218-.518.348T5.848 20zM19.019 6.092l-1.111-1.111zm-2.781 1.67l-.54-.558l1.098 1.098z"/>
+                                </svg>
+                            }
+                            
                         </button>
                     </div>
 
@@ -470,15 +477,8 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
                                                                 {index + 1}
                                                             </p>
                                                             <TaskCard
-                                                                id={task.taskId}
-                                                                name={task.name}
-                                                                description={task.description}
-                                                                date={task.date}
-                                                                priority={task.priority}
-                                                                completed={task.completed}
-                                                                projectId={task.projectId}
-                                                                teamMembers={getSpecificUsers(task.teamIds)}
-                                                                handleSelectedTask={() => handleSelectedTask(task.taskId, task.name, task.description, task.date, task.priority, task.teamIds, task.completed, task.projectId)}
+                                                                task={task}
+                                                                handleSelectedTask={() => handleSelectedTask(task)}
                                                             />
                                                         </div>
                                                     )) 

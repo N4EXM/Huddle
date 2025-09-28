@@ -33,20 +33,9 @@ const ProjectsPage = () => {
   })
 
   // functions
-  const handleSelectedProject = (projectId, name, priority, description, percentage, date, projectLeaderId, teamMembers) => {
-    
-    const currentProject = { 
-      projectId: projectId,
-      name: name,
-      priority: priority,
-      description: description, 
-      percentage: percentage, 
-      date: date,
-      projectLeaderId: projectLeaderId,
-      teamMembers: teamMembers
-    }
+  const handleSelectedProject = (project) => {
 
-    setSelectedProject(currentProject)
+    setSelectedProject(project)
 
     setIsSelectedProjectActive(true)
     setToggleOverlay(true)
@@ -146,26 +135,15 @@ const ProjectsPage = () => {
             ? projects.map((project) => (
                 <ProjectListItem
                   key={project.projectId}
-                  name={project.name}
-                  priority={project.priority}
-                  percentage={project.percentage}
-                  date={project.date}
-                  projectLeaderId={project.projectLeaderId}
-                  teamMembers={getSpecificUsers(project.teamIds, users)}
-                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.description, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
+                  project={project}
+                  handleSelectedProject={() => handleSelectedProject(project)}
                 />
               ))
             : projects.map((project) => (
                 <ProjectCard
                   key={project.projectId}
-                  name={project.name}
-                  priority={project.priority}
-                  description={project.description}
-                  percentage={project.percentage}
-                  date={project.date}
-                  projectLeaderId={project.projectLeaderId}
-                  teamMembers={getSpecificUsers(project.teamIds, users)}
-                  handleSelectedProject={() => handleSelectedProject(project.projectId, project.name, project.priority, project.description, project.percentage, project.date, project.projectLeaderId, getSpecificUsers(project.teamIds, users))}
+                  project={project}
+                  handleSelectedProject={() => handleSelectedProject(project)}                
                 />
               ))
           }

@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from 'react'
+import { useMock } from '../../context/MockContext'
 
-const TaskCard = ({id, name, description, date, priority, completed, projectId, teamMembers, handleSelectedTask}) => {
+const TaskCard = ({handleSelectedTask, task}) => {
+
+    // context
+    const { getSpecificUsers } = useMock()
 
     const [priorityId, setPriorityId] = useState(0)
-    const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
-    const [members, setMembers] = useState(teamMembers || [])
-    const [completion, setCompletion] = useState(completed)
+    const [members, setMembers] = useState(getSpecificUsers(task.teamIds) || [])
+    const [overlapAmount, setOverlapAmount] = useState(members.length + 1)
+    const [completion, setCompletion] = useState(task.completed)
 
     const priorityColours = [
         { 
@@ -24,19 +28,19 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
 
     const handlePriorityColour = () => {
 
-    for (let i = 0; i < priorityColours.length; i++ ) {
-        if (priority === priorityColours[i].priority) {
-        setPriorityId(priorityColours[i].id)
+        for (let i = 0; i < priorityColours.length; i++ ) {
+            if (task.priority === priorityColours[i].priority) {
+                setPriorityId(priorityColours[i].id)
+            }
         }
-    }
 
     }
     
     const truncateText = (str, maxLength) => {
-    if (str.length > maxLength) {
-        return str.substring(0, maxLength) + '...';
-    }
-    return str;
+        if (str.length > maxLength) {
+            return str.substring(0, maxLength) + '...';
+        }
+        return str;
     }
     
     useEffect(() => {
@@ -60,7 +64,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                 <h1
                     className='font-semibold pr-10 text-teal-50 min-h-12'
                 >
-                    {truncateText(name, 40)}
+                    {truncateText(task.name, 40)}
                 </h1>
                 <div
                     className='flex flex-row items-center justify-between'
@@ -68,7 +72,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                     <p
                         className='text-xs font-medium text-dimText'
                     >
-                        {date}
+                        {task.date}
                     </p>
 
                     {/* team */}
@@ -78,19 +82,19 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                         {members.slice(0,4).map((member, index) => {
                         return (
                             <img 
-                            key={index + 1}
-                            className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
-                            style={{ right: `${index * 15}px` }}
-                            src={member.image} 
-                            alt="" 
+                                key={index + 1}
+                                className={`max-w-6 w-6 h-6 max-h-6 absolute z-10 rounded-full border-2 border-primary object-fit object-center`}
+                                style={{ right: `${index * 15}px` }}
+                                src={member.image} 
+                                alt="" 
                             />    
                         )
                         })}
                         <p
-                            className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                            className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${members.length > 4 ? "block" : "hidden"}`}
                             style={{ left: `${overlapAmount * 15}px` }}              
                         >
-                        {teamMembers.length}+ 
+                        {members.length}+ 
                         </p>
                     </div>
                 </div>
@@ -100,7 +104,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                 <p
                     className='text-dimText text-xs'
                 >
-                    {truncateText(description, 100)}
+                    {truncateText(task.description, 100)}
                 </p>
             </div>
         </div>
@@ -116,7 +120,7 @@ const TaskCard = ({id, name, description, date, priority, completed, projectId, 
                 <p
                     className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
                 >
-                    {priority}
+                    {task.priority}
                 </p>
 
                 {/* checkbox */}

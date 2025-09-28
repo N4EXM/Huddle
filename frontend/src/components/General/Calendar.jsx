@@ -104,7 +104,7 @@ const Calendar = ({ isCalendarActive, setDueDate, setIsCalendarActive }) => {
 
     return (
         <div
-            className={`min-h-60 min-w-80 h-fit w-full drop-shadow-2xl bg-background rounded-md border-2 border-primary absolute -bottom-[23rem] right-0 duration-200 transition ${isCalendarActive ? "flex" : "hidden"} flex-col gap-5 p-3 z-20`}
+            className={`min-h-60 min-w-80 max-h-80 h-fit  drop-shadow-2xl bg-background rounded-md border-2 border-primary absolute -bottom-[21rem] right-0 duration-200 transition ${isCalendarActive ? "flex" : "hidden"} flex-col gap-5 p-3 z-20`}
         >
             
             {/* month buttons and current month/year */}
