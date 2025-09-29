@@ -43,6 +43,12 @@ const TasksPage = () => {
     setToggleOverlay(true)
   }
 
+  useEffect(() => {
+    if (isSelectedTaskActive === false) {
+      setToggleOverlay(false)
+    }
+  }, [isSelectedTaskActive])
+
   return (
     <Layout>
       
@@ -139,7 +145,7 @@ const TasksPage = () => {
                             <TaskListItem
                               key={task.taskId}
                               task={task}
-                              teamMembers={getSpecificUsers(project.teamIds)}
+                              handleSelectedTask={() => handleSelectedTask(task)}                              
                             />
                           )})
                     : currentTasks

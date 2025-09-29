@@ -16,6 +16,7 @@ const ProjectsPage = () => {
   const [toggleOverlay, setToggleOverlay] = useState(false) 
   const [isNewProjectActive, setIsNewProjectActive] = useState(false) // checks if the user wants to create a new project
   const [isSelectedProjectActive, setIsSelectedProjectActive] = useState(false)
+  const [isSelectedTaskActive, setIsSelectedTaskActive] = useState(false)
 
   // data
   const { users, projects } = useMock()
@@ -31,6 +32,7 @@ const ProjectsPage = () => {
     projectLeaderId: null,
     teamMembers: null
   })
+  
 
   // functions
   const handleSelectedProject = (project) => {
@@ -41,7 +43,7 @@ const ProjectsPage = () => {
     setToggleOverlay(true)
 
   }
-
+  
   const handleNewProjectState = () => { // toggles the isNewProjectActive
     setIsNewProjectActive(!isNewProjectActive)
     setToggleOverlay(!toggleOverlay)
@@ -62,14 +64,13 @@ const ProjectsPage = () => {
         />
         {
           isSelectedProjectActive &&
-            <ProjectMenu
-              isSelectedProjectActive={isSelectedProjectActive}
-              setIsSelectedProjectActive={setIsSelectedProjectActive}
-              selectedProject={selectedProject}
-              setToggleOverlay={setToggleOverlay}
-            />
+          <ProjectMenu
+            isSelectedProjectActive={isSelectedProjectActive}
+            setIsSelectedProjectActive={setIsSelectedProjectActive}
+            selectedProject={selectedProject}
+            setToggleOverlay={setToggleOverlay}
+          />
         }
-        
       </OverlayBackground>
       <div
         className='col-span-12'

@@ -4,6 +4,9 @@ import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentY
 import { getSpecificUsers } from '../utils/userUtils'
 import TaskCard from '../components/CalendarPage/TaskCard'
 import Layout from '../components/General/Layout'
+import TaskMenu from '../components/Modals/TaskMenu'
+import OverlayBackground from '../components/General/OverlayBackground'
+
 
 const CalendarPage = () => {
 
@@ -21,6 +24,20 @@ const CalendarPage = () => {
   const [daysInSelectedMonth, setDaysInSelectedMonth] = useState(getDaysInMonth(selectedYear, selectedMonthIndex))
   const [selectedDayOfMonth, setSelectedDayOfMonth] = useState(getCurrentDate())
   const [selectedDayIndex, setSelectedDayIndex] = useState(getCurrentDayInMonthIndex(selectedYear, selectedMonthIndex, selectedDayOfMonth))
+
+  // task state management
+  const [toggleOverlay, setToggleOverlay] = useState(false)
+  const [isSelectedTaskActive, setIsSelectedTaskActive] = useState(false)
+  const [selectedTask, setSelectedTask] = useState({
+    taskId: null,
+    name: "",
+    description: "",
+    date: "",
+    priority: "",
+    teamIds: [],
+    completed: false,
+    projectId: null
+  })
 
   // viewer state management
   const [tasksView, setTasksView] = useState(false)
@@ -99,6 +116,13 @@ const CalendarPage = () => {
 
   }
 
+  const handleSelectedTask = (task) => {
+    setSelectedTask(task)
+    setIsSelectedTaskActive(true)
+    setToggleOverlay(true)
+    console.log("this is run")
+  }
+
   // useEffect(() => {
   //   console.log("selectedMonthIndex: ", selectedMonthIndex)
   //   console.log("selectedYear: ", selectedYear)
@@ -157,9 +181,24 @@ const CalendarPage = () => {
     }
   }, [selectedDayOfMonth, selectedMonthIndex, selectedYear]);
   
+  useEffect(() => {
+    if (isSelectedTaskActive === false) {
+      setToggleOverlay(false)
+    }
+  }, [isSelectedTaskActive])
 
   return (
     <Layout>
+
+      <OverlayBackground
+        toggleOverlayBackground={toggleOverlay}
+      >
+        <TaskMenu
+          selectedTask={selectedTask}
+          setIsSelectedTaskActive={setIsSelectedTaskActive}
+        />
+      </OverlayBackground>
+
       {/* title */}
       <div
         className='col-span-12'
@@ -282,10 +321,8 @@ const CalendarPage = () => {
             tasksForSelectedDate.map((task) => (
               <TaskCard
                 key={task.taskId}
-                name={task.name}
-                priority={task.priority}
-                description={task.description}
-                teamMembers={getSpecificUsers(task.teamIds, users)}
+                task={task}
+                handleSelectedTask={() => handleSelectedTask(task)}
               />
             ))
           }

@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react'
+import { useMock } from '../../context/MockContext'
 
-const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
+const TaskCard = ({ task, handleSelectedTask  }) => {
+
+    const { getSpecificUsers } = useMock()
 
     const [priorityId, setPriorityId] = useState(0)
-    const [overlapAmount, setOverlapAmount] = useState(teamMembers.length + 1)
-    const [members, setMembers] = useState(teamMembers || [])
-    const [completion, setCompletion] = useState(completed)
+    const [members, setMembers] = useState(getSpecificUsers(task.teamIds)|| [])
+    const [overlapAmount, setOverlapAmount] = useState(members.length + 1)
+    const [completion, setCompletion] = useState(task.completed)
 
     const priorityColours = [
         { 
@@ -25,7 +28,7 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
     const handlePriorityColour = () => {
 
         for (let i = 0; i < priorityColours.length; i++ ) {
-            if (priority === priorityColours[i].priority) {
+            if (task.priority === priorityColours[i].priority) {
             setPriorityId(priorityColours[i].id)
             }
         }
@@ -50,36 +53,39 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
 
         {/* title and priority */}
         <div
-            className='flex flex-row items-start justify-between w-full min-h-12'
+            className='flex flex-col gap-4 w-full h-fit cursor-pointer'
+            onClick={handleSelectedTask}
         >
-            <h1
-                className='font-semibold pr-12'
+            <div
+                className='flex flex-row items-start justify-between w-full min-h-12'
             >
-                {truncateText(name, 40)}
-            </h1>
-            <p
-                    className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
+                <h1
+                    className='font-semibold pr-12'
                 >
-                    {priority}
-            </p>
-        </div>
-
-        <div
-            className='w-full h-full flex flex-col items-start justify-between'
-        >
-
+                    {truncateText(task.name, 40)}
+                </h1>
+                <p
+                        className={`${priorityId === 0 && "bg-red-300 text-red-700"} ${priorityId === 1 && "bg-yellow-200 text-yellow-700"} ${priorityId === 2 && "bg-blue-300 text-blue-700"} p-1 px-3 rounded-full text-xs font-medium`}
+                    >
+                        {task.priority}
+                </p>
+            </div>
             {/* separator and description */}
             <div
-                className='flex flex-col gap-2 h-full min-h-22'
+                className='flex flex-col gap-2 h-full '
             >
                 <span className='w-full h-[0.1rem] bg-thirdBackground'></span>
                 <p
                     className='text-xs text-dimText'
                 >
-                    {truncateText(description, 120)}
+                    {truncateText(task.description, 120)}
                 </p>
             </div>
+        </div>
 
+        <div
+            className='w-full h-full flex items-end justify-end'
+        >
             {/* teams and checkbox */}
             <div
                 className='flex flex-row items-center justify-between w-full h-fit'
@@ -100,10 +106,10 @@ const TaskCard = ({ name, priority, description,completed, teamMembers  }) => {
                     )
                     })}
                     <p
-                    className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${teamMembers.length > 4 ? "block" : "hidden"}`}
+                    className={`absolute z-10 w-fit text-sm font-medium top-0.5 ${members.length > 4 ? "block" : "hidden"}`}
                     style={{ left: `${overlapAmount * 15}px` }}              
                     >
-                    {teamMembers.length}+ 
+                    {members.length}+ 
                     </p>
                 </div>
 

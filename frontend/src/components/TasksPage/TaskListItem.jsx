@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useMock } from '../../context/MockContext'
 
-const TaskListItem = ({ task }) => {
+const TaskListItem = ({ task, handleSelectedTask }) => {
 
     const { getSpecificUsers } = useMock()
 
@@ -53,17 +53,17 @@ const TaskListItem = ({ task }) => {
         className='flex flex-row items-center justify-between bg-background p-4 px-6 rounded-md text-sm w-full h-fit'
     >
 
-        {/* title */}
-        <h1
-            className='font-semibold text-sm w-2/5'
-        >
-            {truncateText(task.name, 90)}
-        </h1>
-
         {/* columns */}
         <div
-            className='grid grid-cols-4 w-full h-fit'
+            className='grid grid-cols-4 w-full h-fit cursor-pointer'
+            onClick={handleSelectedTask}
         >
+            {/* title */}
+            <h1
+                className='font-semibold text-sm'
+            >
+                {truncateText(task.name, 90)}
+            </h1>
             {/* team */}
             <div
                 className='flex items-center justify-center w-full'
@@ -113,24 +113,22 @@ const TaskListItem = ({ task }) => {
                     {task.priority}
                 </p>
             </div>
-        
-
-            {/* checkbox */}
-            <div
-                className='flex items-center justify-center w-full'
-            >
-                <button
-                    className={`flex items-center justify-center ${completion ? "text-primary" : ""} w-8 rounded h-8 border border-primary cursor-pointer`}
-                    onClick={() => setCompletion(!completion)}
-                >
-                    {
-                        completion
-                        && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="currentcolor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
-                    }
-                </button>
-            </div>
         </div>
 
+        {/* checkbox */}
+        <div
+            className='flex items-center justify-center w-fit'
+        >
+            <button
+                className={`flex items-center justify-center ${completion ? "text-primary" : ""} w-8 rounded h-8 border border-primary cursor-pointer`}
+                onClick={() => setCompletion(!completion)}
+            >
+                {
+                    completion
+                    && <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="currentcolor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg>
+                }
+            </button>
+        </div>
         
     </div>
   )
