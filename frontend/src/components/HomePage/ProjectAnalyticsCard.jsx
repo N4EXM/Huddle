@@ -20,7 +20,7 @@ const data = [
 
 export default function ProjectAnalytics() {
   return (
-    <div className="bg-secondBackground relative p-6 rounded-2xl shadow-lg text-white w-full col-span-8 row-span-8">
+    <div className="bg-secondBackground relative p-6 rounded-lg shadow-lg text-white w-full col-span-8 row-span-8">
       <h2 className="text-lg font-semibold">Project analytics</h2>
       <p className="text-primary text-sm my-4">Tasks Completed</p>
 
