@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
 import OverlayBackground from './OverlayBackground'
 import { useMock } from '../../context/MockContext'
-
+import useClickOutside from '../../hooks/useClickOutside'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -14,6 +15,9 @@ const Navbar = () => {
 
     // state
     const [query, setQuery] = useState("")
+
+    // hook
+    const ref = useClickOutside(() => setOpenUserMenu(false))
 
     
   return (
@@ -64,6 +68,8 @@ const Navbar = () => {
                     <path strokeWidth="2" fill="currentcolor" d="M12 17.75A5.75 5.75 0 1 1 17.75 12A5.76 5.76 0 0 1 12 17.75m0-10A4.25 4.25 0 1 0 16.25 12A4.26 4.26 0 0 0 12 7.75M12 5a.76.76 0 0 1-.75-.75v-1.5a.75.75 0 0 1 1.5 0v1.5A.76.76 0 0 1 12 5m0 17a.76.76 0 0 1-.75-.75v-1.5a.75.75 0 0 1 1.5 0v1.5A.76.76 0 0 1 12 22m9.25-9.25h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5m-17 0h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5m2.25-5.5A.74.74 0 0 1 6 7L4.91 6A.75.75 0 1 1 6 4.91L7 6a.75.75 0 0 1 0 1a.74.74 0 0 1-.5.25m12.06 12.06a.74.74 0 0 1-.53-.22L17 18a.75.75 0 0 1 1-1l1.09 1a.75.75 0 0 1 0 1.06a.74.74 0 0 1-.53.25M17.5 7.25A.74.74 0 0 1 17 7a.75.75 0 0 1 0-1l1-1.09A.75.75 0 1 1 19.09 6L18 7a.74.74 0 0 1-.5.25M5.44 19.31a.74.74 0 0 1-.53-.22a.75.75 0 0 1 0-1.06L6 17a.75.75 0 0 1 1 1l-1 1.09a.74.74 0 0 1-.56.22" />
                 </svg>
             </button>
+
+            {/* user drop down menu */}
             <div
                 className='flex flex-row items-center gap-2 w-fit h-full cursor-pointer rounded-md duration-200'
                 onClick={() => setOpenUserMenu(!openUserMenu)}
@@ -75,18 +81,23 @@ const Navbar = () => {
                 />
             </div>
             <div
-                className={`min-h-20 rounded-md bg-secondBackground border-2 border-primary min-w-72 flex-row items-start shadow-secondBackground shadow-lg absolute right-0 top-12 ${openUserMenu ? "flex" : "hidden"}`}
+                className={`h-fit rounded-md bg-secondBackground border-2 border-primary min-w-64 flex-col items-start shadow-secondBackground shadow-lg absolute right-0 top-12 ${openUserMenu ? "flex" : "hidden"}`}
+                ref={ref}
             >
                 <div
-                    className='flex flex-row items-start relative w-full h-full gap-2 p-3'
+                    className='flex flex-row items-center relative w-full h-full gap-2 p-2 px-3 '
                 >
-                    <img 
-                        src={currentUser.image}
-                        className='w-14 h-14 rounded-full border-2 border-primary'
-                        alt=""
-                    />
                     <div
-                        className='flex flex-col gap-0 w-full h-full items-start'
+                        className='flex flex-row items-center p-1 gap-2 w-fit h-full cursor-pointer rounded-md duration-200'
+                    >
+                        <img 
+                            src={currentUser.image} 
+                            className='rounded-full border-2 border-primary w-9 h-9 object-center object-fit'
+                            alt="" 
+                        />
+                    </div>
+                    <div
+                        className='flex flex-col gap-0 w-fit h-full items-start'
                     >
                         <h1
                             className='font-bold'
@@ -99,17 +110,28 @@ const Navbar = () => {
                             {currentUser.email}
                         </p>
                     </div>
-                    <button
-                        className='text-xs bg-background rounded-md p-1 px-2 absolute top-2 right-2 flex flex-row items-center gap-1'
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                            <path fill="currentcolor" d="M5 19h1.098L16.796 8.302l-1.098-1.098L5 17.902zm-1 1v-2.52L17.18 4.288q.155-.137.34-.212T17.907 4t.39.064q.19.063.35.228l1.067 1.074q.165.159.226.35q.06.19.06.38q0 .204-.068.39q-.069.185-.218.339L6.519 20zM19.02 6.092l-1.112-1.111zm-2.782 1.67l-.54-.558l1.098 1.098z" />
-                        </svg>
-                        Edit
-                    </button>
                 </div>
-                
+                <span className='w-full h-0.5 bg-thirdBackground'></span>   
+                {/* buttons */}
+                <div
+                    className='w-full flex flex-col gap-1 '
+                >
+                    <Link
+                        className='w-full hover:bg-background text-dimText hover:text-primary duration-200 rounded-md flex flex-row items-center gap-2 p-3.5'
+                        to={"/Settings"}
+                    >
+                        <svg className='' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
+                            <path fill="currentcolor" fill-rule="evenodd" d="M18.98 2.458c.805-.423 2.358-.958 5.02-.958s4.215.535 5.022.958c.612.32.97.83 1.174 1.256c.29.605.925 1.97 1.48 3.449a18.5 18.5 0 0 1 3.063 1.771c1.56-.26 3.061-.39 3.731-.443c.47-.036 1.09.02 1.675.39c.77.486 2.01 1.563 3.34 3.869c1.332 2.306 1.644 3.918 1.681 4.828c.029.69-.233 1.255-.5 1.645a45 45 0 0 1-2.25 3.01a18.7 18.7 0 0 1 0 3.534a45 45 0 0 1 2.25 3.01c.267.39.529.954.5 1.645c-.037.91-.35 2.522-1.68 4.828c-1.332 2.306-2.572 3.383-3.341 3.87c-.584.37-1.204.425-1.675.389a45 45 0 0 1-3.731-.443a18.5 18.5 0 0 1-3.063 1.771a45 45 0 0 1-1.48 3.449c-.204.426-.562.935-1.174 1.256c-.807.422-2.36.958-5.022.958s-4.215-.535-5.022-.958c-.612-.32-.97-.83-1.174-1.256c-.29-.605-.925-1.97-1.48-3.449a18.5 18.5 0 0 1-3.063-1.771c-1.56.26-3.062.39-3.732.443c-.47.036-1.09-.02-1.674-.39c-.77-.486-2.01-1.563-3.34-3.869c-1.332-2.306-1.645-3.918-1.682-4.828c-.028-.69.234-1.255.5-1.645a45 45 0 0 1 2.25-3.01a18.7 18.7 0 0 1 0-3.534a45 45 0 0 1-2.25-3.01c-.266-.39-.528-.954-.5-1.645c.038-.91.35-2.522 1.681-4.828s2.572-3.383 3.341-3.87c.584-.37 1.204-.425 1.675-.389c.67.052 2.17.184 3.73.443a18.5 18.5 0 0 1 3.064-1.771a45 45 0 0 1 1.48-3.449c.204-.426.562-.935 1.174-1.256ZM32 24a8 8 0 1 1-16 0a8 8 0 0 1 16 0" clip-rule="evenodd" />
+                        </svg>
+                        <span
+                            className='text-dimText text-sm font-medium'
+                        >
+                            Settings
+                        </span>
+                    </Link>
+                </div>
             </div>
+
         </div>
         
 

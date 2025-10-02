@@ -42,7 +42,7 @@ const Sidebar = () => {
         {
             name: "Logout",
             icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M5.616 20q-.691 0-1.153-.462T4 18.384V5.616q0-.691.463-1.153T5.616 4h6.403v1H5.616q-.231 0-.424.192T5 5.616v12.769q0 .23.192.423t.423.192h6.404v1zm10.846-4.461l-.702-.72l2.319-2.319H9.192v-1h8.887l-2.32-2.32l.702-.718L20 12z"/>
+                    <path strokeWidth="1.5" fill="currentColor" d="M5.616 20q-.691 0-1.153-.462T4 18.384V5.616q0-.691.463-1.153T5.616 4h6.403v1H5.616q-.231 0-.424.192T5 5.616v12.769q0 .23.192.423t.423.192h6.404v1zm10.846-4.461l-.702-.72l2.319-2.319H9.192v-1h8.887l-2.32-2.32l.702-.718L20 12z"/>
                   </svg>,
         }
     ]
@@ -118,16 +118,16 @@ const Sidebar = () => {
             {generalButton.map((general) => (
                 <button
                     key={general.name}
-                    className='relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 '
+                    className='relative flex flex-row cursor-pointer items-center gap-4 w-full pl-10 hover:text-rose-600'
                     onClick={() => handleNavigate(general.path)}
                 >   
                     <i
-                        className={`${location.pathname === general.path ? "text-primary" : "text-text"}`}
+                        
                     >
                         {general.icon}
                     </i>
                     <p
-                        className='text-sm'
+                        className='text-sm text-text'
                     >
                         {general.name}
                     </p>
