@@ -117,10 +117,27 @@ const CalendarPage = () => {
   }
 
   const handleSelectedTask = (task) => {
-    setSelectedTask(task)
+    setSelectedTask(task) 
     setIsSelectedTaskActive(true)
     setToggleOverlay(true)
     console.log("this is run")
+  }
+
+  const handleCloseSelectedTask = () => {
+
+    setToggleOverlay(false)
+    setIsSelectedTaskActive(false)
+    setSelectedTask({
+      taskId: null,
+      name: "",
+      description: "",
+      date: "",
+      priority: "",
+      teamIds: [],
+      completed: null,
+      projectId: null
+    })
+
   }
 
   // useEffect(() => {
@@ -181,11 +198,6 @@ const CalendarPage = () => {
     }
   }, [selectedDayOfMonth, selectedMonthIndex, selectedYear]);
   
-  useEffect(() => {
-    if (isSelectedTaskActive === false) {
-      setToggleOverlay(false)
-    }
-  }, [isSelectedTaskActive])
 
   return (
     <Layout>
@@ -195,7 +207,7 @@ const CalendarPage = () => {
       >
         <TaskMenu
           selectedTask={selectedTask}
-          setIsSelectedTaskActive={setIsSelectedTaskActive}
+          closeMenu={handleCloseSelectedTask}
         />
       </OverlayBackground>
 

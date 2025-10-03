@@ -48,6 +48,23 @@ const TaskMenu = ({selectedTask, closeMenu}) => {
     setTeamMembers(prevMembers => prevMembers.filter(member => member.userId !== userId))
   }  
 
+  const handleCancelEdit = () => {
+    if (isEdit === true) {
+      
+      // state
+      setName(selectedTask.name)
+      setDescription(selectedTask.description)
+      setDate(selectedTask.date)
+      setPriority(selectedTask.priority)
+      setTeamMembers(getSpecificUsers(selectedTask.teamIds))
+      setCompleted(selectedTask.completed)
+      setProjectId(selectedTask.projectId)
+
+      setIsEdit(false)
+
+    }
+  }
+
   // Calculate priorityId directly from priority
   const priorityColours = [
     { 

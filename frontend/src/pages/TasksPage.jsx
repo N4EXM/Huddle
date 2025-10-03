@@ -43,11 +43,22 @@ const TasksPage = () => {
     setToggleOverlay(true)
   }
 
-  useEffect(() => {
-    if (isSelectedTaskActive === false) {
-      setToggleOverlay(false)
-    }
-  }, [isSelectedTaskActive])
+  const handleCloseSelectedTask = () => {
+
+    setToggleOverlay(false)
+    setIsSelectedTaskActive(false)
+    setSelectedTask({
+      taskId: null,
+      name: "",
+      description: "",
+      date: "",
+      priority: "",
+      teamIds: [],
+      completed: null,
+      projectId: null
+    })
+
+  }
 
   return (
     <Layout>
@@ -58,7 +69,7 @@ const TasksPage = () => {
         {isSelectedTaskActive &&
           <TaskMenu
             selectedTask={selectedTask}
-            setIsSelectedTaskActive={setIsSelectedTaskActive}
+            closeMenu={handleCloseSelectedTask}
           />
         }
       </OverlayBackground>
@@ -75,7 +86,7 @@ const TasksPage = () => {
       </div>
 
       <div
-        className='col-span-12 bg-secondBackground row-span-11 rounded-lg flex flex-col gap-6 p-4'
+        className='col-span-12 bg-secondBackground row-span-11 rounded-md flex flex-col gap-6 p-4'
       >
         {/* buttons */}
         <div

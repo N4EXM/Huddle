@@ -17,7 +17,7 @@ const ProjectMenu = ({ closeMenu, selectedProject, handleSelectedTask }) => {
     // state
     const [view, setView] = useState("details")
     const [viewBtns] = useState(["details", "tasks"])
-    
+
     const [projectId, setProjectId] = useState(null)
     const [name,setName] = useState("")
     const [description, setDescription] = useState("")

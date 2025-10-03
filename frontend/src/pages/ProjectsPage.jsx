@@ -134,7 +134,7 @@ const ProjectsPage = () => {
         }
         {
           isSelectedTaskActive &&
-          <TaskMenuA
+          <TaskMenu
             closeMenu={handleCloseSelectedTask}
             selectedTask={selectedTask}
           />
