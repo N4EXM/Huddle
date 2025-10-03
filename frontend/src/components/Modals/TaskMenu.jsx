@@ -4,107 +4,85 @@ import Calendar from '../General/Calendar'
 import TeamSearchBar from '../General/TeamSearchBar'
 import TeamMemberCard from '../General/TeamMemberCard'
 
+const TaskMenu = ({selectedTask, closeMenu}) => {
 
-const TaskMenu = ({ selectedTask, setIsSelectedTaskActive }) => {
+  // context
+  const { getSpecificUsers, users } = useMock()
 
-    // context
-    const { getSpecificUsers, users } = useMock()
+  // toggles
+  const [isEdit, setIsEdit] = useState(false)
+  const [isCalendarActive, setIsCalendarActive] = useState(false)
 
-    // toggles
-    const [isEdit, setIsEdit] = useState(false)
-    const [isCalendarActive, setIsCalendarActive] = useState(false)
+  // task state
+  const [taskId, setTaskId] = useState(null)
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [date, setDate] = useState("")
+  const [priority, setPriority] = useState("")
+  const [teamMembers, setTeamMembers] = useState([])
+  const [completed, setCompleted] = useState(false)
+  const [projectId, setProjectId] = useState(null)
 
-    // state
-    const [taskId, setTaskId] = useState(null)
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [date, setDate] = useState("")
-    const [priority, setPriority] = useState("")
-    const [teamMembers, setTeamMembers] = useState([])
-    const [completed, setCompleted] = useState(false)
-    const [projectId, setProjectId] = useState(null)
+  // search state
+  const [searchQuery, setSearchQuery] = useState("")
+  const [debounceTerm, setDebounceTerm] = useState("")
+  const [membersId, setMembersId] = useState([])
 
-    // team search bar state
-    const [searchQuery, setSearchQuery] = useState("")
-    const [debounceTerm, setDebounceTerm] = useState("")
-    const [membersId, setMembersId] = useState([])
-    
-    const priorityColours = [
-      { 
-        id: 0, 
-        priority: "High",
-      },
-      {
-        id: 1, 
-        priority: "Medium",
-      },
-      {
-        id: 2, 
-        priority: "Low",
-      },
-    ]
-    
-    const filteredUsers = useMemo(() => {
-      return users.filter(user => user.name.toLowerCase().includes(debounceTerm.toLowerCase()))
-    }, [users, debounceTerm])
+  // functions
+  const filteredUsers = useMemo(() => {
+    return users.filter(user => user.name.toLowerCase().includes(debounceTerm.toLowerCase()))
+  }, [users, debounceTerm])
 
-    // Calculate priorityId directly from priority
-    const getPriorityId = () => {
-      for (let i = 0; i < priorityColours.length; i++ ) {
-        if (priority === priorityColours[i].priority) {
-          return priorityColours[i].id
-        }
+  const handleAddMember = (user) => {
+    if (!teamMembers.includes(user)) {
+      setTeamMembers([...teamMembers, user])
+      setMembersId([...membersId, user.userId])
+      setSearchQuery("")
+    }
+    else {
+      setSearchQuery("")
+    }
+  }
+
+  const handleRemoveMember = (userId) => {
+    setTeamMembers(prevMembers => prevMembers.filter(member => member.userId !== userId))
+  }  
+
+  // Calculate priorityId directly from priority
+  const priorityColours = [
+    { 
+      id: 0, 
+      priority: "High",
+    },
+    {
+      id: 1, 
+      priority: "Medium",
+    },
+    {
+      id: 2, 
+      priority: "Low",
+    },
+  ] 
+  const getPriorityId = () => {
+    for (let i = 0; i < priorityColours.length; i++ ) {
+      if (priority === priorityColours[i].priority) {
+        return priorityColours[i].id
       }
-      return 0 // default
     }
+    return 0 // default
+  }
+  const priorityId = getPriorityId() // This will update automatically
 
-    const handleAddMember = (user) => {
-      if (!teamMembers.includes(user)) {
-        setTeamMembers([...teamMembers, user])
-        setMembersId([...membersId, user.userId])
-        setSearchQuery("")
-      }
-      else {
-        setSearchQuery("")
-      }
-    }
-
-    const handleRemoveMember = (userId) => {
-      setTeamMembers(prevMembers => prevMembers.filter(member => member.userId !== userId))
-    }
-
-    const priorityId = getPriorityId() // This will update automatically
-    
-    const handleClosePage = () => {
-      setIsSelectedTaskActive(false)
-    }
-
-    const handleCancelEdit = () => {
-      setName(selectedTask.name);
-      setDescription(selectedTask.description);
-      setDate(selectedTask.date);
-      setPriority(selectedTask.priority);
-      setTeamMembers(getSpecificUsers(selectedTask.teamIds));
-      setIsEdit(false);
-    };
-
-    useEffect(() => {
-      setTaskId(selectedTask.taskId)
-      setName(selectedTask.name)
-      setDescription(selectedTask.description)
-      setDate(selectedTask.date)
-      setPriority(selectedTask.priority)
-      setTeamMembers(getSpecificUsers(selectedTask.teamIds))
-      setCompleted(selectedTask.completed)
-      setProjectId(selectedTask.projectId)
-    }, [selectedTask])
-
-    useEffect(() => {
-      const timerId = setTimeout(() => {
-        setDebounceTerm(searchQuery);
-      }, 300); // 300ms delay
-      return () => clearTimeout(timerId);
-    }, [searchQuery])
+  useEffect(() => {
+    setTaskId(selectedTask.taskId)
+    setName(selectedTask.name)
+    setDescription(selectedTask.description)
+    setDate(selectedTask.date)
+    setPriority(selectedTask.priority)
+    setTeamMembers(getSpecificUsers(selectedTask.teamIds))
+    setCompleted(selectedTask.completed)
+    setProjectId(selectedTask.projectId)
+  }, [selectedTask])
 
   return (
     <div
@@ -119,7 +97,7 @@ const TaskMenu = ({ selectedTask, setIsSelectedTaskActive }) => {
         >
           <button
                 className='p-1 rounded-full bg-background duration-200 hover:bg-primary hover:text-background'
-                onClick={() => handleClosePage()}
+                onClick={() => closeMenu()}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
           </button>
@@ -508,4 +486,3 @@ const TaskMenu = ({ selectedTask, setIsSelectedTaskActive }) => {
 }
 
 export default TaskMenu
-

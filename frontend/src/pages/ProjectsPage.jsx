@@ -8,6 +8,7 @@ import { getSpecificUsers } from '../utils/userUtils'
 import NewTaskMenu from '../components/Modals/NewTaskMenu'
 import Layout from '../components/General/Layout'
 import ProjectMenu from '../components/Modals/ProjectMenu'
+import TaskMenu from '../components/Modals/TaskMenu'
 
 const ProjectsPage = () => {
 
@@ -32,6 +33,16 @@ const ProjectsPage = () => {
     projectLeaderId: null,
     teamMembers: null
   })
+  const [selectedTask, setSelectedTask] = useState({
+    taskId: null,
+    name: "",
+    description: "",
+    date: "",
+    priority: "",
+    teamIds: [],
+    completed: null,
+    projectId: null
+  })
   
 
   // functions
@@ -43,7 +54,58 @@ const ProjectsPage = () => {
     setToggleOverlay(true)
 
   }
-  
+
+  const handleSelectedTask = (task) => {
+    if (isSelectedProjectActive) {
+      setIsSelectedTaskActive(true)
+      setSelectedTask(task)
+    }
+  }
+
+  const handleCloseSelectedTask = () => {
+
+    setIsSelectedTaskActive(false)
+    setSelectedTask({
+      taskId: null,
+      name: "",
+      description: "",
+      date: "",
+      priority: "",
+      teamIds: [],
+      completed: null,
+      projectId: null
+    })
+
+  }
+
+  const handleCloseSelectedProject = () => {
+
+    setToggleOverlay(false)
+    setIsSelectedProjectActive(false)
+    setIsSelectedTaskActive(false)
+    setSelectedTask({
+      taskId: null,
+      name: "",
+      description: "",
+      date: "",
+      priority: "",
+      teamIds: [],
+      completed: null,
+      projectId: null
+    })
+    setSelectedProject({
+      projectId: null,
+      name: "",
+      priority: "",
+      description: "", 
+      percentage: 0, 
+      date: "",
+      projectLeaderId: null,
+      teamMembers: null
+    })
+
+  }
+
   const handleNewProjectState = () => { // toggles the isNewProjectActive
     setIsNewProjectActive(!isNewProjectActive)
     setToggleOverlay(!toggleOverlay)
@@ -65,10 +127,16 @@ const ProjectsPage = () => {
         {
           isSelectedProjectActive &&
           <ProjectMenu
-            isSelectedProjectActive={isSelectedProjectActive}
-            setIsSelectedProjectActive={setIsSelectedProjectActive}
             selectedProject={selectedProject}
-            setToggleOverlay={setToggleOverlay}
+            handleSelectedTask={handleSelectedTask}
+            closeMenu={handleCloseSelectedProject}
+          />
+        }
+        {
+          isSelectedTaskActive &&
+          <TaskMenuA
+            closeMenu={handleCloseSelectedTask}
+            selectedTask={selectedTask}
           />
         }
       </OverlayBackground>

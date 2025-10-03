@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getCurrentDate, getCurrentDayInMonthIndex, getCurrentMonth, getCurrentYear, getDaysInMonth, formatDate2 } from '../../utils/dateUtils'
+import useClickOutside from '../../hooks/useClickOutside'
 
 const Calendar = ({ isCalendarActive, setDueDate, setIsCalendarActive }) => {
 
@@ -31,6 +32,9 @@ const Calendar = ({ isCalendarActive, setDueDate, setIsCalendarActive }) => {
     const [selectedDayOfMonth, setSelectedDayOfMonth] = useState(getCurrentDate())
     const [selectedDayIndex, setSelectedDayIndex] = useState(getCurrentDayInMonthIndex(selectedYear, selectedMonthIndex, selectedDayOfMonth))
     const [firstDayOffset, setFirstDayOffset] = useState(0)
+
+    // hook
+    const ref = useClickOutside(() => setIsCalendarActive(false))
 
     const handleMonthNavigation = (direction) => {
         if (direction === 'next') {
@@ -105,6 +109,7 @@ const Calendar = ({ isCalendarActive, setDueDate, setIsCalendarActive }) => {
     return (
         <div
             className={`min-h-60 min-w-80 max-h-80 h-fit  drop-shadow-2xl bg-background rounded-md border-2 border-primary absolute -bottom-[21rem] right-0 shadow-2xl shadow-background duration-200 transition ${isCalendarActive ? "flex" : "hidden"} flex-col gap-5 p-3 z-20`}
+            ref={ref}
         >
             
             {/* month buttons and current month/year */}

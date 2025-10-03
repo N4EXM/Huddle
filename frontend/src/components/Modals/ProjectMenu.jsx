@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useMock } from '../../context/MockContext'
 import ProgressBar from '../General/ProgressBar'
 import TaskCard from '../TasksPage/TaskCard'
-import TaskMenu from './TaskMenu'
 import Calendar from '../General/Calendar'
 
-const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedProjectActive, selectedProject }) => {
+const ProjectMenu = ({ closeMenu, selectedProject, handleSelectedTask }) => {
 
     // context
     const { getSpecificUsers, tasks, users } = useMock()
@@ -28,17 +27,6 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
     const [date, setDate] = useState("")
     const [teamMembers, setTeamMembers] = useState([]) 
     const [currentTasks, setCurrentTasks] = useState([])
-    
-    const [selectedTask, setSelectedTask] = useState({
-        taskId: null,
-        name: "",
-        description: "",
-        date: "",
-        priority: "",
-        teamIds: [],
-        completed: false,
-        projectId: null
-    })
 
     const priorityColours = [
         { 
@@ -56,15 +44,6 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
     ]
 
     // functions 
-    const handleClosePage = () => {
-        setIsSelectedProjectActive(false)
-        setToggleOverlay(false)
-    }
-
-    const handleSelectedTask = (task) => {
-        setSelectedTask(task)
-        setIsSelectedTaskActive(true)
-    }
 
     const truncateText = (str, maxLength) => {
         if (str.length > maxLength) {
@@ -107,7 +86,7 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
   return (
         <>
             <div
-                className={`${isSelectedProjectActive ? "flex" : "hidden"} bg-secondBackground rounded-md border-2 relative border-primary w-1/3 h-[95vh] ${!isEdit && "pb-10"}`}
+                className={`bg-secondBackground rounded-md border-2 relative border-primary w-1/3 h-[95vh] ${!isEdit && "pb-10"}`}
             >
                 <div
                     className={`p-5 flex flex-col gap-4 w-full h-full scrollbar-hide overflow-y-scroll`}
@@ -118,7 +97,7 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
                     >
                         <button
                             className='p-1 rounded-full bg-background duration-200 hover:bg-primary hover:text-background'
-                            onClick={() => handleClosePage()}
+                            onClick={() => closeMenu()}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 7l10 10M7 17L17 7" strokeWidth="1"/></svg>
                         </button>
@@ -525,13 +504,6 @@ const ProjectMenu = ({ setToggleOverlay, isSelectedProjectActive, setIsSelectedP
 
                 </div>
             </div>
-            {
-                isSelectedTaskActive &&
-                <TaskMenu
-                    selectedTask={selectedTask}
-                    setIsSelectedTaskActive={setIsSelectedTaskActive}
-                />
-            }
         </>
         )
 }
