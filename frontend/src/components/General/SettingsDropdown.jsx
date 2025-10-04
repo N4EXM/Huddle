@@ -39,7 +39,9 @@ const SettingsDropdown = ({ MenuState, toggleMenuState, currentUser  }) => {
                 </p>
             </div>
         </div>
+
         <span className='w-full h-0.5 bg-thirdBackground'></span>   
+
         {/* buttons */}
         <div
             className='w-full flex flex-col gap-1 p-2'
@@ -57,6 +59,7 @@ const SettingsDropdown = ({ MenuState, toggleMenuState, currentUser  }) => {
                     Settings
                 </span>
             </Link>
+
             {/* dark mode button */}
             <div
                 className='w-full duration-200 rounded-md flex flex-row items-center gap-2 p-2'
@@ -76,10 +79,33 @@ const SettingsDropdown = ({ MenuState, toggleMenuState, currentUser  }) => {
                 <div
                     className='w-fit flex item-end justify-end'
                 >
-                    <ToggleSwitch/>
+                    <ToggleSwitch
+                        disabled={false}
+                    />
                 </div>
             </div>
         </div>
+
+        <span className='w-full h-0.5 bg-thirdBackground'></span>   
+
+        {/* general buttons */}
+        <div
+            className='w-full flex flex-col gap-1 p-2 py-3'
+        >
+            <button
+                className='w-full p-2 rounded-md hover:bg-background h-fit flex flex-row items-center gap-2 hover:text-rose-500 duration-200'
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentcolor" d="M5.616 20q-.691 0-1.153-.462T4 18.384V5.616q0-.691.463-1.153T5.616 4h5.903q.214 0 .357.143t.143.357t-.143.357t-.357.143H5.616q-.231 0-.424.192T5 5.616v12.769q0 .23.192.423t.423.192h5.904q.214 0 .357.143t.143.357t-.143.357t-.357.143zm12.444-7.5H9.692q-.213 0-.356-.143T9.192 12t.143-.357t.357-.143h8.368l-1.971-1.971q-.141-.14-.15-.338q-.01-.199.15-.364q.159-.165.353-.168q.195-.003.36.162l2.614 2.613q.242.243.242.566t-.243.566l-2.613 2.613q-.146.146-.347.153t-.366-.159q-.16-.165-.157-.357t.162-.35z" />
+                </svg>
+                <span
+                    className='text-sm font-medium text-text'
+                >
+                    Logout
+                </span>
+            </button>
+        </div>
+
     </div>
   )
 }

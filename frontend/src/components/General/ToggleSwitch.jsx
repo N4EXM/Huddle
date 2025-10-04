@@ -19,17 +19,17 @@ const ToggleSwitch = ({
 
   const sizes = {
     sm: {
-      switch: 'w-9 h-5',
+      switch: 'w-8 h-4',
       dot: 'w-3 h-3',
       translate: 'translate-x-4'
     },
     md: {
-      switch: 'w-11 h-6',
+      switch: 'w-10 h-5',
       dot: 'w-4 h-4',
-      translate: 'translate-x-5.5'
+      translate: 'translate-x-5'
     },
     lg: {
-      switch: 'w-14 h-7',
+      switch: 'w-13 h-6',
       dot: 'w-5 h-5',
       translate: 'translate-x-7'
     }
@@ -54,7 +54,7 @@ const ToggleSwitch = ({
       <span
         className={`
           ${dotSize}
-          ${isEnabled ? translate : 'translate-x-1  '}
+          ${isEnabled ? translate : 'translate-x-0.5  '}
           pointer-events-none inline-block transform rounded-full bg-text shadow-lg 
           ring-0 transition duration-200 ease-in-out
         `}
