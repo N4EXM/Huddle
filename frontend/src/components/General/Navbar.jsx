@@ -4,6 +4,7 @@ import OverlayBackground from './OverlayBackground'
 import { useMock } from '../../context/MockContext'
 import useClickOutside from '../../hooks/useClickOutside'
 import { Link } from 'react-router-dom'
+import SettingsDropdown from './SettingsDropdown'
 
 const Navbar = () => {
 
@@ -81,57 +82,11 @@ const Navbar = () => {
             </div>
 
             {/* user drop down menu */}
-            <div
-                className={`h-fit rounded-md bg-secondBackground border-2 border-primary min-w-60 flex-col items-start shadow-neutral-950 shadow-md absolute right-0 top-12 ${openUserMenu ? "flex" : "hidden"}`}
-                ref={ref}
-            >
-                <div
-                    className='flex flex-row items-center relative w-full h-full gap-2 p-2 px-3 '
-                >
-                    <div
-                        className='flex flex-row items-center p-1 gap-2 w-fit h-full cursor-pointer rounded-md duration-200'
-                    >
-                        <img 
-                            src={currentUser.image} 
-                            className='rounded-full border-2 border-primary w-9 h-9 object-center object-fit'
-                            alt="" 
-                        />
-                    </div>
-                    <div
-                        className='flex flex-col gap-0 w-fit h-full items-start'
-                    >
-                        <h1
-                            className='font-bold text-sm'
-                        >
-                            {currentUser.name}
-                        </h1>
-                        <p
-                            className='text-xs  text-dimText'
-                        >
-                            {currentUser.email}
-                        </p>
-                    </div>
-                </div>
-                <span className='w-full h-0.5 bg-thirdBackground'></span>   
-                {/* buttons */}
-                <div
-                    className='w-full flex flex-col gap-1 p-2'
-                >
-                    <Link
-                        className='w-full hover:bg-background text-dimText hover:text-primary duration-200 rounded-md flex flex-row items-center gap-2 p-2'
-                        to={"/Settings"}
-                    >
-                        <svg className='' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
-                            <path fill="currentcolor" fillRule="evenodd" d="M18.98 2.458c.805-.423 2.358-.958 5.02-.958s4.215.535 5.022.958c.612.32.97.83 1.174 1.256c.29.605.925 1.97 1.48 3.449a18.5 18.5 0 0 1 3.063 1.771c1.56-.26 3.061-.39 3.731-.443c.47-.036 1.09.02 1.675.39c.77.486 2.01 1.563 3.34 3.869c1.332 2.306 1.644 3.918 1.681 4.828c.029.69-.233 1.255-.5 1.645a45 45 0 0 1-2.25 3.01a18.7 18.7 0 0 1 0 3.534a45 45 0 0 1 2.25 3.01c.267.39.529.954.5 1.645c-.037.91-.35 2.522-1.68 4.828c-1.332 2.306-2.572 3.383-3.341 3.87c-.584.37-1.204.425-1.675.389a45 45 0 0 1-3.731-.443a18.5 18.5 0 0 1-3.063 1.771a45 45 0 0 1-1.48 3.449c-.204.426-.562.935-1.174 1.256c-.807.422-2.36.958-5.022.958s-4.215-.535-5.022-.958c-.612-.32-.97-.83-1.174-1.256c-.29-.605-.925-1.97-1.48-3.449a18.5 18.5 0 0 1-3.063-1.771c-1.56.26-3.062.39-3.732.443c-.47.036-1.09-.02-1.674-.39c-.77-.486-2.01-1.563-3.34-3.869c-1.332-2.306-1.645-3.918-1.682-4.828c-.028-.69.234-1.255.5-1.645a45 45 0 0 1 2.25-3.01a18.7 18.7 0 0 1 0-3.534a45 45 0 0 1-2.25-3.01c-.266-.39-.528-.954-.5-1.645c.038-.91.35-2.522 1.681-4.828s2.572-3.383 3.341-3.87c.584-.37 1.204-.425 1.675-.389c.67.052 2.17.184 3.73.443a18.5 18.5 0 0 1 3.064-1.771a45 45 0 0 1 1.48-3.449c.204-.426.562-.935 1.174-1.256ZM32 24a8 8 0 1 1-16 0a8 8 0 0 1 16 0" clipRule="evenodd" />
-                        </svg>
-                        <span
-                            className='text-dimText text-sm font-medium'
-                        >
-                            Settings
-                        </span>
-                    </Link>
-                </div>
-            </div>
+            <SettingsDropdown
+                MenuState={openUserMenu}
+                toggleMenuState={setOpenUserMenu}
+                currentUser={currentUser}
+            />
 
         </div>
         

@@ -105,7 +105,7 @@ const Sidebar = () => {
         </div>
 
         {/* general buttons */}
-        <div
+        {/* <div
             className='flex flex-col gap-5'
         >
 
@@ -135,7 +135,7 @@ const Sidebar = () => {
             ))
 
             }
-        </div>
+        </div> */}
 
     </div>
   )

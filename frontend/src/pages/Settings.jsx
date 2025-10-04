@@ -3,6 +3,9 @@ import Layout from '../components/General/Layout'
 
 const Settings = () => {
 
+  // state
+  const [currentView, setCurrentView] = useState("My Profile")
+
   const [views] = useState([
     {
       name: "My Profile",
@@ -39,17 +42,20 @@ const Settings = () => {
 
         {/* views */}
         <div
-          className='col-span-4 flex flex-col w-full h-full p-2 gap-2 rounded-md bg-secondBackground'
+          className='col-span-4 flex flex-col w-full h-full p-5 gap-1 rounded-md bg-secondBackground'
         >
           {views.map((view) => (
             <button
-              className='w-full flex items-center gap-2 justify-start hover:bg-background p-2 rounded-md'
+              className={`w-full flex items-center gap-2 duration-200  justify-start hover:bg-background p-2 rounded-md ${currentView === view.name ? "bg-background" : ""}`}
+              onClick={() => setCurrentView(view.name)}
             >
-              <i>
+              <i
+                className={`${currentView === view.name ? "text-primary" : ""}`}
+              >
                 {view.icon}
               </i>
               <span
-                className='font-medium '
+                className={`font-medium ${currentView === view.name ? "text-primary" : ""}`}
               >
                 {view.name}
               </span>
