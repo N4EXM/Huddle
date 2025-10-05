@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const LoginPage = () => {
 
   // toggles
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsloading] = useState(false)
 
   // state
   const [email, setEmail] = useState("")
@@ -105,11 +107,12 @@ const LoginPage = () => {
             Log In
           </button>
 
-          <button
-            className='text-xs text-dimText hover:text-primary/80 duration-200 '
+          <Link
+            className='text-xs text-dimText hover:text-primary/80 duration-200 text-center'
+            to={"/Register"}
           >
-            Already have an account? <span className='font-medium'>Sign In</span>
-          </button>
+            Don't have an account? <span className='font-medium'>Sign Up</span>
+          </Link>
 
         </div>
 
