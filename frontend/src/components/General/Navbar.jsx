@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import userImg from '../../assets/images/user.png'
 import OverlayBackground from './OverlayBackground'
 import { useMock } from '../../context/MockContext'
-import useClickOutside from '../../hooks/useClickOutside'
-import { Link } from 'react-router-dom'
 import SettingsDropdown from './SettingsDropdown'
+import SettingsMenu from '../Modals/SettingsMenu'
 
 const Navbar = () => {
 
@@ -13,18 +12,44 @@ const Navbar = () => {
 
     // toggles
     const [openUserMenu, setOpenUserMenu] = useState(false)
+    const [toggleOverlay, setToggleOverlay] = useState(false)
+    const [openSettingsMenu, setOpenSettingsMenu] = useState(false)
 
     // state
     const [query, setQuery] = useState("")
 
     // hook
-    const ref = useClickOutside(() => setOpenUserMenu(false))
+
+    // functions
+    const handleOpenSettingsMenu = () => {
+        setOpenSettingsMenu(true)
+        setToggleOverlay(true)
+        setOpenUserMenu(false)
+    }
+
+    const handleCloseSettingsMenu = () => {
+        setOpenSettingsMenu(false)
+        setToggleOverlay(false)
+    }
 
     
   return (
     <div
         className='w-full col-start-4 col-span-9 p-6 py-10 row-span-1 bg-background flex items-center justify-between '
     >
+
+        <OverlayBackground
+            toggleOverlayBackground={toggleOverlay}
+        >
+            {
+                openSettingsMenu &&
+                <SettingsMenu
+                    handleCloseSettingsMenu={handleCloseSettingsMenu}
+                />
+            }
+            
+        </OverlayBackground>
+
         {/* search bar */}
         <div
             className='relative flex items-center justify-start'
@@ -78,6 +103,7 @@ const Navbar = () => {
             <SettingsDropdown
                 MenuState={openUserMenu}
                 toggleMenuState={setOpenUserMenu}
+                handleOpenSettingsMenu={handleOpenSettingsMenu}
                 currentUser={currentUser}
             />
 

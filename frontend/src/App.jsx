@@ -67,10 +67,7 @@ function App() {
                 path='/Register'
                 element={loading ? <RegisterPage/> : <LoadingPage/>}
               />
-              <Route
-                path='/Settings'
-                element={loading ? <Settings/> : <LoadingPage/>}
-              />
+
             </Routes>
           </AuthProvider>
         </MockProvider>
