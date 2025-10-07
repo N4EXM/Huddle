@@ -45,6 +45,7 @@ const Navbar = () => {
                 openSettingsMenu &&
                 <SettingsMenu
                     handleCloseSettingsMenu={handleCloseSettingsMenu}
+                    currentUser={currentUser}
                 />
             }
             

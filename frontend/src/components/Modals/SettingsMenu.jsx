@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 
-const SettingsMenu = ({ handleCloseSettingsMenu }) => {
+const SettingsMenu = ({ handleCloseSettingsMenu, currentUser }) => {
     
+    // toggles
+    const [isEdit, setIsEdit] = useState(false)
+
     // current view
     const [currentView, setCurrentView] = useState("My Profile")
     const [views] = useState([
@@ -75,15 +78,18 @@ const SettingsMenu = ({ handleCloseSettingsMenu }) => {
                         }
                     </div>
 
+                    {/* information box */}
                     <div
-                        className='w-full h-full bg-background flex p-5 flex-col rounded-md overflow-y-scroll'
+                        className='w-full h-full bg-background flex p-5 flex-col rounded-md overflow-y-scroll overflow-x-hidden'
                     >
-                        
+                        {
+                        }
                         {/* my profile */}
                         <div
                             className={`${currentView === views[0].name ? "flex" : "hidden"} flex-col gap-5 w-full h-full`}
                         >
 
+                            {/* title */}
                             <div
                                 className='flex flex-col gap-2'
                             >
@@ -93,6 +99,96 @@ const SettingsMenu = ({ handleCloseSettingsMenu }) => {
                                     My profile
                                 </h1>
                                 <span className='w-full h-0.5 bg-primary rounded-full'></span>
+                            </div>
+
+                            {/* profile */}
+                            <div
+                                className='flex flex-row items-start justify-start w-fit'
+                            >
+                                <div
+                                    className='relative flex w-fit'
+                                >
+
+                                </div>
+                                <img 
+                                    src={currentUser.image}
+                                    alt='user image'
+                                    className='w-16 h-16 rounded-full border-2 border-primary'
+                                />
+                                <div
+                                    className='flex flex-col gap-1 '
+                                >
+                                </div>
+                                <button
+                                    className='absolute -right-0.5 -bottom-0.5 p-1 rounded-full bg-secondBackground border-2 border-primary hover:bg-primary duration-200 hover:text-background cursor-pointer'
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20">
+                                        <path fill="currentcolor" d="M13.999 7.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0a.5.5 0 0 0 1 0M3 6a3 3 0 0 1 3-3h7.999a3 3 0 0 1 3 3v3.002a2.9 2.9 0 0 0-1 .229V6a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v7.999c0 .372.103.721.28 1.02l4.669-4.588a1.5 1.5 0 0 1 2.102 0l1.745 1.715l-.707.707l-1.738-1.709a.5.5 0 0 0-.701 0l-4.661 4.58A2 2 0 0 0 6 16h3.474q-.024.076-.043.155L9.22 17H6a3 3 0 0 1-3-3zm7.979 9.376l4.829-4.83a1.87 1.87 0 1 1 2.644 2.646l-4.829 4.828a2.2 2.2 0 0 1-1.02.578l-1.498.375a.89.89 0 0 1-1.078-1.079l.374-1.498c.097-.386.296-.739.578-1.02" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* first name and last name */}
+                            <div
+                                className='flex flex-row items-center gap-2 w-full'
+                            >
+
+                                {/* first name */}
+                                <div
+                                    className='flex flex-col gap-1 w-full'
+                                >
+                                    <label 
+                                        htmlFor=""
+                                        className='pl-1 text-xs '
+                                    >
+                                        First name
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        className='p-1.5 outline-none pl-2.5 rounded-md border-2 border-primary bg text-xs w-full bg-secondBackground'
+                                        placeholder='Enter your first name...'    
+                                    />
+                                </div>
+
+                                {/* first name */}
+                                <div
+                                    className='flex flex-col gap-1 w-full'
+                                >
+                                    <label 
+                                        htmlFor=""
+                                        className='pl-1 text-xs '
+                                    >
+                                        Last name
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        className='p-1.5 outline-none pl-2.5 rounded-md border-2 border-primary bg text-xs w-full bg-secondBackground'
+                                        placeholder='Enter your last name...'    
+                                    />
+                                </div>
+
+                            </div>
+
+                            {/* email */}
+                            <div
+                                className='flex'
+                            >
+                                {/* first name */}
+                                <div
+                                    className='flex flex-col gap-1 w-full'
+                                >
+                                    <label 
+                                        htmlFor=""
+                                        className='pl-1 text-xs '
+                                    >
+                                        Email
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        className='p-1.5 outline-none pl-2.5 rounded-md border-2 border-primary bg text-xs w-full bg-secondBackground'
+                                        placeholder='Enter your email...'    
+                                    />
+                                </div>
                             </div>
 
                         </div>
@@ -107,3 +203,4 @@ const SettingsMenu = ({ handleCloseSettingsMenu }) => {
 }
 
 export default SettingsMenu
+        
