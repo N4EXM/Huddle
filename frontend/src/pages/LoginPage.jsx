@@ -18,7 +18,7 @@ const LoginPage = () => {
     >
 
       <div
-        className='flex flex-col p-10 gap-10 shadow-background shadwo-2xl bg-secondBackground border-2 border-primary rounded-md w-96 h-[30rem]'
+        className='flex flex-col p-8 gap-10 shadow-background shadwo-2xl bg-secondBackground border-2 border-primary rounded-md w-96 h-[30rem]'
       >
 
         {/* title */}
@@ -79,7 +79,7 @@ const LoginPage = () => {
 
             />
             <button
-              className='absolute top-6 right-0 p-2 py-2.5 text-primary'
+              className='absolute top-6 right-0 p-2 py-2.5 text-text/80'
               onClick={() => setShowPassword(!showPassword)}
             >
               {

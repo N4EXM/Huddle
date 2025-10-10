@@ -21,7 +21,7 @@ const RegisterPage = () => {
     >
 
       <div
-        className='flex flex-col p-10 gap-10 shadow-background shadwo-2xl bg-secondBackground border-2 border-primary rounded-md w-96 h-[40rem]'
+        className='flex flex-col p-8 gap-10 shadow-background shadwo-2xl bg-secondBackground border-2 border-primary rounded-md w-96 h-[40rem]'
       >
 
         {/* title */}
@@ -103,7 +103,7 @@ const RegisterPage = () => {
 
             />
             <button
-              className='absolute top-6 right-0 p-2 py-2.5 text-primary cursor-pointer'
+              className='absolute top-6 right-0 p-2 py-2.5 text-text/80 cursor-pointer'
               onClick={() => setShowPassword(!showPassword)}
             >
               {
@@ -139,7 +139,7 @@ const RegisterPage = () => {
 
             />
             <button
-              className='absolute top-6 right-0 p-2 py-2.5 text-primary cursor-pointer'
+              className='absolute top-6 right-0 p-2 py-2.5 text-text/80 cursor-pointer'
               onClick={() => setShowPassword(!showPassword)}
             >
               {
