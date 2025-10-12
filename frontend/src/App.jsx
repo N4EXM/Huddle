@@ -12,7 +12,6 @@ import UserDetialsPage from './pages/UserDetailsPage'
 import CalendarPage from './pages/CalendarPage'
 import { MockProvider } from './context/MockContext'
 import { AuthProvider } from './context/AuthContext'
-import Settings from './pages/Settings'
 
 function App() {
 
@@ -31,7 +30,7 @@ function App() {
       <BrowserRouter>
         <MockProvider>
           
-          <AuthProvider>
+          {/* <AuthProvider> */}
             <Routes>
               <Route
                 index
@@ -63,13 +62,8 @@ function App() {
                 path='/Login'
                 element={loading ? <LoginPage/> : <LoadingPage/>}
               />
-              <Route
-                path='/Register'
-                element={loading ? <RegisterPage/> : <LoadingPage/>}
-              />
-
             </Routes>
-          </AuthProvider>
+          {/* </AuthProvider> */}
         </MockProvider>
       </BrowserRouter>
     </div>

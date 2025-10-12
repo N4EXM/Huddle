@@ -1,5 +1,6 @@
 <?php
 // database/migrations/xxxx_xx_xx_xxxxxx_create_users_table.php
+use App\Enums\PostStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('email', 100)->unique();
             $table->string('contact_number', 20)->nullable();
+            $table->enum("role", array_column(PostStatus::cases(), 'value')) -> default(PostStatus::Normal->value);
             $table->timestamps();
         });
     }
